@@ -36,6 +36,7 @@ class Account extends Admin_Controller {
         );
         
         if($this->input->post()){
+            
             $loginCheck = $this->this_model->loginCheck($this->input->post());
             echo json_encode($loginCheck); exit();
         }

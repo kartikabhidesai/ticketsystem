@@ -8,18 +8,12 @@ class Dashboard extends Admin_Controller {
 
     function index() {
         $data['page'] = "admin/account/dashboard";
-        $data['breadcrumb'] = 'Dashboard';
-        $data['breadcrumb_sub'] = 'Dashboard';
-        $data['breadcrumb_list'] = array(
-            array('Dashboard', '')
-        );
-        $data['dashboard'] = 'active open';
         $data['dashboard'] = 'active';
+        $data['pagetitle'] = 'Dashboard';
         $data['var_meta_title'] = 'Dashboard';
-        $data['var_meta_description'] = 'Dashboard';
-        $data['var_meta_keyword'] = 'Dashboard';
-        $data['js'] = array(
-//            'admin/dashboard.js',
+        $data['breadcrumb'] = array(
+            'dashboard'=>'Home',
+            'dashboard1'=>'Dashboard',
         );
         $data['css'] = array(
         );

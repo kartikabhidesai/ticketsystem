@@ -24,7 +24,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 */
 $config['base_url'] = 'http://' . $_SERVER['HTTP_HOST'] . '/ticketsystem';
-$config['admin_url'] = $config['base_url'] . 'admin/';
+$config['admin_url'] = $config['base_url'] . '/admin/';
+$config['client_url'] = $config['base_url'] . '/client/';
 /*
 |--------------------------------------------------------------------------
 | Index File

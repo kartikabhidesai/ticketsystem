@@ -3,10 +3,10 @@
 class Login_model extends MY_Model{
     
     function loginCheck($data){
-       
+        
         $this->db->where('email',$data['email']);
         $row = $this->db->get('user')->row_array();
-       
+        
         if(!empty($row)){
             /*Set Session*/
             if ($row['password'] == md5($data['password']) && $row['status'] == '1' && $row['is_verify'] == '1') {
@@ -21,12 +21,10 @@ class Login_model extends MY_Model{
              
              /*Check User Type and redirect to respective login*/
              
-             if($row['type'] == '1'){
+             if($row['type'] == 'A'){
                  $url = admin_url().'dashboard';
-             }else if($row['type'] == '2'){
-                 $url = user_url().'dashboard';
-             }else if($row['type'] == '3'){
-                 $url = traveler_url().'dashboard';
+             }else if($row['type'] == 'C'){
+                 $url = client_url().'dashboard';
              }
              
              $json_response['status'] = 'success';

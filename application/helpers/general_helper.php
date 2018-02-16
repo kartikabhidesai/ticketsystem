@@ -15,17 +15,12 @@ function admin_url($url = '')
     return $CI->config->config['admin_url'] . $url;
 }
 
-function traveler_url($url = '')
+function client_url($url = '')
 {
     $CI = &get_instance();
-    return $CI->config->config['traveler_url'] . $url;
+    return $CI->config->config['client_url'] . $url;
 }
 
-function user_url($url = '')
-{
-    $CI = &get_instance();
-    return $CI->config->config['user_url'] . $url;
-}
 
 function get_project_name()
 {

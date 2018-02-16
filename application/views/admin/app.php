@@ -1,34 +1,34 @@
 <!DOCTYPE html>
 <html>
+<?php $this->load->view('admin/header');?>
 
-@include('layouts.admin.header')
 <body>
 
   <!-- Wrapper-->
     <div id="wrapper">
 
         <!-- Navigation -->
-        @include('layouts.admin.navigation')
-
+        
+        <?php $this->load->view('admin/navigation');?>
         <!-- Page wraper -->
         <div id="page-wrapper" class="gray-bg">
 
             <!-- Page wrapper -->
-            @include('layouts.admin.topnavbar')
-            @include('layouts.admin.breadcrumb')
+            <?php $this->load->view('admin/topnavbar');?>
+            <?php $this->load->view('admin/breadcrumb');?>
+            
             
             <!-- Main view  -->
-            @yield('content')
-
+            
+            <?php $this->load->view($page);?>
             <!-- Footer -->
-            @include('layouts.admin.bodyfooter')
-
+            
+            <?php $this->load->view('admin/bodyfooter');?>
         </div>
         <!-- End page wrapper-->
 
     </div>
     <!-- End wrapper-->
-@include('layouts.admin.footer')
-
+<?php $this->load->view('admin/footer');?>
 </body>
 </html>
