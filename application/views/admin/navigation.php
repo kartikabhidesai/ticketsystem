@@ -4,7 +4,7 @@
             <li class="nav-header">
                 <div class="dropdown profile-element">
                     <span>
-                       <img class="img-rounded"  src="" width='50' height="50">
+                       <!--<img class="img-rounded"  src="" width='50' height="50">-->
                        
                     </span>
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
