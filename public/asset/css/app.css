@@ -654,6 +654,21 @@ body.canvas-menu.mini-navbar nav.navbar-static-side {
   margin: 0;
   padding: 7px 20px;
 }
+    .form-horizontal .form-group {
+        margin-right: 0;
+        margin-left: 0; 
+    }
+    h2.title {
+        color: #3D7B66;
+        /*font-family: Helvetica;*/
+        font-size: 20px;
+    }
+    .headingmain{
+        /*border: 1px solid #999999;*/
+        background-color:#F8F8F8;
+        border-left:transparent;
+        border-right:transparent;
+    }
 
 .navbar .dropdown-menu {
   margin-top: 0;
@@ -3682,6 +3697,21 @@ body.tour-open .animated {
 .body-small .sidebar-content .wrapper, .body-small .wrapper.sidebar-content {
   padding-right: 20px !important;
 }
+    .form-horizontal .form-group {
+        margin-right: 0;
+        margin-left: 0; 
+    }
+    h2.title {
+        color: #3D7B66;
+        /*font-family: Helvetica;*/
+        font-size: 20px;
+    }
+    .headingmain{
+        /*border: 1px solid #999999;*/
+        background-color:#F8F8F8;
+        border-left:transparent;
+        border-right:transparent;
+    }
 
 #right-sidebar {
   background-color: #fff;

@@ -10,7 +10,7 @@
     <?php
      if (!empty($css)){  
         foreach ($css as $value){ ?>  
-        <link rel="stylesheet" href="<?= base_url() ?>public/asset/css/<?php $value ?>">
+        <link rel="stylesheet" href="<?= base_url() ?>public/asset/css/<?php echo $value ?>">
       <?php  }
        }
     ?>

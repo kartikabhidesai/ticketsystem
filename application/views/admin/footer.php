@@ -1,5 +1,5 @@
 
-<script src="<?= base_url();?>public/asset/js/app.js; ?>" type="text/javascript"></script>
+<script src="<?= base_url();?>public/asset/js/app.js" type="text/javascript"></script>
 
 <script src="<?= base_url();?>public/asset/js/plugins/validate/jquery.validate.min.js" type="text/javascript"></script>
 <script src="<?= base_url();?>public/asset/js/plugins/toastr/toastr.min.js" type="text/javascript"></script>
