@@ -25,9 +25,9 @@
             <li class="<?= $dashboard; ?>">
                 <a href="<?= client_url(); ?>dashboard"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboard</span></a>
             </li>
-            <!-- <li class="<?= $client; ?>">
-                <a href="<?= admin_url(); ?>client"><i class="fa fa-th-large"></i> <span class="nav-label">Client</span></a>
-            </li> -->
+            <li class="<?= $ticket; ?>">
+                <a href="<?= client_url(); ?>tickets"><i class="fa fa-ticket"></i> <span class="nav-label">Tickets</span></a>
+            </li>
         </ul>
 
     </div>
