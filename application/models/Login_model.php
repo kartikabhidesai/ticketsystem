@@ -38,12 +38,12 @@ class Login_model extends MY_Model{
              
             }else if($row['is_verify'] == '0'){
              /*Check User is verify or not*/
-             $json_response['status'] = 'warning';
+             $json_response['status'] = 'error';
              $json_response['message'] = 'Please Varify Your Email Address';
                 
             }else if($row['status'] == '0'){
              /*Check User is approve or not*/
-             $json_response['status'] = 'warning';
+             $json_response['status'] = 'error';
              $json_response['message'] = 'Your Account is not yet approve by admin';
              
             }

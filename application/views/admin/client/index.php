@@ -1,4 +1,3 @@
-
 <div class="wrapper wrapper-content white-bg m-t">
     <div class=" animated fadeInRightBig">
         <div class="row">
@@ -21,25 +20,28 @@
                                         <th>Company</th>
                                         <th>Email</th>
                                         <th>Phone</th>
-                                        <th>Company Domain </th>
                                         <th>Country</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <?php for($i=0; $i<count($getComany); $i++) { ?>
                                     <tr>
-                                        <td>Title</td>
-                                        <td>Unit Name</td>
-                                        <td>Material name</td>
-                                        <td>Quantity</td>
-                                        <td>Availability Start Date</td>
-                                        
+                                        <td><?= $getComany[$i]->comapnyName; ?></td>
+                                        <td><?= $getComany[$i]->companyEmail; ?></td>
+                                        <td><?= $getComany[$i]->companyPhone; ?></td>
+                                        <td><?= $getComany[$i]->countryName; ?></td>
                                         <td>
-                                            <a href="<?= admin_url(); ?>client/edit/1"><i class="fa fa-edit text-navy"></i></a>
-                                            <a data-toggle="modal" data-target="#myModal_autocomplete"  data-id="2" class="deletebutton" href="javascript;;"><i class="fa fa-close text-navy"></i></a>
-                                            <a href="<?= admin_url(); ?>client/detail/1"><i class="fa fa-user text-navy"></i></a>
+                                            <a href="<?= admin_url(); ?>client/edit/<?php echo $this->utility->encode($getComany[$i]->companyId);?>">
+                                                <i class="fa fa-edit text-navy"></i>
+                                            </a>
+                                            <a data-toggle="modal" data-target="#myModal_autocomplete" data-href="<?= admin_url().'client/clientDelete'?>" data-id="<?php echo $getComany[$i]->companyId;?>" class="deletebutton">
+                                                <i class="fa fa-close text-navy"></i>
+                                            </a>
+                                            <a href="<?= admin_url(); ?>client/detail/<?php echo $this->utility->encode($getComany[$i]->companyId);?>"><i class="fa fa-user text-navy"></i></a>
                                         </td>
                                     </tr>
+                                    <?php } ?>
                                 </tbody>
                            </table>
                         </div>
@@ -59,7 +61,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
-                                    <button  id='btndelete' data-url="{{ route('muck-delete')}}" data-id="" type="button" class="btn btn-primary">Delete</button>
+                                    <button  id='btndelete' data-url="" data-id="" type="button" class="btn btn-primary">Delete</button>
                                 </div>
                             </div>
                         </div>

@@ -14,6 +14,11 @@ function admin_url($url = '')
     $CI = &get_instance();
     return $CI->config->config['admin_url'] . $url;
 }
+function base_url_index($url = '')
+{
+    $CI = &get_instance();
+    return $CI->config->config['base_url_index'] . $url;
+}
 
 function client_url($url = '')
 {

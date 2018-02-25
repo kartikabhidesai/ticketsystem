@@ -115,37 +115,93 @@ class Utility
 
     public function sendMailSMTP($data)
     {
-        echo '<pre/>'; print_r($data);
+        $CI = & get_instance();
+        
         $config ['protocol'] = "smtp";
         $config ['smtp_host'] = SMTP_HOST;
         $config ['smtp_port'] = SMTP_PORT;
         $config ['smtp_user'] = SMTP_USER;
         $config ['smtp_pass'] = SMTP_PASS;
+        
         $config ['smtp_timeout'] = 20;
         $config ['priority'] = 1;
-        
         $config ['charset'] = 'utf-8';
         $config ['wordwrap'] = TRUE;
         $config ['crlf'] = "\r\n";
         $config ['newline'] = "\r\n";
         $config ['mailtype'] = "html";
-        
-        $CI = & get_instance();
+        $config ['starttls']  = true;
+                
         $message = $data ["message"];
         $CI->load->library('email', $config);
         $CI->email->initialize($config);
-        $CI->email->clear();
-        $CI->email->from($config ['smtp_user'], PROJECT_NAME);
+        $CI->email->clear(TRUE);
         $CI->email->to($data ["to"]);
+        if(isset($data ['from'])){
+            $CI->email->from($data ['from'],$data ['from_title']);
+        }else{
+            $CI->email->from($config ['smtp_user'], PROJECT_NAME);
+        }
         if (isset($data ["bcc"])) {
             $CI->email->bcc($data ["bcc"]);
         }
-        $CI->email->reply_to($config ['smtp_user'], '<noreply@stagegator.com>');
+        if(isset($data ["replyto"])){
+            $CI->email->reply_to($data ["replyto"], $data ['from_title']);
+        }
         $CI->email->subject($data ["subject"]);
         $CI->email->message($message);
+       
         $response = $CI->email->send();
-        
         return true;
+        
+        
+//        $config['useragent'] = 'CodeIgniter';
+//        $config['protocol'] = 'smtp';
+//        $config['mailpath'] = '/usr/sbin/sendmail -bs';
+//        $config['smtp_host'] = 'smtp.gmail.com';
+//        $config['smtp_user'] = 'kartikdesai123@gmail.com';
+//        $config['smtp_pass'] = 'Kartik@$23061990';
+//        $config['smtp_port'] = 587; 
+//        $config['smtp_timeout'] = 50;
+//        $config['wordwrap'] = TRUE;
+//        $config['wrapchars'] = 76;
+//        $config['mailtype'] = 'html';
+//        $config['charset'] = 'utf-8';
+//        $config['smtp_crypto'] = 'tls';
+//        $config['validate'] = FALSE;
+//        $config['priority'] = 3;
+//        $config['crlf'] = "\r\n";
+//        $config['newline'] = "\r\n";
+//        $config['bcc_batch_mode'] = FALSE;
+//        $config['bcc_batch_size'] = 200;
+//
+//        $CI = & get_instance();
+//        $message = $data ["message"];
+//        $CI->load->library('email', $config);
+//        $CI->email->initialize($config);
+//        $CI->email->clear();
+//        $CI->email->from($config ['smtp_user'], PROJECT_NAME);
+//        $CI->email->to($data ["to"]);
+//        if (isset($data ["bcc"])) {
+//            $CI->email->bcc($data ["bcc"]);
+//        }
+//        $CI->email->reply_to($config ['smtp_user'], '<kartikdesai123@gmail.com>');
+//        $CI->email->subject($data ["subject"]);
+//        $CI->email->message($message);
+//        $response = $CI->email->send();
+//        if($response){
+//            echo 's';
+//        }else{
+//            echo 'faul';
+//        }
+//        echo $CI->email->print_debugger();exit;
+//        if (!$CI->email->send()) {
+//           echo $errors = $CI->email->print_debugger();exit;
+//            return false;
+//        } else {
+//            return true;
+//        }
+//        return TRUE;
     }
       
     /**

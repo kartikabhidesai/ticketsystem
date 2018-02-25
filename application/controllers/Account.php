@@ -9,8 +9,9 @@ class Account extends Admin_Controller {
     }
 
     function index() {
+        
         if (isset($this->session->userdata['valid_login'])) {
-            redirect('admin/dashboard');
+            redirect(base_url_index().'admin/dashboard');
         } else {
             $this->login();
         }
@@ -68,9 +69,14 @@ class Account extends Admin_Controller {
         $this->load->view(ADMIN_LAYOUT_LOGIN, $data);    
     }
     
+    function verifyEmail($dataToken){
+        $result = $this->this_model->verifyUserByToken($dataToken);
+        redirect(base_url_index());
+    }
+    
     function logout() {
         $this->session->sess_destroy();
-        redirect(base_url());
+        redirect(base_url_index());
     }
 }
 

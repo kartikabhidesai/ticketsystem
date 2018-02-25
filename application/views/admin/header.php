@@ -15,6 +15,6 @@
        }
     ?>
     <script>
-        var baseurl = "<?= base_url()?>";
+        var baseurl = "<?= base_url()?>index.php/";
     </script>
 </head>

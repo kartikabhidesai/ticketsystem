@@ -89,11 +89,11 @@ define('ADMIN_LAYOUT', 'admin/app');
 define('ADMIN_LAYOUT_LOGIN', 'login/app');
 
 /* Email Setting constatnts */
+define("SMTP_HOST", "smtpout.secureserver.net");
+define("SMTP_PORT", '80');
+define("SMTP_USER", 'admin@helpdesk.experttech.ca');
+define("SMTP_PASS", '7688328jg');
+define("IMAGES", 'http://' . $_SERVER['HTTP_HOST'] . '/ticketsystem/public/asset/images/');
 
-define("SMTP_HOST", "ssl://smtp.gmail.com");
-define("SMTP_PORT", '465');
-define("SMTP_USER", 'shakti.cmexpertise@gmail.com');
-define("SMTP_PASS", 'cm@@1234');
-
-
+define('DATE_TIME',date('Y-m-d H:i:s'));
 define('PROJECT_NAME', 'Ticket System');

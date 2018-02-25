@@ -9,7 +9,7 @@
             <!--Continually expanded and constantly improved Inspinia Admin Them (IN+)-->
         </p>
         <p>Login in. To see it in action.</p>
-        <form class="m-t" role="form" id="login" action="<?= base_url().'account/login'?>" method="post">
+        <form class="m-t" role="form" id="login" action="<?= base_url_index().'account/login'?>" method="post">
 
             <div class="form-group">
                 <input type="email" name="email" class="form-control" placeholder="Email">

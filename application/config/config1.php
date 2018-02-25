@@ -23,10 +23,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://' . $_SERVER['HTTP_HOST'] . '/ticketsystem/';
-$config['base_url_index'] = 'http://' . $_SERVER['HTTP_HOST'] . '/ticketsystem/';
-$config['admin_url'] = $config['base_url'] . 'admin/';
-$config['client_url'] = $config['base_url'] . 'client/';
+$config['base_url'] = 'http://' . $_SERVER['HTTP_HOST'] . '/ticketsystem';
+$config['admin_url'] = $config['base_url'] . '/admin/';
+$config['client_url'] = $config['base_url'] . '/client/';
 /*
 |--------------------------------------------------------------------------
 | Index File

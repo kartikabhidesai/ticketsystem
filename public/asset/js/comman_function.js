@@ -272,6 +272,7 @@ function showToster(status,message){
                 toastr.error(message, 'Fail');
             }
             
+            
 
     
 }
@@ -472,7 +473,7 @@ function handleDelete() {
         if (thumb) {
             data = {'id': $(this).attr('data-id'), 'thumb': thumb};
         } else {
-            data = {'id': $(this).attr('data-id'),'_token':$("input[name=_token]").val()};
+            data = {'id': $(this).attr('data-id')};
         }
         ajaxcall($(this).attr('data-url'), data, function (output) {
             $('#myModal_autocomplete').modal('hide');
