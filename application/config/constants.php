@@ -12,7 +12,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 */
 defined('SHOW_DEBUG_BACKTRACE') OR define('SHOW_DEBUG_BACKTRACE', TRUE);
-
 /*
 |--------------------------------------------------------------------------
 | File and Directory Modes
@@ -87,6 +86,7 @@ defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest auto
 
 define('ADMIN_LAYOUT', 'admin/app');
 define('ADMIN_LAYOUT_LOGIN', 'login/app');
+define('CLIENT_LAYOUT', 'client/app');
 
 /* Email Setting constatnts */
 define("SMTP_HOST", "smtpout.secureserver.net");

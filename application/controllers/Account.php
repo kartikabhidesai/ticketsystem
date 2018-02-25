@@ -74,10 +74,18 @@ class Account extends Admin_Controller {
         redirect(base_url_index());
     }
     
-    function logout() {
-        $this->session->sess_destroy();
-        redirect(base_url_index());
-    }
+    function logout($type) {
+        if($type == 'A'){
+            // $this->session->sess_destroy();
+            $this->session->unset_userdata('valid_login');
+        }else if($type == 'C'){
+            $this->session->unset_userdata('client_login');
+       }else{
+            $this->session->sess_destroy();
+       }
+        // $this->session->sess_destroy();
+       redirect(base_url_index());
+   }
 }
 
 ?>

@@ -10,21 +10,28 @@ class Login_model extends MY_Model{
         if(!empty($row)){
             /*Set Session*/
             if ($row['password'] == md5($data['password']) && $row['status'] == '1' && $row['is_verify'] == '1') {
-                $sessionData['valid_login'] = [
+              
+             
+             /*Check User Type and redirect to respective login*/
+             
+             if($row['type'] == 'A'){
+             	  $sessionData['valid_login'] = [
                     'id' => $row['id'],
                     'email' => $row['email'],
                     'firstname' => $row['first_name'],
                     'lastname' => $row['last_name'],
                 ];
-                
              $this->session->set_userdata($sessionData);
-             
-             /*Check User Type and redirect to respective login*/
-             
-             if($row['type'] == 'A'){
                  $url = admin_url().'dashboard';
              }else if($row['type'] == 'C'){
-                 $url = client_url().'dashboard';
+             	$sessionData['client_login'] = [
+                    'id' => $row['id'],
+                    'email' => $row['email'],
+                    'firstname' => $row['first_name'],
+                    'lastname' => $row['last_name'],
+                ];
+                $this->session->set_userdata($sessionData);
+                $url = client_url().'dashboard';
              }
              
              $json_response['status'] = 'success';

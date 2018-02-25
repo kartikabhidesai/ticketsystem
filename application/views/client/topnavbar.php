@@ -10,7 +10,7 @@
         </div>
         <ul class="nav navbar-top-links navbar-right">
             <li>
-                <a href="<?php echo base_url_index().'account/logout/A'?>">
+                <a href="<?php echo base_url_index().'account/logout/C'?>">
                     <i class="fa fa-sign-out"></i> Log out
                 </a>
             </li>

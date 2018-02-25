@@ -42,3 +42,26 @@ class Admin_Controller extends MY_Controller
 
 
 }
+
+class Client_Controller extends MY_Controller
+{
+
+    public $user_data = null;
+    public $user_type = null;
+    public $user_id = null;
+
+    function __construct()
+    {
+        parent::__construct();
+
+        if ($this->router->fetch_class() != "account" && $this->router->fetch_method() != "login") {
+
+            if (!isset($this->session->userdata['client_login'])) {
+                redirect(base_url());
+            }
+        }
+    }
+    
+
+
+}
