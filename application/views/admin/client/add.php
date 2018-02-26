@@ -11,7 +11,7 @@
             <div class="form-group">
                 <label class="col-sm-3 control-label">Company Name*</label>
                 <div class="col-sm-7">
-                    <input type="text" placeholder="Enter Company Name*" name="company_name" class="form-control">
+                    <input type="text" placeholder="Enter Company Name" name="company_name" class="form-control">
                 </div>
 
             </div>
