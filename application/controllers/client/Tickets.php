@@ -30,6 +30,7 @@ class Tickets extends Client_Controller {
         $data['getComany'] = $this->this_model->getcompanyDetail();
         $this->load->view(CLIENT_LAYOUT, $data);
     }
+  
     function add() {
         $data['page'] = "client/tickets/add";
         $data['client'] = 'active';
@@ -55,6 +56,33 @@ class Tickets extends Client_Controller {
         }
         $this->load->view(CLIENT_LAYOUT, $data);
     }
+
+    function view() {
+        $data['page'] = "client/tickets/view";
+        $data['client'] = 'active';
+        $data['pagetitle'] = 'Tickets';
+        $data['var_meta_title'] = 'Tickets';
+        $data['breadcrumb'] = array(
+            'dashboard'=>'Home',
+            'client'=>'Tickets Add',
+        );
+        $data['css'] = array();
+        
+        $data['js'] = array(
+            'client/ticket.js',
+        );
+        $data['init'] = array(
+            'Tickets.ticketAdd()',
+        );
+        
+        $data['country'] = $this->this_model->countryList();
+        if($this->input->post()){
+            $res = $this->this_model->addCompany($this->input->post());
+            echo json_encode($res); exit();
+        }
+        $this->load->view(CLIENT_LAYOUT, $data);
+    }
+
     function edit($id) {
         $companyId = $this->utility->decode($id);
         

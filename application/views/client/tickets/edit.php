@@ -5,7 +5,7 @@
         <form method="post" class="form-horizontal"  enctype="multipart/form-data"  action="<?= client_url(); ?>tickets/edit" id='ticketEditForm'>
             
             <div class="form-group headingmain">                        
-                <h2 class="title" style="margin:10px">Update Ticket Detail</h2>                               
+                <h2 class="title" style="margin:10px">Ticket Details - JXJK5SW</h2>                               
             </div>
 
             <div class="form-group">
