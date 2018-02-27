@@ -33,6 +33,9 @@
                     <ul class="nav nav-second-level">
                         <li class="<?= $department; ?>"><a href="<?= admin_url() ."setting"; ?>">Department</a></li>
                     </ul>
+                    <ul class="nav nav-second-level">
+                        <li class="<?= $reporter; ?>"><a href="<?= admin_url() ."setting/reporter_list"; ?>">Reporter</a></li>
+                    </ul>
                 </li>
         </ul>
 
