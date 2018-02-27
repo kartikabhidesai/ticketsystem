@@ -81,7 +81,7 @@
 
             <div class="ibox-content">
 
-                <div>
+                <div class="row">
                     <div class="chat-activity-list">
 
                         <div class="chat-form chat-element">
