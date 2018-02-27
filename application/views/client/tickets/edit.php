@@ -5,7 +5,10 @@
         <form method="post" class="form-horizontal"  enctype="multipart/form-data"  action="<?= client_url(); ?>tickets/edit" id='ticketEditForm'>
             
             <div class="form-group headingmain">                        
-                <h2 class="title" style="margin:10px">Ticket Details - JXJK5SW</h2>                               
+                <h2 class="title" style="margin:10px">Ticket Details - JXJK5SW  
+  <a href="<?= client_url().'tickets/view/1'; ?>" style="margin:10px" class="btn btn-sm btn-primary pull-right m-t-n-xs" ><strong><i class="fa fa-tag"></i> View Tickets </strong></a> 
+                </h2> 
+                                            
             </div>
 
             <div class="form-group">
@@ -16,10 +19,8 @@
                         <option value="">Departmentd12</option>
                         <option value="">Departmentd13</option>
                         <option value="">Departmentd134</option>
-                       
                     </select>
                 </div>
-
             </div>
             <div class="form-group">
                 <label class="col-sm-3 control-label">Ticket Code *</label>
@@ -34,7 +35,7 @@
                 </div>
 
             </div>
-            <div class="form-group">
+         <!--    <div class="form-group">
                 <label class="col-sm-3 control-label">Reporter *</label>
                 <div class="col-sm-7">
                       <select class="form-control m-b" name="ticket_reporter">
@@ -44,7 +45,7 @@
                       <option value=""> Reporter123</option>
                     </select>
                 </div>
-            </div>
+            </di -->v>
 
              <div class="form-group">
                 <label class="col-sm-3 control-label">Pririty *</label>

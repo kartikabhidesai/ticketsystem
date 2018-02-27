@@ -19,7 +19,6 @@
                        
                     </select>
                 </div>
-
             </div>
             <div class="form-group">
                 <label class="col-sm-3 control-label">Ticket Code *</label>
@@ -32,9 +31,9 @@
                 <div class="col-sm-7">
                     <input type="text" placeholder="Enter Subject " name="ticket_subject" class="form-control">
                 </div>
-
             </div>
-            <div class="form-group">
+            
+            <!-- <div class="form-group">
                 <label class="col-sm-3 control-label">Reporter *</label>
                 <div class="col-sm-7">
                       <select class="form-control m-b" name="ticket_reporter">
@@ -44,7 +43,7 @@
                       <option value=""> Reporter123</option>
                     </select>
                 </div>
-            </div>
+            </div> -->
 
              <div class="form-group">
                 <label class="col-sm-3 control-label">Pririty *</label>

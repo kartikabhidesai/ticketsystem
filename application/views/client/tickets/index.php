@@ -36,22 +36,14 @@
                                         <td></td>
                                         <td></td>
                                         <td>   
-                                        <div class="dropdown profile-element">
-                                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                                            <span class="clear" style='width: 50%'>
-                                                <span class="block m-t-xs">
-                                                    <strong class="font-bold">Option</strong>
-                                                </span> 
-                                        </a>
-                                        <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                                            <li><a href="<?= client_url().'tickets/view'; ?>">Preview Ticket</a></li>
-                                            <li><a href="<?= client_url().'tickets/edit/' . $getComany[$i]; ?>">Edit Ticket</a></li>
-                                            <li>
-                                            <a data-toggle="modal" data-target="#myModal_autocomplete" data-href="<?= admin_url().'client/clientDelete'?>" data-id="<?php echo $getComany[$i]->companyId;?>" class="deletebutton">
-                                                Delete Ticket</i>
-                                            </a>
-                                        </li>
-                                        </ul>
+                                          
+                                        <a title="Preview Ticket"  href="<?= client_url().'tickets/edit/' . $i; ?>"> <i class="fa fa-edit text-navy"></i> </a>
+
+                                        <a title="Edit Ticket"  href="<?= client_url().'tickets/view'; ?>"> <i class="fa fa-eye"></i> </a>
+
+                                        <a data-toggle="modal" data-target="#myModal_autocomplete" data-href="<?= admin_url().'client/clientDelete'?>" data-id="<?php echo $getComany[$i]->companyId;?>" class="deletebutton"> <i class="fa fa-close text-navy"></i>
+                                      </a>
+                                      
                                     </div></td>
                                 </tr>
                                 <?php } ?>

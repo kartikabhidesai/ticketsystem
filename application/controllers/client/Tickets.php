@@ -86,9 +86,9 @@ class Tickets extends Client_Controller {
     function edit($id) {
         $companyId = $this->utility->decode($id);
         
-        if(!ctype_digit($companyId)){
-            redirect(client_url().'tickets');
-        }
+        // if(!ctype_digit($companyId)){
+        //     redirect(client_url().'tickets');
+        // }
         
         $data['page'] = "client/tickets/edit";
         $data['ticket'] = 'active';
