@@ -94,23 +94,39 @@
                                 </div>
                             </form>
                         </div>
-
-                        <div class=" ">
-                            <a href="#" class="pull-left">
-                                <img alt="image" class="img-circle" src="img/a2.jpg">
-                            </a>
-                            <div class="media-body ">
-                                <small class="pull-right">2h ago</small>
-                                <strong>Mike Smith</strong>
-                                <p class="m-b-xs">
-                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-                                </p>
-                                <small class="text-muted">Today 4:21 pm - 12.06.2014</small>
-                            </div>
-                        </div>
                     </div>
-                </div>
+                     <div class="col-lg-4">
+                                <div class="ibox float-e-margins">
+                                    <div class="ibox-title">
+                                        <h5>Your daily feed</h5>
+                                        <div class="ibox-tools">
+                                            <span class="label label-warning-light pull-right">10 Messages</span>
+                                           </div>
+                                    </div>
+                                    <div class="ibox-content">
 
+                                        <div>
+                                            <div class="feed-activity-list">
+
+                                                <div class="feed-element">
+                                                    <a href="profile.html" class="pull-left">
+                                                        <img alt="image" class="img-circle" src="img/a5.jpg">
+                                                    </a>
+                                                    <div class="media-body ">
+                                                        <small class="pull-right">2h ago</small>
+                                                        <strong>Kim Smith</strong> posted message on <strong>Monica Smith</strong> site. <br>
+                                                        <small class="text-muted">Yesterday 5:20 pm - 12.06.2014</small>
+                                                        <div class="well">
+                                                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever 
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                </div>
             </div>
         </div>
     </div>
