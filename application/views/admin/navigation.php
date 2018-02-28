@@ -26,10 +26,13 @@
                 <a href="<?= admin_url(); ?>dashboard"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboard</span></a>
             </li>
             <li class="<?= $client; ?>">
-                <a href="<?= admin_url(); ?>client"><i class="fa fa-th-large"></i> <span class="nav-label">Client</span></a>
+                <a href="<?= admin_url(); ?>client"><i class="fa fa-users"></i> <span class="nav-label">Client</span></a>
+            </li>
+               <li class="<?= $ticket; ?>">
+                <a href="<?= admin_url().'tickets'; ?>"><i class="fa fa-ticket"></i> <span class="nav-label">Tickets</span></a>
             </li>
                 <li class="<?= $setting; ?>">
-                    <a href=""><i class="fa fa-th-large"></i> <span class="nav-label">Setting</span> <span class="fa arrow"></span></a>
+                    <a href=""><i class="fa fa-gear"></i> <span class="nav-label">Setting</span> <span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li class="<?= $department; ?>"><a href="<?= admin_url() ."setting"; ?>">Department</a></li>
                     </ul>
