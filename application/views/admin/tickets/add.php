@@ -27,7 +27,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-3 control-label">Subject  *</label>
+                <label class="col-sm-3 control-label">Subject  <span class="required">*</span></label>
                 <div class="col-sm-7">
                     <input type="text" placeholder="Enter Subject " name="ticket_subject" class="form-control">
                 </div>
