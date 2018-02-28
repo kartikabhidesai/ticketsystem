@@ -50,6 +50,29 @@ var Setting = function() {
         handleDelete();
     }
     
+    var emailSetting = function() {
+        var form = $('#emailSettingForm');
+        var rules = {
+            company_email: {required: true},
+            email_protocol: {required: true},
+            use_tradmark: {required: true},
+        };
+        handleFormValidate(form, rules, function(form) {
+            handleAjaxFormSubmit(form);
+        });
+       
+    };
+    var generalSetting = function() {
+        var form = $('#generalSettingForm');
+        var rules = {
+            company_name: {required: true},
+            contact_persion: {required: true},
+        };
+        handleFormValidate(form, rules, function(form) {
+            handleAjaxFormSubmit(form);
+        });
+       
+    };
     return {
         //main function to initiate the module
         list: function() {
@@ -59,5 +82,12 @@ var Setting = function() {
         add_edit: function() {
             departmentAddEdit();
         },
-    };
+        email_init: function() {
+            emailSetting();
+        },
+        general_init: function() {
+            generalSetting();
+        },
+    };  
+
 }();
