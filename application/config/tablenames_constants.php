@@ -10,3 +10,4 @@ defined('BASEPATH') or exit('No direct script access allowed');
 define("TABLE_USER", "user");
 define("TABLE_COMPANY", "company");
 define("TABLE_COUNTRIES", "countries");
+define("TABLE_MASTER_DEPARTMENT", "master_department");

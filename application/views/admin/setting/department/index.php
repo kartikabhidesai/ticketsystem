@@ -17,19 +17,21 @@
                             <table class="table table-striped table-bordered table-hover dataTables-example" >
                                 <thead>
                                     <tr>
-                                        <th>Company</th>
+                                        <th>No</th>
+                                        <th>Department Name</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php for($i=1; $i< 32; $i++) { ?>
+                                    <?php for($i=0; $i<count($department_detail); $i++) { ?>
                                     <tr>
-                                        <td><?= $i.'department'; ?></td>
+                                        <td><?= $department_detail[$i]->id; ?></td>
+                                        <td><?= $department_detail[$i]->name; ?></td>
                                         <td>
-                                            <a href="<?= admin_url(); ?>setting/department_edit/<?php echo $i;?>">
+                                            <a href="<?= admin_url(); ?>setting/department_edit/<?php echo $this->utility->encode($department_detail[$i]->id);?>">
                                                 <i class="fa fa-edit text-navy"></i>
                                             </a>
-                                            <a data-toggle="modal" data-target="#myModal_autocomplete" data-href="<?= admin_url().'client/clientDelete'?>" data-id="<?php echo $getComany[$i]->companyId;?>" class="deletebutton">
+                                            <a data-toggle="modal" data-target="#myModal_autocomplete" data-href="<?= admin_url().'setting/deleteDepartment'?>" data-id="<?php echo $department_detail[$i]->id;?>" class="deletebutton">
                                                 <i class="fa fa-close text-navy"></i>
                                             </a>
                                         </td>
