@@ -36,56 +36,8 @@ var Tickets = function() {
                 });
             }
         });
-
-        $('body').on('click', '.acceptinterest', function() {
-            var userInterestId = $(this).attr('data-id');
-            var muckId = $(this).attr('data-muckid');
-            var data = '';
-            if (muckId != "")
-            {
-                data = {'muckId': muckId,'userInterestId':userInterestId, '_token': $("input[name=_token]").val()};
-                ajaxcall(baseurl + 'company/update-interest-status', data, function(output) {
-                    handleAjaxResponse(output);
-                    setTimeout(function(){
-                        $('#myModal_interested').modal('hide');
-                    },2000);
-                });
-            }
-        });
-        
-        $('body').on('click', '.complete', function() {
-            var userInterestId = $(this).attr('data-id');
-            var muckId = $(this).attr('data-muckid');
-            var data = '';
-            if (muckId != "")
-            {
-                data = {'muckId': muckId,'userInterestId':userInterestId, '_token': $("input[name=_token]").val()};
-                ajaxcall(baseurl + 'company/update-interest-status-to-complete', data, function(output) {
-                    handleAjaxResponse(output);
-                    setTimeout(function(){
-                        $('#myModal_interested').modal('hide');
-                    },2000);
-                });
-            }
-        });
-        
-        $('body').on('click', '.resetall', function() {
-           
-            var muckId = $(this).attr('data-muckid');
-            var data = '';
-            if (muckId != "")
-            {
-                data = {'muckId': muckId, '_token': $("input[name=_token]").val()};
-                ajaxcall(baseurl + 'company/reset-interest-status', data, function(output) {
-                    handleAjaxResponse(output);
-                    setTimeout(function(){
-                        $('#myModal_interested').modal('hide');
-                    },2000);
-                });
-            }
-        });
     };
-
+    
     var ticketAdd = function() {
        
         var form = $('#ticketsAddForm');
@@ -160,36 +112,7 @@ var Tickets = function() {
         });
     }
     
-    var gneral = function(){
-        $('.openPopup').click(function(){
-            $('#addNewPerson')[0].reset();
-            var companyId = $(this).attr('data-company-id');
-            var personId = $(this).attr('data-id');
-            if(typeof personId === 'undefined'){
-                $('#myModal_addnewperson').modal('show');
-                $('#company_id').val(companyId);
-            }else{
-               var url = baseurl + 'admin/client/getPersonInfo';
-               var data = { companyId : companyId , personId : personId};
-                ajaxcall(url,data,function(output){
-                    var output = JSON.parse(output);
-                    $('.modal-title').text('Edit Person')
-                    $('.password').hide();
-                    $('.company_confirm_password').hide();
-                    $('#person_email').attr('readonly',true);
-                    $('#person_email').val(output[0].email);
-                    $('#company_id').val(companyId);
-                    $('#person_fname').val(output[0].first_name);
-                    $('#person_lname').val(output[0].last_name);
-                    $('#company_user_phone').val(output[0].phone_no);
-                    $('#address').val(output[0].address);
-                    $('#person_id').val(personId);
-                    
-                    $('#myModal_addnewperson').modal('show');
-                });
-            }
-            
-        });
+    var deleteTicket = function(){
         
         $('body').on('click','.deletebutton',function(){
             var personId = $(this).attr('data-id');
@@ -202,22 +125,42 @@ var Tickets = function() {
         handleDelete();
     }
     
+    var genral = function (){
+        $('.changeDepartment').on('change',function(){
+            if($(this).val() != ''){
+                var randStr = randomString();
+                $('.ticketCode').val(randStr); 
+            }else{
+                $('.ticketCode').val(''); 
+            }
+            
+        });
+    }
+    
+    function randomString() {
+	var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZ";
+	var string_length = 6;
+	var randomstring = '';
+	for (var i=0; i<string_length; i++) {
+		var rnum = Math.floor(Math.random() * chars.length);
+		randomstring += chars.substring(rnum,rnum+1);
+	}
+	return randomstring;
+    }
+    
     return {
         //main function to initiate the module
         clientList: function() {
             clientList();
-            gneral();
+            deleteTicket();
         },
         ticketAdd: function() {
             ticketAdd();
+            genral();
         },
         ticketEdit: function() {
             ticketEdit();
+            genral();
         },
-        clientDetail: function() {
-            clientDetail();
-            addNewPerson();
-            gneral();
-        }
     };
 }();

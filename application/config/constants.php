@@ -97,3 +97,11 @@ define("IMAGES", 'http://' . $_SERVER['HTTP_HOST'] . '/ticketsystem/public/asset
 
 define('DATE_TIME',date('Y-m-d H:i:s'));
 define('PROJECT_NAME', 'Ticket System');
+
+//define ticket status
+
+define('STATUS', json_encode(['ANSWERED' => 'Answered', 'CLOSED' => 'Closed', 'OPEN' => 'Open','IN_PROGRESS' => 'In Progress']));
+
+//define ticket priority
+
+define('PRIORITY', json_encode(['LOW' => 'Low', 'MEDIUM' => 'Medium', 'HIGH' => 'High']));

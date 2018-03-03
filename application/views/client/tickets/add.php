@@ -11,19 +11,18 @@
             <div class="form-group">
                 <label class="col-sm-3 control-label">Department *</label>
                 <div class="col-sm-7">
-                      <select class="form-control m-b" name="ticket_department">
-                        <option value="">Departmentd1</option>
-                        <option value="">Departmentd12</option>
-                        <option value="">Departmentd13</option>
-                        <option value="">Departmentd134</option>
-                       
+                      <select class="form-control m-b changeDepartment" name="ticket_department">
+                          <option value="">Select Department</option>
+                        <?php for($i=0; $i<count($department_detail); $i++){ ?>
+                            <option value="<?= $department_detail[$i]->id;?>"><?= $department_detail[$i]->name;?></option>
+                        <?php } ?>
                     </select>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-3 control-label">Ticket Code *</label>
                 <div class="col-sm-7">
-                    <input type="text" placeholder="Enter Ticket Code" name="ticket_code" class="form-control">
+                    <input type="text" placeholder="Enter Ticket Code" name="ticket_code" class="form-control ticketCode">
                 </div>
             </div>
             <div class="form-group">
@@ -32,25 +31,18 @@
                     <input type="text" placeholder="Enter Subject " name="ticket_subject" class="form-control">
                 </div>
             </div>
-            
-            <!-- <div class="form-group">
-                <label class="col-sm-3 control-label">Reporter *</label>
-                <div class="col-sm-7">
-                      <select class="form-control m-b" name="ticket_reporter">
-                      <option value=""> Reporter</option>
-                      <option value=""> Reporter1</option>
-                      <option value=""> Reporter12</option>
-                      <option value=""> Reporter123</option>
-                    </select>
-                </div>
-            </div> -->
-
+            <?php $priority = json_decode(PRIORITY);?>
              <div class="form-group">
-                <label class="col-sm-3 control-label">Pririty *</label>
+                <label class="col-sm-3 control-label">Priority *</label>
                 <div class="col-sm-7">
                       <select class="form-control m-b" name="ticket_prioity">
-                            <option value=""> Priority1</option>
-                            <option value=""> Priority2</option>
+                            <option value="">Select Priority</option>
+                            <?php
+                            foreach ($priority as $key => $value){ ?>
+                                <option value="<?= $key ?>"><?= $value; ?></option>
+                            <?php }
+                             ?>
+                            
                     </select>
                 </div>
             </div>
