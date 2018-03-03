@@ -133,7 +133,7 @@ class Tickets_model extends My_model {
         $result = $this->db->delete(TABLE_TICKET);
         if ($result) {
             $json_response['status'] = 'success';
-            $json_response['message'] = 'Person delete successfully';
+            $json_response['message'] = 'Ticket delete successfully';
             $json_response['jscode'] = 'setTimeout(function(){location.reload();},1000)';
         } else {
             $json_response['status'] = 'error';
