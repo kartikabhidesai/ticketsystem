@@ -46,12 +46,24 @@ class Tickets_model extends My_model {
        
         unset($data);
         if ($result) {
+            $this->sendTicketMail($postData);
             return true;
         } else {
            return false;
         }
        
     }
+
+        public function sendTicketMail($postData){
+          
+            $data ['message'] = $postData['ticket_message'] . 
+            $data ['from_title'] = 'Create Ticketd';
+            $data ['subject'] = $postData['subject'];
+            $data ['to'] = 'shaileshvanaliya91@gmail.com';
+            // $data ["to"] = $postData['person_email'];
+            $mailSend = $this->utility->sendMailSMTP($data);
+            return true;
+        }
 
     function getClientTicketList($client_id) {
         
