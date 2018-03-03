@@ -41,13 +41,13 @@
      <div class="form-group">
       <label class="col-sm-5 displaylable">Reporter </label>
       <div class="col-sm-7">
-        <!-- broer -->
+        <?= (empty($getTicket[0]->first_name)) ? '' : $getTicket[0]->first_name . ' ' . $getTicket[0]->last_name ?>
       </div>
     </div>
     <div class="form-group">
       <label class="col-sm-5 displaylable">Department</label>
       <div class="col-sm-7">
-        <!-- <?= $getTicket[0]->id ?> -->
+        <?= (empty($getTicket[0]->departmentName)) ? '' : $getTicket[0]->departmentName ?>
       </div>
     </div>
   </div>

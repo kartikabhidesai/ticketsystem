@@ -6,7 +6,7 @@ class Tickets extends Admin_Controller {
         parent::__construct();
         $this->load->model('Department_model','Department_model');
         $this->load->model('Tickets_model','this_model');
-         $this->load->model('Client_model','Client_model');
+        $this->load->model('Client_model','Client_model');
     }
 
     function index() {
@@ -24,7 +24,7 @@ class Tickets extends Admin_Controller {
         
         $data['js'] = array(
              'plugins/dataTables/datatables.min.js',
-             'client/ticket.js',
+             'admin/ticket.js',
         );
         $data['init'] = array(
             'Tickets.clientList()',
@@ -46,19 +46,34 @@ class Tickets extends Admin_Controller {
         $data['css'] = array();
         
         $data['js'] = array(
-            'client/ticket.js',
+            'ajaxfileupload.js',
+            'jquery.form.min.js',
+            'admin/ticket.js'
         );
         $data['init'] = array(
             'Tickets.ticketAdd()',
         );
-        
-        $data['country'] = $this->Client_model->countryList();
+        $clientId = '';
+        $data['department_detail'] = $this->Department_model->getDepartmentDetail($clientId);
+        $data['reporter_detail'] = $this->Client_model->getReporterDetail($clientId);
+        // print_r($data['reporter_detail'] );exit;
         if($this->input->post()){
-            $res = $this->this_model->addCompany($this->input->post());
-            echo json_encode($res); exit();
+            // print_r($this->input->post());exit;
+             $res = $this->this_model->addTicket($this->input->post());
+            
+                if($res)
+                {
+                    $json_response['status'] = 'success';
+                    $json_response['message'] = 'Ticket add successfully.';
+                    $json_response['redirect'] = admin_url() . 'tickets';
+                }else{
+                     $json_response['status'] = 'error';
+                     $json_response['message'] = 'Something went wrong.';
+                }
+                echo json_encode($json_response); exit();
+            }
+            $this->load->view(ADMIN_LAYOUT, $data);
         }
-        $this->load->view(ADMIN_LAYOUT, $data);
-    }
 
     function view($id) {
          $ticketId = $this->utility->decode($id);
@@ -77,14 +92,14 @@ class Tickets extends Admin_Controller {
         $data['css'] = array();
         
         $data['js'] = array(
-            'client/ticket.js',
+            'admin/ticket.js',
         );
         $data['init'] = array(
             'Tickets.ticketAdd()',
         );
         
-        $data['country'] = $this->Client_model->countryList();
         $data['getTicket'] = $this->this_model->getTicketDetail($ticketId);
+        // echo '<pre/>'; print_r($data['getTicket'] );exit;
         if(empty($data['getTicket'])){
             redirect(admin_url().'tickets');
         }
@@ -98,11 +113,12 @@ class Tickets extends Admin_Controller {
     }
 
     function edit($id) {
-        $companyId = $this->utility->decode($id);
+        $ticketId = $this->utility->decode($id);
         
-        // if(!ctype_digit($companyId)){
-        //     redirect(client_url().'tickets');
-        // }
+         if(!ctype_digit($ticketId)){
+             redirect(client_url().'tickets');
+         }
+        
         
         $data['page'] = "admin/tickets/edit";
         $data['ticket'] = 'active';
@@ -115,18 +131,31 @@ class Tickets extends Admin_Controller {
         $data['css'] = array();
         
         $data['js'] = array(
-            'client/ticket.js',
+            'ajaxfileupload.js',
+            'jquery.form.min.js',
+            'admin/ticket.js',
         );
         $data['init'] = array(
             'Tickets.ticketEdit()',
         );
-        
-        $data['country'] = $this->Client_model->countryList();
-        $data['companyDeatail'] = $this->Client_model->companyDetail($companyId);
-        
+        $clientId = '';
+        $data['department_detail'] = $this->Department_model->getDepartmentDetail();
+        $data['getTicket'] = $this->this_model->getTicketDetail($ticketId);
+        $data['reporter_detail'] = $this->Client_model->getReporterDetail($clientId);
+        // print_r( $data['reporter_detail'] );exit;
         if($this->input->post()){
-            $res = $this->this_model->editCompany($this->input->post(),$companyId);
-            echo json_encode($res); exit();
+            // print_r($this->input->post());exit;
+            $res = $this->this_model->editTicket($this->input->post(),$ticketId);
+            if($res)
+            {
+                $json_response['status'] = 'success';
+                $json_response['message'] = 'Ticket edit successfully';
+                $json_response['redirect'] = admin_url() . 'tickets/';
+            }else{
+                $json_response['status'] = 'error';
+                $json_response['message'] = 'Something went wrong';
+            }
+            echo json_encode($json_response); exit();
         }
         $this->load->view(ADMIN_LAYOUT, $data);
     }
@@ -148,7 +177,7 @@ class Tickets extends Admin_Controller {
         
         $data['js'] = array(
            'plugins/dataTables/datatables.min.js',
-           'client/ticket.js',
+           'admin/ticket.js',
         );
         $data['init'] = array(
             'Tickets.clientDetail()',

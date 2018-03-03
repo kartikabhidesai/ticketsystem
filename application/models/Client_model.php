@@ -240,6 +240,16 @@ class Client_model extends My_model {
         return $json_response;
     }
 
+    function getReporterDetail($id = NULL) {
+        $data['select'] = ['last_name','id','first_name'];
+            $data['where'] = ['type' => 'C'];
+            // $data['where'] = ['is_verify' => '1'];
+        $data['table'] = TABLE_USER;
+        $result = $this->selectRecords($data);
+
+        return $result;
+    }
+
 }
 
 ?>
