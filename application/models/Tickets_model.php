@@ -46,15 +46,11 @@ class Tickets_model extends My_model {
        
         unset($data);
         if ($result) {
-
-            $json_response['status'] = 'success';
-            $json_response['message'] = 'Ticket add successfully';
-            $json_response['redirect'] = client_url() . 'tickets';
+            return true;
         } else {
-            $json_response['status'] = 'error';
-            $json_response['message'] = 'Something went wrong123';
+           return false;
         }
-        return $json_response;
+       
     }
 
     function getClientTicketList($client_id) {
@@ -124,7 +120,7 @@ class Tickets_model extends My_model {
 
         if($result){
             $json_response['status'] = 'success';
-            $json_response['message'] = 'Company edit successfully';
+            $json_response['message'] = 'Ticket edit successfully';
             $json_response['redirect'] = admin_url() . 'client/detail/'.$this->utility->encode($postData['company_id']);
         }else{
             $json_response['status'] = 'error';

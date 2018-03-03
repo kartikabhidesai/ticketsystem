@@ -2,7 +2,7 @@
 <div class="wrapper wrapper-content white-bg m-t">
     <div class=" animated fadeInRightBig">
 
-        <form method="post" class="form-horizontal"  enctype="multipart/form-data"  action="<?= client_url(); ?>tickets/edit" id='ticketEditForm'>
+        <form method="post" class="form-horizontal"  enctype="multipart/form-data"  action="<?= client_url(); ?>tickets/edit/<?=  $this->utility->encode($getTicket[0]->id);?>" id='ticketEditForm'>
             
             <div class="form-group headingmain">                        
                 <h2 class="title" style="margin:10px">Ticket Details - <?= $getTicket[0]->ticket_code; ?>  
@@ -26,6 +26,7 @@
                 <label class="col-sm-3 control-label">Ticket Code *</label>
                 <div class="col-sm-7">
                     <input type="text" placeholder="Enter Ticket Code" readonly="readonly" value="<?= $getTicket[0]->ticket_code; ?>" name="ticket_code" class="form-control">
+                    <input type="hidden"  value="<?= $getTicket[0]->id; ?>" name="id" class="form-control">
                 </div>
             </div>
             <div class="form-group">

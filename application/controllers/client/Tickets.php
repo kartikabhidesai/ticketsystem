@@ -63,7 +63,17 @@ class Tickets extends Client_Controller {
 //        print_r($this->session->userdata['client_login']['id']);exit;
         if($this->input->post()){
             $res = $this->this_model->addTicket($this->input->post());
-            echo json_encode($res); exit();
+            
+            if($res)
+            {
+                $json_response['status'] = 'success';
+                $json_response['message'] = 'Ticket add successfully.';
+                $json_response['redirect'] = client_url() . 'tickets';
+            }else{
+                 $json_response['status'] = 'error';
+                 $json_response['message'] = 'Something went wrong.';
+            }
+            echo json_encode($json_response); exit();
         }
         $this->load->view(CLIENT_LAYOUT, $data);
     }
