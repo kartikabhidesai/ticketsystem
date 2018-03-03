@@ -71,11 +71,20 @@ class Tickets_model extends My_model {
     }
 
     function getTicketDetail($ticketId) {
-        $data['select'] = ['t.*'];
+        $data['select'] = ['t.*','mdt.name as departmentName','usr.first_name','usr.last_name'];
         $data['where'] = ['t.id' => $ticketId];
-        $data['table'] = TABLE_TICKET . ' t';
-        $result = $this->selectRecords($data);
-
+        $data['join'] = [
+            TABLE_MASTER_DEPARTMENT . ' as mdt' => [
+                'mdt.id = t.department_id',
+                'LEFT',
+            ],
+              TABLE_USER . ' as usr' => [
+                'usr.id = t.client_id',
+                'LEFT',
+            ],
+        ];        
+        $data['table'] = TABLE_TICKET . ' as t';
+        $result = $this->selectFromJoin($data);
         return $result;
     }
 
