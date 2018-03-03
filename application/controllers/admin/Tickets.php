@@ -6,6 +6,7 @@ class Tickets extends Admin_Controller {
         parent::__construct();
         $this->load->model('Department_model','Department_model');
         $this->load->model('Tickets_model','this_model');
+         $this->load->model('Client_model','Client_model');
     }
 
     function index() {
@@ -28,7 +29,8 @@ class Tickets extends Admin_Controller {
         $data['init'] = array(
             'Tickets.clientList()',
         );
-        $data['getTicket'] = $this->this_model->getClientTicketList();
+        $clientId = '';
+        $data['getTicket'] = $this->this_model->getClientTicketList($clientId);
         $this->load->view(ADMIN_LAYOUT, $data);
     }
   
@@ -50,7 +52,7 @@ class Tickets extends Admin_Controller {
             'Tickets.ticketAdd()',
         );
         
-        $data['country'] = $this->this_model->countryList();
+        $data['country'] = $this->Client_model->countryList();
         if($this->input->post()){
             $res = $this->this_model->addCompany($this->input->post());
             echo json_encode($res); exit();
@@ -58,7 +60,12 @@ class Tickets extends Admin_Controller {
         $this->load->view(ADMIN_LAYOUT, $data);
     }
 
-    function view() {
+    function view($id) {
+         $ticketId = $this->utility->decode($id);
+        
+         if(!ctype_digit($ticketId)){
+             redirect(admin_url().'tickets');
+         }
         $data['page'] = "admin/tickets/view";
         $data['ticket'] = 'active';
         $data['pagetitle'] = 'Tickets';
@@ -76,9 +83,15 @@ class Tickets extends Admin_Controller {
             'Tickets.ticketAdd()',
         );
         
-        $data['country'] = $this->this_model->countryList();
+        $data['country'] = $this->Client_model->countryList();
+        $data['getTicket'] = $this->this_model->getTicketDetail($ticketId);
+        if(empty($data['getTicket'])){
+            redirect(admin_url().'tickets');
+        }
+
+        $data['department_detail'] = $this->Department_model->getDepartmentDetail();
         if($this->input->post()){
-            $res = $this->this_model->addCompany($this->input->post());
+            $res = $this->this_model->updateCoversation($this->input->post(),$ticketId);
             echo json_encode($res); exit();
         }
         $this->load->view(ADMIN_LAYOUT, $data);
@@ -108,8 +121,8 @@ class Tickets extends Admin_Controller {
             'Tickets.ticketEdit()',
         );
         
-        $data['country'] = $this->this_model->countryList();
-        $data['companyDeatail'] = $this->this_model->companyDetail($companyId);
+        $data['country'] = $this->Client_model->countryList();
+        $data['companyDeatail'] = $this->Client_model->companyDetail($companyId);
         
         if($this->input->post()){
             $res = $this->this_model->editCompany($this->input->post(),$companyId);

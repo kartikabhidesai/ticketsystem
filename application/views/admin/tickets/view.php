@@ -35,19 +35,19 @@
       <div class="form-group">
         <label class="col-sm-5 displaylable">Ticket Code</label>
         <div class="col-sm-7">
-         HO4IZGL
+         <?= $getTicket[0]->ticket_code ?>
        </div>
      </div>
      <div class="form-group">
       <label class="col-sm-5 displaylable">Reporter </label>
       <div class="col-sm-7">
-        broer
+        <!-- broer -->
       </div>
     </div>
     <div class="form-group">
-      <label class="col-sm-5 displaylable">   Department</label>
+      <label class="col-sm-5 displaylable">Department</label>
       <div class="col-sm-7">
-        Support
+        <!-- <?= $getTicket[0]->id ?> -->
       </div>
     </div>
   </div>
@@ -55,19 +55,20 @@
     <div class="form-group">
       <label class="col-sm-5 displaylable">Status</label>
       <div class="col-sm-7">
-        <span class="btn btn-primary btn-xs">  Closed</span>
+        <span class="btn btn-primary btn-xs">  <?= $getTicket[0]->status ?> </span>
       </div>
     </div>
     <div class="form-group">
       <label class="col-sm-5 displaylable"> Priority </label>
       <div class="col-sm-7">
-        Medium
+        <?= $getTicket[0]->priority ?>
       </div>
     </div>
     <div class="form-group">
       <label class="col-sm-5 displaylable"> Created</label>
       <div class="col-sm-7">
-       2015-07-21 07:23:21
+        <?= date('Y-m-d h:i:s',$getTicket[0]->dt_created) ?>
+       
      </div>
    </div>
  </div>
