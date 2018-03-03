@@ -57,11 +57,12 @@ class Tickets_model extends My_model {
         return $json_response;
     }
 
-    function getClientTicketList() {
-         $client_id = $this->session->userdata['client_login']['id'];
+    function getClientTicketList($client_id) {
         
         $data['select'] = ['t.id', 't.ticket_code', 't.subject', 't.status','t.priority','mdt.name'];
-        $data['where'] = ['client_id' => $client_id];
+        if($client_id != ""){
+            $data['where'] = ['client_id' => $client_id];
+        }
         $data['join'] = [
             TABLE_MASTER_DEPARTMENT . ' as mdt' => [
                 'mdt.id = t.department_id',
@@ -84,6 +85,52 @@ class Tickets_model extends My_model {
 
     function editTicket($postData, $ticketId) {
         
+       $ticket_attachment = '';
+        if(!empty($_FILES['ticket_attachment'])){
+            $config['upload_path'] = './uploads/';
+            $config['allowed_types'] = 'gif|jpg|png';
+            $config['max_size']	= '1000';
+            $config['max_width']  = '3000';
+            $config['max_height']  = '3000';
+            
+            $this->load->library('upload', $config);
+
+            if ( ! $this->upload->do_upload('ticket_attachment'))
+            {
+                 $json_response['status'] = 'error';
+                 $json_response['message'] = $this->upload->display_errors();
+            }
+            else
+            {
+                  $ticket_attachmentArr = $this->upload->data();
+                
+                  $ticket_attachment = $ticket_attachmentArr['file_name'];
+            }
+        }
+      
+        $data['update']['department_id'] = $postData['department_id'];
+        $data['update']['subject'] = $postData['subject'];
+        $data['update']['ticket_message'] = $postData['ticket_message'];
+        $data['update']['priority'] = $postData['priority'];
+        if(!empty($_FILES['ticket_attachment'])){
+            $data['update']['image'] = $ticket_attachment;
+        }
+        $data['update']['dt_updated'] = DATE_TIME;
+        $data['where'] = ['id' => $postData['id']];
+        $data['table'] = TABLE_TICKET;
+        $result = $this->updateRecords($data);
+
+        unset($data);
+
+        if($result){
+            $json_response['status'] = 'success';
+            $json_response['message'] = 'Company edit successfully';
+            $json_response['redirect'] = admin_url() . 'client/detail/'.$this->utility->encode($postData['company_id']);
+        }else{
+            $json_response['status'] = 'error';
+            $json_response['message'] = 'Something went wrong';
+        }
+        return $json_response;
     }
 
     function deleteTicket($data) {
