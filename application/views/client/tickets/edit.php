@@ -5,8 +5,8 @@
         <form method="post" class="form-horizontal"  enctype="multipart/form-data"  action="<?= client_url(); ?>tickets/edit" id='ticketEditForm'>
             
             <div class="form-group headingmain">                        
-                <h2 class="title" style="margin:10px">Ticket Details - JXJK5SW  
-  <a href="<?= client_url().'tickets/view/1'; ?>" style="margin:10px" class="btn btn-sm btn-primary pull-right m-t-n-xs" ><strong><i class="fa fa-tag"></i> View Tickets </strong></a> 
+                <h2 class="title" style="margin:10px">Ticket Details - <?= $getTicket[0]->ticket_code; ?>  
+                        <a href="<?= client_url().'tickets/view/1'; ?>" style="margin:10px" class="btn btn-sm btn-primary pull-right m-t-n-xs" ><strong><i class="fa fa-tag"></i> View Tickets </strong></a> 
                 </h2> 
                                             
             </div>
@@ -36,7 +36,7 @@
 
             </div>
    
-         <?php $priority = json_decode(PRIORITY);?>
+             <?php $priority = json_decode(PRIORITY);?>
              <div class="form-group">
                 <label class="col-sm-3 control-label">Pririty *</label>
                 <div class="col-sm-7">
