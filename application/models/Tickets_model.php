@@ -119,14 +119,11 @@ class Tickets_model extends My_model {
         unset($data);
 
         if($result){
-            $json_response['status'] = 'success';
-            $json_response['message'] = 'Ticket edit successfully';
-            $json_response['redirect'] = admin_url() . 'client/detail/'.$this->utility->encode($postData['company_id']);
+            return true;
         }else{
-            $json_response['status'] = 'error';
-            $json_response['message'] = 'Something went wrong';
+            return false;
         }
-        return $json_response;
+        
     }
 
     function deleteTicket($data) {
