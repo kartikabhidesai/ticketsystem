@@ -31,7 +31,7 @@
                                     <tr>
                                         <td><?= $getTicket[$i]->ticket_code; ?></td>
                                         <td><?= $getTicket[$i]->subject; ?></td>
-                                        <td></td>
+                                        <td><?= $getTicket[$i]->first_name .' ' . $getTicket[$i]->last_name; ?></td>
                                         <td><?= $getTicket[$i]->name; ?></td>
                                         <td><?= $getTicket[$i]->priority; ?></td>
                                         <td><?= $getTicket[$i]->status; ?></td>
@@ -40,8 +40,9 @@
 
                                             <a title="Edit Ticket"  href="<?= admin_url().'tickets/view/'.  $this->utility->encode($getTicket[$i]->id); ?>"> <i class="fa fa-eye"></i> </a>
 
-                                            <a data-toggle="modal" data-target="#myModal_autocomplete" data-href="<?= admin_url().'client/clientDelete'?>" data-id="<?php echo $getComany[$i]->companyId;?>" class="deletebutton"> <i class="fa fa-close text-navy"></i>
-                                            </a>
+                                        <a data-toggle="modal" data-target="#myModal_autocomplete" data-href="<?= admin_url().'tickets/deleteTicket'?>" data-id="<?php echo $getTicket[$i]->id;?>" class="deletebutton"> <i class="fa fa-close text-navy"></i>
+                                        </a> 
+
                                         </td> 
                                     </tr>
                                     <?php } ?>

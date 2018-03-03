@@ -37,8 +37,9 @@
                 <div class="col-sm-7">
                       <select class="form-control m-b" name="client_id">
                            <option value="">Select Reporter</option>
-                        <?php for($i=0; $i<count($reporter_detail); $i++){ ?>
-                            <option value="<?= $department_detail[$i]->id;?>"><?= $reporter_detail[$i]->first_name;?></option>
+                        <?php for($i=0; $i<count($reporter_detail); $i++){
+                        ?>
+                            <option value="<?= $reporter_detail[$i]->id;?>"><?= $reporter_detail[$i]->first_name;?></option>
                         <?php } ?>
 
                     </select>

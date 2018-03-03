@@ -188,53 +188,13 @@ class Tickets extends Admin_Controller {
         $this->load->view(ADMIN_LAYOUT, $data);
     }
     
-    function addUpdatePerson(){
-        
+    function deleteTicket(){
         if($this->input->post()){
-            if($this->input->post('person_id')){
-                $res = $this->this_model->editCompanyUsers($this->input->post());
-            }else{
-                $res = $this->this_model->addCompanyUsers($this->input->post(),$this->input->post('company_id'));
-            }
-           
-            if($res){
-                if(is_array($res)){
-                    echo json_encode($res); exit();    
-                }else{
-                    $json_response['status'] = 'success';
-                    $json_response['message'] = 'Person add successfully';
-                    $json_response['redirect'] = admin_url().'client/detail/'.$this->utility->encode($this->input->post('company_id'));
-                    echo json_encode($json_response); exit(); 
-                }
-            }else{
-                $json_response['status'] = 'error';
-                $json_response['message'] = 'Something went wrong';
-                echo json_encode($json_response); exit(); 
-            }
-            
-        }
-    }
-    
-    function getPersonInfo(){
-        if($this->input->post()){
-           $result =  $this->db->get_where(TABLE_USER,array('id' => $this->input->post('personId'),'company_id' => $this->input->post('companyId')))->result_array();
-           echo json_encode($result); exit();
-        }
-    }
-    
-    function deletePerson(){
-        if($this->input->post()){
-            $result = $this->this_model->deletePerson($this->input->post());
+            $result = $this->this_model->deleteTicket($this->input->post());
             echo json_encode($result); exit();
         }
     }
-    
-    function clientDelete(){
-        if($this->input->post()){
-            $result = $this->this_model->deleteClient($this->input->post());
-            echo json_encode($result); exit();
-        }
-    }
+
     
     function sendEmail(){
         $this->load->library('email');

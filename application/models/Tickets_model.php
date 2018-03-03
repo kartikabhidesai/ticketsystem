@@ -55,13 +55,17 @@ class Tickets_model extends My_model {
 
     function getClientTicketList($client_id) {
         
-        $data['select'] = ['t.id', 't.ticket_code', 't.subject', 't.status','t.priority','mdt.name'];
+        $data['select'] = ['t.id', 't.ticket_code', 't.subject', 't.status','t.priority','mdt.name','usr.first_name','usr.last_name'];
         if($client_id != ""){
             $data['where'] = ['client_id' => $client_id];
         }
         $data['join'] = [
             TABLE_MASTER_DEPARTMENT . ' as mdt' => [
                 'mdt.id = t.department_id',
+                'LEFT',
+            ],
+            TABLE_USER . ' as usr' => [
+                'usr.id = t.client_id',
                 'LEFT',
             ],
         ];
@@ -78,7 +82,7 @@ class Tickets_model extends My_model {
                 'mdt.id = t.department_id',
                 'LEFT',
             ],
-              TABLE_USER . ' as usr' => [
+            TABLE_USER . ' as usr' => [
                 'usr.id = t.client_id',
                 'LEFT',
             ],
