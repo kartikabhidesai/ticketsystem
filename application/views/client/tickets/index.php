@@ -19,7 +19,6 @@
                                     <tr>
                                         <th>Ticket Code</th>
                                         <th>Subject</th>
-                                        <th>Reporter</th>
                                         <th>Department</th>
                                         <th>Priority</th>
                                         <th>Status</th>
@@ -27,17 +26,16 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php for($i=0; $i<count($getComany); $i++) { ?>
+                                    <?php for($i=0; $i<count($getTicket); $i++) { ?>
                                     <tr>
-                                        <td><?= $getComany[$i]->comapnyName; ?></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td><?= $getTicket[$i]->ticket_code; ?></td>
+                                        <td><?= $getTicket[$i]->subject; ?></td>
+                                        <td><?= $getTicket[$i]->name; ?></td>
+                                        <td><?= $getTicket[$i]->priority; ?></td>
+                                        <td><?= $getTicket[$i]->status; ?></td>
                                         <td>   
                                           
-                                        <a title="Preview Ticket"  href="<?= client_url().'tickets/edit/' . $i; ?>"> <i class="fa fa-edit text-navy"></i> </a>
+                                        <a title="Preview Ticket"  href="<?= client_url().'tickets/edit/' .  $this->utility->encode($getTicket[$i]->id); ?>"> <i class="fa fa-edit text-navy"></i> </a>
 
                                         <a title="Edit Ticket"  href="<?= client_url().'tickets/view'; ?>"> <i class="fa fa-eye"></i> </a>
 

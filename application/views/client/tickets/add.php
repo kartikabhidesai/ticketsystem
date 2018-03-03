@@ -11,7 +11,7 @@
             <div class="form-group">
                 <label class="col-sm-3 control-label">Department *</label>
                 <div class="col-sm-7">
-                      <select class="form-control m-b changeDepartment" name="ticket_department">
+                      <select class="form-control m-b changeDepartment" name="department_id">
                           <option value="">Select Department</option>
                         <?php for($i=0; $i<count($department_detail); $i++){ ?>
                             <option value="<?= $department_detail[$i]->id;?>"><?= $department_detail[$i]->name;?></option>
@@ -23,19 +23,21 @@
                 <label class="col-sm-3 control-label">Ticket Code *</label>
                 <div class="col-sm-7">
                     <input type="text" placeholder="Enter Ticket Code" name="ticket_code" class="form-control ticketCode">
+                    <input type="hidden" value="<?= $this->session->userdata['client_login']['id']; ?>" placeholder="Enter Ticket Code" name="client_id" class="form-control">
+                    <input type="hidden" value="OPEN" placeholder="Enter Ticket Code" name="status" class="form-control">
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-3 control-label">Subject  *</label>
                 <div class="col-sm-7">
-                    <input type="text" placeholder="Enter Subject " name="ticket_subject" class="form-control">
+                    <input type="text" placeholder="Enter Subject " name="subject" class="form-control">
                 </div>
             </div>
             <?php $priority = json_decode(PRIORITY);?>
              <div class="form-group">
                 <label class="col-sm-3 control-label">Priority *</label>
                 <div class="col-sm-7">
-                      <select class="form-control m-b" name="ticket_prioity">
+                      <select class="form-control m-b" name="priority">
                             <option value="">Select Priority</option>
                             <?php
                             foreach ($priority as $key => $value){ ?>

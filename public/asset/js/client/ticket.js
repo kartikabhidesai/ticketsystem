@@ -42,15 +42,15 @@ var Tickets = function() {
        
         var form = $('#ticketsAddForm');
         var rules = {
-            ticket_prioity: {required: true},
-            ticket_reporter: {required: true},
-            ticket_department: {required: true},
+            department_id: {required: true},
             ticket_code: {required: true},
-            ticket_subject: {required: true},
+            subject: {required: true},
+            priority: {required: true},
+            ticket_message: {required: true},
             
         };
         handleFormValidate(form, rules, function(form) {
-            handleAjaxFormSubmit(form);
+            handleAjaxFormSubmit(form,true);
         });
        
     };

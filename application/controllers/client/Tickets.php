@@ -30,7 +30,8 @@ class Tickets extends Client_Controller {
         $data['init'] = array(
             'Tickets.clientList()',
         );
-        $data['getTicket'] = $this->this_model->getTicketDetail();
+        $data['getTicket'] = $this->this_model->getClientTicketList();
+       
         $this->load->view(CLIENT_LAYOUT, $data);
     }
   
@@ -46,13 +47,17 @@ class Tickets extends Client_Controller {
         $data['css'] = array();
         
         $data['js'] = array(
+            'ajaxfileupload.js',
+            'jquery.form.min.js',
             'client/ticket.js',
         );
         $data['init'] = array(
             'Tickets.ticketAdd()',
         );
         
+       // $data['ticketcode'] = $this->generateRandomString();
         $data['department_detail'] = $this->Department_model->getDepartmentDetail();
+//        print_r($this->session->userdata['client_login']['id']);exit;
         if($this->input->post()){
             $res = $this->this_model->addTicket($this->input->post());
             echo json_encode($res); exit();
@@ -60,6 +65,7 @@ class Tickets extends Client_Controller {
         $this->load->view(CLIENT_LAYOUT, $data);
     }
 
+   
     function view($id) {
         $ticketId = $this->utility->decode($id);
         
@@ -83,7 +89,7 @@ class Tickets extends Client_Controller {
         $data['init'] = array(
             'Tickets.ticketAdd()',
         );
-        $data['getTicket'] = $this->this_model->getTicketDetail($ticketId,TRUE);
+        $data['getTicket'] = $this->this_model->getTicketDetail($ticketId);
         if(empty($data['getTicket'])){
             redirect(client_url().'tickets');
         }
@@ -121,6 +127,7 @@ class Tickets extends Client_Controller {
         
         $data['department_detail'] = $this->Department_model->getDepartmentDetail();
         $data['getTicket'] = $this->this_model->getTicketDetail($ticketId);
+
         if($this->input->post()){
             $res = $this->this_model->editTicket($this->input->post(),$ticketId);
             echo json_encode($res); exit();
