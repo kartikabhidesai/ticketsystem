@@ -131,6 +131,8 @@ class Tickets extends Client_Controller {
         $data['css'] = array();
         
         $data['js'] = array(
+            'ajaxfileupload.js',
+            'jquery.form.min.js',
             'client/ticket.js',
         );
         $data['init'] = array(
@@ -146,7 +148,7 @@ class Tickets extends Client_Controller {
             {
                 $json_response['status'] = 'success';
                 $json_response['message'] = 'Ticket edit successfully';
-                $json_response['redirect'] = admin_url() . 'client/detail/'.$this->utility->encode($postData['company_id']);
+                $json_response['redirect'] = client_url() . 'tickets/';
             }else{
                 $json_response['status'] = 'error';
                 $json_response['message'] = 'Something went wrong';
