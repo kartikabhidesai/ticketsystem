@@ -81,7 +81,6 @@ class Tickets_model extends My_model {
 
     function editTicket($postData, $ticketId) {
         
-       $ticket_attachment = '';
         if(!empty($_FILES['ticket_attachment'])){
             $config['upload_path'] = './uploads/';
             $config['allowed_types'] = 'gif|jpg|png';

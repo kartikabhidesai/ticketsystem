@@ -14,7 +14,7 @@
             <div class="form-group">
                 <label class="col-sm-3 control-label">Department *</label>
                 <div class="col-sm-7">
-                      <select class="form-control m-b" name="ticket_department">
+                      <select class="form-control m-b" name="department_id">
                         <option value="">Select Department</option>
                         <?php for($i=0; $i<count($department_detail); $i++){ ?>
                             <option value="<?= $department_detail[$i]->id;?>" <?php if($department_detail[$i]->id == $getTicket[0]->department_id){ echo "selected='selected'";} ?>><?= $department_detail[$i]->name;?></option>
@@ -32,7 +32,7 @@
             <div class="form-group">
                 <label class="col-sm-3 control-label">Subject  *</label>
                 <div class="col-sm-7">
-                    <input type="text" value="<?= $getTicket[0]->subject; ?>" placeholder="Enter Subject " name="ticket_subject" class="form-control">
+                    <input type="text" value="<?= $getTicket[0]->subject; ?>" placeholder="Enter Subject " name="subject" class="form-control">
                 </div>
 
             </div>
@@ -41,7 +41,7 @@
              <div class="form-group">
                 <label class="col-sm-3 control-label">Pririty *</label>
                 <div class="col-sm-7">
-                      <select class="form-control m-b" name="ticket_prioity">
+                      <select class="form-control m-b" name="priority">
                             <option value="">Select Priority</option>
                             <?php  foreach ($priority as $key => $value){ ?>
                                 <option value="<?= $key ?>" <?php if($key == $getTicket[0]->priority){ echo "selected='selected'"; } ?>><?= $value; ?></option>
@@ -61,7 +61,7 @@
                 <label class="col-sm-3 control-label">Attachment </label>
                 <div class="col-sm-7">
 
-                    <input type="file" name="ticket_attachment"> 
+                    <input type="file" name="ticket_attachment"> <br/> <b><?= $getTicket[0]->image; ?></b>
                 </div>
             </div>
             <div class="hr-line-dashed"></div>
