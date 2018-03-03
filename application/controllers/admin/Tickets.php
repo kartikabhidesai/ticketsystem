@@ -4,7 +4,8 @@ class Tickets extends Admin_Controller {
 
     function __construct() {
         parent::__construct();
-        $this->load->model('Client_model','this_model');
+        $this->load->model('Department_model','Department_model');
+        $this->load->model('Tickets_model','this_model');
     }
 
     function index() {
@@ -27,13 +28,13 @@ class Tickets extends Admin_Controller {
         $data['init'] = array(
             'Tickets.clientList()',
         );
-        $data['getComany'] = $this->this_model->getcompanyDetail();
+        $data['getTicket'] = $this->this_model->getClientTicketList();
         $this->load->view(ADMIN_LAYOUT, $data);
     }
   
     function add() {
         $data['page'] = "admin/tickets/add";
-        $data['client'] = 'active';
+        $data['ticket'] = 'active';
         $data['pagetitle'] = 'Tickets';
         $data['var_meta_title'] = 'Tickets';
         $data['breadcrumb'] = array(
@@ -59,7 +60,7 @@ class Tickets extends Admin_Controller {
 
     function view() {
         $data['page'] = "admin/tickets/view";
-        $data['client'] = 'active';
+        $data['ticket'] = 'active';
         $data['pagetitle'] = 'Tickets';
         $data['var_meta_title'] = 'Tickets';
         $data['breadcrumb'] = array(
