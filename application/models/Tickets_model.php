@@ -46,7 +46,7 @@ class Tickets_model extends My_model {
     
     function getCoversation($ticketId){
         
-    }
+    }   
             
     function editTicket($postData,$ticketId){
         
