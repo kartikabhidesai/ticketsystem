@@ -103,7 +103,7 @@ class Tickets extends Admin_Controller {
         if(empty($data['getTicket'])){
             redirect(admin_url().'tickets');
         }
-
+        $data['decodeId'] = $id;
         $data['department_detail'] = $this->Department_model->getDepartmentDetail();
         if($this->input->post()){
             $res = $this->this_model->updateCoversation($this->input->post(),$ticketId);
@@ -139,6 +139,7 @@ class Tickets extends Admin_Controller {
             'Tickets.ticketEdit()',
         );
         $clientId = '';
+        $data['decodeId'] = $id;
         $data['department_detail'] = $this->Department_model->getDepartmentDetail();
         $data['getTicket'] = $this->this_model->getTicketDetail($ticketId);
         $data['reporter_detail'] = $this->Client_model->getReporterDetail($clientId);

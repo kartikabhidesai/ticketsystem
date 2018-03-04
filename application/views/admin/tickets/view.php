@@ -12,7 +12,7 @@
 
       <div class="form-group headingmain">                        
         <label class="col-sm-2 displaylable">
-         <a href="<?= admin_url().'tickets/edit/2'; ?>" style="margin:10px" class="btn btn-sm btn-primary pull-left m-t-n-xs" ><strong><i class="fa fa-tag"></i> Edit Ticket</strong></a>
+         <a href="<?= admin_url().'tickets/edit/'.$decodeId; ?>" style="margin:10px" class="btn btn-sm btn-primary pull-left m-t-n-xs" ><strong><i class="fa fa-tag"></i> Edit Ticket</strong></a>
        </label>
        <label class="col-sm-8 displaylable" style="margin-top:10px">
         <div class="input-group-btn"   >

@@ -89,6 +89,7 @@ class Tickets extends Client_Controller {
         $data['ticket'] = 'active';
         $data['pagetitle'] = 'Tickets';
         $data['var_meta_title'] = 'Tickets';
+        $data['decodeId'] = $id;
         $data['breadcrumb'] = array(
             'dashboard'=>'Home',
             'client'=>'Tickets Add',
@@ -138,6 +139,7 @@ class Tickets extends Client_Controller {
         $data['init'] = array(
             'Tickets.ticketEdit()',
         );
+        $data['decodeId'] = $id;
         
         $data['department_detail'] = $this->Department_model->getDepartmentDetail();
         $data['getTicket'] = $this->this_model->getTicketDetail($ticketId);

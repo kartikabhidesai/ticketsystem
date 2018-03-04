@@ -8,11 +8,11 @@
 <div class="wrapper wrapper-content white-bg m-t">
   <div class=" animated fadeInRightBig">
 
-    <form method="post" class="form-horizontal"  enctype="multipart/form-data"  action="<?= admin_url(); ?>tickets/edit" id='ticketEditForm'>
+    <form method="post" class="form-horizontal"  enctype="multipart/form-data"  action="<?= client_url(); ?>tickets/edit" id='ticketEditForm'>
 
       <div class="form-group headingmain">                        
         <label class="col-sm-2 displaylable">
-         <a href="<?= admin_url().'tickets/edit/2'; ?>" style="margin:10px" class="btn btn-sm btn-primary pull-left m-t-n-xs" ><strong><i class="fa fa-tag"></i> Edit Ticket</strong></a>
+         <a href="<?= client_url().'tickets/edit/' . $decodeId; ?>" style="margin:10px" class="btn btn-sm btn-primary pull-left m-t-n-xs" ><strong><i class="fa fa-tag"></i> Edit Ticket</strong></a>
        </label>
        <label class="col-sm-8 displaylable" style="margin-top:10px">
         <div class="input-group-btn"   >
@@ -41,13 +41,13 @@
      <div class="form-group">
       <label class="col-sm-5 displaylable">Reporter </label>
       <div class="col-sm-7">
-        <!-- broer -->
+        <?= (empty($getTicket[0]->first_name)) ? '' : $getTicket[0]->first_name . ' ' . $getTicket[0]->last_name ?>
       </div>
     </div>
     <div class="form-group">
       <label class="col-sm-5 displaylable">Department</label>
       <div class="col-sm-7">
-        <!-- <?= $getTicket[0]->id ?> -->
+         <?= (empty($getTicket[0]->departmentName)) ? '' : $getTicket[0]->departmentName ?>
       </div>
     </div>
   </div>

@@ -6,9 +6,8 @@
             
             <div class="form-group headingmain">                        
                 <h2 class="title" style="margin:10px">Ticket Details - <?= $getTicket[0]->ticket_code; ?>  
-                        <a href="<?= client_url().'tickets/view/1'; ?>" style="margin:10px" class="btn btn-sm btn-primary pull-right m-t-n-xs" ><strong><i class="fa fa-tag"></i> View Tickets </strong></a> 
+                        <a href="<?= client_url().'tickets/view/' . $decodeId; ?>" style="margin:10px" class="btn btn-sm btn-primary pull-right m-t-n-xs" ><strong><i class="fa fa-tag"></i> View Tickets </strong></a> 
                 </h2> 
-                                            
             </div>
 
             <div class="form-group">
