@@ -36,12 +36,12 @@
                     <ul class="nav nav-second-level">
                         <li class="<?= $department; ?>"><a href="<?= admin_url() ."setting"; ?>">Department</a></li>
                     </ul>
-                    <ul class="nav nav-second-level">
+                    <!-- <ul class="nav nav-second-level">
                         <li class="<?= $general; ?>"><a href="<?= admin_url() ."setting/general"; ?>">General Settings</a></li>
                     </ul>
                        <ul class="nav nav-second-level">
                         <li class="<?= $email_setting; ?>"><a href="<?= admin_url() ."setting/email_setting"; ?>">Email Settings</a></li>
-                    </ul>
+                    </ul> -->
                 </li>
         </ul>
 

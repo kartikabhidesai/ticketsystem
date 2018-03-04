@@ -1,5 +1,4 @@
 <?php
-
 class Tickets extends Admin_Controller {
 
     function __construct() {
@@ -58,7 +57,7 @@ class Tickets extends Admin_Controller {
         $data['reporter_detail'] = $this->Client_model->getReporterDetail($clientId);
         // print_r($data['reporter_detail'] );exit;
         if($this->input->post()){
-            // print_r($this->input->post());exit;
+            print_r($this->input->post());exit;
              $res = $this->this_model->addTicket($this->input->post());
             
                 if($res)
@@ -77,10 +76,9 @@ class Tickets extends Admin_Controller {
 
     function view($id) {
          $ticketId = $this->utility->decode($id);
-        
-         if(!ctype_digit($ticketId)){
-             redirect(admin_url().'tickets');
-         }
+        // if(!ctype_digit($ticketId)){
+        //      redirect(admin_url().'tickets');
+        // }
         $data['page'] = "admin/tickets/view";
         $data['ticket'] = 'active';
         $data['pagetitle'] = 'Tickets';
@@ -92,6 +90,8 @@ class Tickets extends Admin_Controller {
         $data['css'] = array();
         
         $data['js'] = array(
+            'ajaxfileupload.js',
+            'jquery.form.min.js',
             'admin/ticket.js',
         );
         $data['init'] = array(
@@ -105,9 +105,11 @@ class Tickets extends Admin_Controller {
         }
         $data['decodeId'] = $id;
         $data['department_detail'] = $this->Department_model->getDepartmentDetail();
+        $data['comment_replay'] = $this->this_model->getCommentReplay($ticketId, '');
+        // print_r( $data['comment_replay'] );exit;
         if($this->input->post()){
-            $res = $this->this_model->updateCoversation($this->input->post(),$ticketId);
-            echo json_encode($res); exit();
+            // $res = $this->this_model->updateCoversation($this->input->post(),$ticketId);
+            // echo json_encode($res); exit();
         }
         $this->load->view(ADMIN_LAYOUT, $data);
     }
@@ -195,38 +197,12 @@ class Tickets extends Admin_Controller {
             echo json_encode($result); exit();
         }
     }
-
     
-    function sendEmail(){
-        $this->load->library('email');
-        
-        $config['protocol'] = "smtp";
-        $config['smtp_host'] = SMTP_HOST;
-        $config['smtp_port'] = SMTP_PORT;
-        $config['smtp_user'] = SMTP_USER;
-        $config['smtp_pass'] = SMTP_PASS;
-        
-        $config['smtp_timeout'] = 20;
-        $config['priority'] = 1;
-        $config['charset'] = 'utf-8';
-        $config['wordwrap'] = TRUE;
-        $config['crlf'] = "\r\n";
-        $config['newline'] = "\r\n";
-        $config['mailtype'] = "html";
-        $config['starttls']  = true;
-                
-        
-        
-        $this->email->initialize($config);
-        //$this->email->clear(TRUE);
-        $this->email->to('kartikdesai123@gmail.com');
-        $this->email->from($config ['smtp_user'], PROJECT_NAME);
-        
-        $this->email->subject('Test Email');
-        $this->email->message('Hello this is test mgs');
-       
-        $response = $this->email->send();
-        echo $this->email->print_debugger();exit;
+    function preview() {
+          if($this->input->post()){
+            $res = $this->this_model->updateCoversation($this->input->post(),'');
+            echo json_encode($res); exit();
+        }
     }
 
 }

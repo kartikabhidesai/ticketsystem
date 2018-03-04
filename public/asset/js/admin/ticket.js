@@ -70,6 +70,17 @@ var Tickets = function() {
             handleAjaxFormSubmit(form,true);
         });
     };
+
+    var addCommentReplay = function() {
+       
+        var form = $('#addCommentForm');
+        var rules = {
+            message_reply: {required: true},
+        };
+        handleFormValidate(form, rules, function(form) {
+            handleAjaxFormSubmit(form);
+        });
+    };
     
     
     var clientDetail = function() {
@@ -175,6 +186,7 @@ var Tickets = function() {
         },
         clientViews: function() {
             deleteTicket();
+            addCommentReplay();
         },
     };
 }();

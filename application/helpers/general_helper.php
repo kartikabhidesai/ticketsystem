@@ -318,6 +318,30 @@ function convertNumber($number)
     return preg_replace('/[^\\d.]+/', '', $number);
 }
 
+function time_ago_new($datetime) {
+
+    $date2 = date("Y-m-d h:i:s");
+    $date1 = $datetime;
+    $diff = abs(strtotime($date2) - strtotime($date1));
+
+    $min = 60;
+    $hour = 60 * 60;
+    $day = 60 * 60 * 24;
+    $month = $day * 30;
+
+    if ($diff < 60) { //Under a min
+        $timeago = $diff . " seconds";
+    } elseif ($diff < $hour) { //Under an hour
+        $timeago = round($diff / $min) . " mins";
+    } elseif ($diff < $day) { //Under a day
+        $timeago = round($diff / $hour) . " hours";
+    } elseif ($diff < $month) { //Under a day
+        $timeago = round($diff / $day) . " days";
+    } else {
+        $timeago = round($diff / $month) . " months";
+    }
+    return $timeago;
+}
 
 function age_diff($fromdate, $todate)
 {

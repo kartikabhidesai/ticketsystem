@@ -75,10 +75,11 @@
 </div>
 
 <div class="form-group headingmain">                        
-  <h2 class="title" style="margin:10px">Subject: New printer install </h2>
+  <h2 class="title" style="margin:10px">Subject: <?php echo $getTicket[0]->subject;?> </h2>
 </div>
-<div class="form-group headingmain">                        
- Would like to have new printer installed.
+<div class=" headingmain" style="margin: 0px 0px 0px 28px;font-size: 18px;">                        
+ <!-- Would like to have new printer installed. -->
+ <?php echo $getTicket[0]->ticket_message;?>
 </div>
 </form>
 </div>
@@ -90,31 +91,39 @@
         <div class="row">
 
           <div class="" style="border: 1px solid #e7eaec;padding:10px;">
-            <form role="form" method="post" id="addComment">
+         <form method="post" class="form-horizontal" action="<?= admin_url(); ?>tickets/preview" id='addCommentForm'>
+           <!--  <form method="post" class="form-horizontal"  enctype="multipart/form-data"  action="<?= admin_url(); ?>tickets/add" id='ticketsAddForm'> -->
               <div class="form-group">
-                <textarea class="form-control" placeholder="Ticket #HO4IZGL reply"></textarea>
+                <textarea class="form-control" name="message_reply" placeholder="Ticket #<?= $getTicket[0]->ticket_code ?> reply"></textarea>
               </div>
+              <input type="hidden" name="ticket_id" value="<?php echo $getTicket[0]->id;?>">
+              <input type="hidden" name="replay_by" value="A">
+              <input type="hidden" name="replay_id" value="0">
               <div class="text-right">
                 <button type="submit" class="btn btn-sm btn-primary m-t-n-xs"><strong>Replay Ticket</strong></button>
               </div>
             </form>
           </div>
-
+        <?php foreach ($comment_replay as $key => $value) {
+          ?>
           <div class="col-lg-12" style="border: 1px solid #e7eaec;padding:10px;margin-top:10px; ">
+         
             <div class="ibox float-e-margins">
               <div class="feed-activity-list">
                 <div class="">
                   <div class="media-body">
-                    <small class="pull-right"> <i class="fa fa-clock-o"></i> 3 Years ago</small>
-                    <strong>Justin.govan</strong> <strong class="btn btn-primary btn-xs btn-danger">Monica Smith</strong> 
+                    <small class="pull-right"> <i class="fa fa-clock-o"></i> 
+                      <?= time_ago_new($value->dt_created) ?> ago</small>
+                    <strong><?php echo $value->first_name .' '. $value->last_name; ?></strong> <strong class="btn btn-primary btn-xs btn-danger"><?= ($value->replay_by == 'A' ? 'Admin' : 'Client'); ?></strong> 
                     <div class="" style="border-top: 1px solid #e7eaec;margin: 15px; padding-top: 15px; ">
-                      Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever 
+                      <?php echo $value->description; ?>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
+          <?php  } ?>
         </div>
       </div>
     </div>
