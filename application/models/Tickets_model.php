@@ -211,6 +211,23 @@ class Tickets_model extends My_model {
         return $result;
     }
 
+    function updateStatus($postData) {
+        $data['update']['status'] = $postData['status'];
+        $data['where'] = ['id' => $postData['ticket_id']];
+        $data['table'] = TABLE_TICKET;
+        $result = $this->updateRecords($data);
+        unset($data);
+        if ($result) {
+            $json_response['status'] = 'success';
+            $json_response['message'] = 'Status Change successfully';
+            $json_response['jscode'] = 'setTimeout(function(){location.reload();},1000)';
+        } else {
+            $json_response['status'] = 'error';
+            $json_response['message'] = 'Something went wrong';
+        }
+        return $json_response;
+    }
+
 }
 
 ?>

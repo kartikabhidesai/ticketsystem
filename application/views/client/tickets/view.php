@@ -1,137 +1,137 @@
-
 <style type="text/css">
-.ibox-content {
-  clear: both;
-  border: none;
-}
+    .ibox-content {
+        clear: both;
+        border: none;
+    }
 </style>
 <div class="wrapper wrapper-content white-bg m-t">
-  <div class=" animated fadeInRightBig">
+    <div class=" animated fadeInRightBig">
 
-    <form method="post" class="form-horizontal"  enctype="multipart/form-data"  action="" id=''>
+        <form method="post" class="form-horizontal"  enctype="multipart/form-data"  action="" id=''>
 
-      <div class="form-group headingmain">                        
-        <label class="col-sm-2 displaylable">
-         <a href="<?= client_url().'tickets/edit/' . $decodeId; ?>" style="margin:10px" class="btn btn-sm btn-primary pull-left m-t-n-xs" ><strong><i class="fa fa-tag"></i> Edit Ticket</strong></a>
-       </label>
-       <label class="col-sm-8 displaylable" style="margin-top:10px">
-        <div class="input-group-btn"   >
-          <button data-toggle="dropdown" class="btn btn-white dropdown-toggle" type="button">Change Status <span class="caret"></span></button>
-          <ul class="dropdown-menu">
-            <li><a href="#">Answer</a></li>
-            <li><a href="#">Close</a></li>
-            <li><a href="#">Open</a></li>
-            <li><a href="#">In Progress</a></li>
-          </ul>
-        </div>
-      </label>
-      <label class="col-sm-2 displaylable">
-        <a data-toggle="modal" data-target="#myModal_autocomplete" data-href="<?= client_url().'tickets/deleteTicket'?>" data-id="<?php echo $getTicket[0]->id;?>" style="margin:10px" data-toggle="tooltip" data-original-title="Delete Ticket" class="btn btn-danger btn-sm pull-right deletebutton"><strong><i class="fa fa-trash-o"></i> Delete Ticket</strong></a>
-      </label>
-    </div>
-
-    <div class="row">
-     <div class="col-md-6">
-      <div class="form-group">
-        <label class="col-sm-5 displaylable">Ticket Code</label>
-        <div class="col-sm-7">
-         <?= $getTicket[0]->ticket_code ?>
-       </div>
-     </div>
-     <div class="form-group">
-      <label class="col-sm-5 displaylable">Reporter </label>
-      <div class="col-sm-7">
-        <?= (empty($getTicket[0]->first_name)) ? '' : $getTicket[0]->first_name . ' ' . $getTicket[0]->last_name ?>
-      </div>
-    </div>
-    <div class="form-group">
-      <label class="col-sm-5 displaylable">Department</label>
-      <div class="col-sm-7">
-         <?= (empty($getTicket[0]->departmentName)) ? '' : $getTicket[0]->departmentName ?>
-      </div>
-    </div>
-  </div>
-  <div class="col-md-6">
-    <div class="form-group">
-      <label class="col-sm-5 displaylable">Status</label>
-      <div class="col-sm-7">
-        <span class="btn btn-primary btn-xs">  <?= $getTicket[0]->status ?> </span>
-      </div>
-    </div>
-    <div class="form-group">
-      <label class="col-sm-5 displaylable"> Priority </label>
-      <div class="col-sm-7">
-        <?= $getTicket[0]->priority ?>
-      </div>
-    </div>
-    <div class="form-group">
-      <label class="col-sm-5 displaylable"> Created</label>
-      <div class="col-sm-7">
-        <?= date('Y-m-d h:i:s',$getTicket[0]->dt_created) ?>
-       
-     </div>
-   </div>
- </div>
-</div>
-
-<div class="form-group headingmain">                        
-  <h2 class="title" style="margin:10px">Subject: New printer install </h2>
-</div>
-<div class="form-group headingmain">                        
- Would like to have new printer installed.
-</div>
-</form>
-</div>
-<div class="row m-t-lg">
-  <div class="col-lg-12">
-    <div class="ibox float-e-margins">
-
-      <div class="ibox-content">
-        <div class="row">
-
-          <div class="" style="border: 1px solid #e7eaec;padding:10px;">
-              <form method="post" class="form-horizontal" action="<?= client_url(); ?>tickets/preview" id='addCommentForm'>
-               <div class="form-group">
-                <textarea class="form-control" name="message_reply" placeholder="Ticket #<?= $getTicket[0]->ticket_code ?> reply"></textarea>
-              </div>
-              <input type="hidden" name="ticket_id" value="<?php echo $getTicket[0]->id;?>">
-              <input type="hidden" name="replay_by" value="C">
-              <input type="hidden" name="replay_id" value="0">
-              <div class="text-right">
-                <button type="submit" class="btn btn-sm btn-primary m-t-n-xs"><strong>Replay Ticket</strong></button>
-              </div>
-            </form>
-          </div>
-
-        <?php
-          if (count($comment_replay) == 0) {
-            echo '<h2> Sorry, No Comment Found.<h2>';  
-          }
-          ?>
-          <?php foreach ($comment_replay as $key => $value) {
-              ?>
-          <div class="col-lg-12" style="border: 1px solid #e7eaec;padding:10px;margin-top:10px; ">
-             <div class="ibox float-e-margins">
-              <div class="feed-activity-list">
-                <div class="">
-                  <div class="media-body">
-                    <small class="pull-right"> <i class="fa fa-clock-o"></i> 
-                      <?= time_ago_new($value->dt_created) ?> ago</small>
-                    <strong><?php echo $value->first_name .' '. $value->last_name; ?></strong> <strong class="btn btn-primary btn-xs btn-danger"><?= ($value->replay_by == 'A' ? 'Admin' : 'Client'); ?></strong> 
-                    <div class="" style="border-top: 1px solid #e7eaec;margin: 15px; padding-top: 15px; ">
-                      <?php echo $value->description; ?>
+            <div class="form-group headingmain">                        
+                <label class="col-sm-2 displaylable">
+                    <a href="<?= client_url() . 'tickets/edit/' . $decodeId; ?>" style="margin:10px" class="btn btn-sm btn-primary pull-left m-t-n-xs" ><strong><i class="fa fa-tag"></i> Edit Ticket</strong></a>
+                </label>
+                <label class="col-sm-8 displaylable" style="margin-top:10px">
+                    <div class="input-group-btn">
+                        <div class="col-md-4">
+                            <select class="changeStatus form-control">
+                                <option value="">Select Status</option>
+                                <option value="ANSWERED">Answer</option>
+                                <option value="CLOSED">Close</option>
+                                <option value="Open">Open</option>
+                                <option value="IN_PROGRESS">In Progress</option>
+                            </select>
+                        </div>
                     </div>
-                  </div>
-                </div>
-              </div>
+                </label>
+                <label class="col-sm-2 displaylable">
+                    <a data-toggle="modal" data-target="#myModal_autocomplete" data-href="<?= client_url() . 'tickets/deleteTicket' ?>" data-id="<?php echo $getTicket[0]->id; ?>" style="margin:10px" data-toggle="tooltip" data-original-title="Delete Ticket" class="btn btn-danger btn-sm pull-right deletebutton"><strong><i class="fa fa-trash-o"></i> Delete Ticket</strong></a>
+                </label>
             </div>
-          </div>
-          <?php  } ?>
-        </div>
-      </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-5 displaylable">Ticket Code</label>
+                        <div class="col-sm-7">
+                            <?= $getTicket[0]->ticket_code ?>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-5 displaylable">Reporter </label>
+                        <div class="col-sm-7">
+                            <?= (empty($getTicket[0]->first_name)) ? '' : $getTicket[0]->first_name . ' ' . $getTicket[0]->last_name ?>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-5 displaylable">Department</label>
+                        <div class="col-sm-7">
+                            <?= (empty($getTicket[0]->departmentName)) ? '' : $getTicket[0]->departmentName ?>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-5 displaylable">Status</label>
+                        <div class="col-sm-7">
+                            <span class="btn btn-primary btn-xs">  <?= str_replace('_',' ',$getTicket[0]->status) ?> </span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-5 displaylable"> Priority </label>
+                        <div class="col-sm-7">
+                            <?= $getTicket[0]->priority ?>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-5 displaylable"> Created</label>
+                        <div class="col-sm-7">
+                            <?= date('Y-m-d h:i:s', $getTicket[0]->dt_created) ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group headingmain">                        
+                <h2 class="title" style="margin:10px">Subject: <?php echo $getTicket[0]->subject; ?></h2>
+            </div>
+            <div class=" headingmain" style="margin: 0px 0px 0px 28px;font-size: 18px;">                     
+                <?php echo $getTicket[0]->ticket_message; ?>
+            </div>
+        </form>
     </div>
-  </div>
-</div>
+    <div class="row m-t-lg">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+
+                <div class="ibox-content">
+                    <div class="row">
+
+                        <div class="" style="border: 1px solid #e7eaec;padding:10px;">
+                            <form method="post" class="form-horizontal" action="<?= client_url(); ?>tickets/preview" id='addCommentForm'>
+                                <div class="form-group">
+                                    <textarea class="form-control" name="message_reply" placeholder="Ticket #<?= $getTicket[0]->ticket_code ?> reply"></textarea>
+                                </div>
+                                <input type="hidden" id="ticket_id" name="ticket_id" value="<?php echo $getTicket[0]->id; ?>">
+                                <input type="hidden" name="replay_by" value="C">
+                                <input type="hidden" name="replay_id" value="0">
+                                <div class="text-right">
+                                    <button type="submit" class="btn btn-sm btn-primary m-t-n-xs"><strong>Replay Ticket</strong></button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <?php
+                        if (count($comment_replay) == 0) {
+                            echo '<h3 style="text-align:center;color:red;"> Sorry, No Comment Found.<h3>';
+                        }
+                        ?>
+                        <?php foreach ($comment_replay as $key => $value) {
+                            ?>
+                            <div class="col-lg-12" style="border: 1px solid #e7eaec;padding:10px;margin-top:10px; ">
+                                <div class="ibox float-e-margins">
+                                    <div class="feed-activity-list">
+                                        <div class="">
+                                            <div class="media-body">
+                                                <small class="pull-right"> <i class="fa fa-clock-o"></i> 
+                                                    <?= time_ago_new($value->dt_created) ?> ago</small>
+                                                <strong><?php echo $value->first_name . ' ' . $value->last_name; ?></strong> <strong class="btn btn-primary btn-xs btn-danger"><?= ($value->replay_by == 'A' ? 'Admin' : 'Client'); ?></strong> 
+                                                <div class="" style="border-top: 1px solid #e7eaec;margin: 15px; padding-top: 15px; ">
+                                                    <?php echo $value->description; ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php } ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="modal inmodal" id="myModal_autocomplete" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content animated bounceInRight">

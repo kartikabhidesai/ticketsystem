@@ -176,6 +176,12 @@ class Tickets extends Client_Controller {
             echo json_encode($res); exit();
         }
     }
+    function changeStatus() {
+          if($this->input->post()){
+            $res = $this->this_model->updateStatus($this->input->post());
+            echo json_encode($res); exit();
+        }
+    }
 
 }
 

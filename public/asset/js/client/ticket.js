@@ -120,6 +120,20 @@ var Tickets = function() {
         handleFormValidate(form, rules, function(form) {
             handleAjaxFormSubmit(form);
         });
+        
+        $('body').on('click', '.changeStatus', function() {
+            var status = $('.changeStatus option:selected').val();
+            var ticket_id = $('#ticket_id').val();
+         
+            if (status != '') {
+                var url = baseurl + 'client/tickets/changeStatus';
+                var data = {status: status,ticket_id: ticket_id};
+                ajaxcall(url, data, function(output) {
+                    handleAjaxResponse(output)
+                });
+            }
+        });
+        
     };
     
     
