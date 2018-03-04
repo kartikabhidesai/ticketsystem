@@ -96,5 +96,60 @@ class Setting extends Admin_Controller {
             echo json_encode($result); exit();
         }
     }
+
+      function general() {
+        $data['page'] = "admin/setting/general/index";
+        $data['setting'] = 'active';
+        $data['general'] = 'active';
+        $data['pagetitle'] = 'General';
+        $data['var_meta_title'] = 'General';
+        $data['breadcrumb'] = array(
+            'dashboard'=>'Home',
+            'general'=>'General',
+        );
+        $data['css'] = array();
+        
+        $data['js'] = array(
+            'admin/setting.js',
+        );
+        $data['init'] = array(
+            'Setting.general_init()',
+        );
+        
+        // $data['department_detail'] = $this->this_model->getDepartmentDetail($ids);
+        // if($this->input->post()){
+        //     $res = $this->this_model->editDepartment($this->input->post(),$ids);
+        //     echo json_encode($res); exit();
+        // }
+        $this->load->view(ADMIN_LAYOUT, $data);
+    }
+    
+
+      function email_setting() {
+        $data['page'] = "admin/setting/email_setting/index";
+        $data['setting'] = 'active';
+        $data['email_setting'] = 'active';
+        $data['pagetitle'] = 'Email Settings';
+        $data['var_meta_title'] = 'Email Settings';
+        $data['breadcrumb'] = array(
+            'dashboard'=>'Home',
+            'email_setting'=>'Email Settings',
+        );
+        $data['css'] = array();
+        
+        $data['js'] = array(
+            'admin/setting.js',
+        );
+        $data['init'] = array(
+            'Setting.email_init()',
+        );
+        
+        // $data['department_detail'] = $this->this_model->getDepartmentDetail($ids);
+        // if($this->input->post()){
+        //     $res = $this->this_model->editDepartment($this->input->post(),$ids);
+        //     echo json_encode($res); exit();
+        // }
+        $this->load->view(ADMIN_LAYOUT, $data);
+    }
 }
 ?>
