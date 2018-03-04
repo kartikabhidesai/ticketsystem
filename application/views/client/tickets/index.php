@@ -32,7 +32,7 @@
                                         <td><?= $getTicket[$i]->subject; ?></td>
                                         <td><?= $getTicket[$i]->name; ?></td>
                                         <td><?= $getTicket[$i]->priority; ?></td>
-                                        <td><?= $getTicket[$i]->status; ?></td>
+                                        <td><?= str_replace('_',' ',$getTicket[$i]->status); ?></td>
                                         <td>   
                                           
                                         <a title="Preview Ticket"  href="<?= client_url().'tickets/edit/' .  $this->utility->encode($getTicket[$i]->id); ?>"> <i class="fa fa-edit text-navy"></i> </a>

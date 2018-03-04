@@ -58,10 +58,7 @@ class Tickets extends Admin_Controller {
         $data['reporter_detail'] = $this->Client_model->getReporterDetail($clientId);
         // print_r($data['reporter_detail'] );exit;
         if ($this->input->post()) {
-            print_r($this->input->post());
-            exit;
             $res = $this->this_model->addTicket($this->input->post());
-
             if ($res) {
                 $json_response['status'] = 'success';
                 $json_response['message'] = 'Ticket add successfully.';

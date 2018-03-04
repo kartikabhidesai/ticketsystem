@@ -7,8 +7,6 @@ class Tickets_model extends My_model {
     }
 
     function addTicket($postData) {
-
-
         $ticket_attachment = '';
         if (!empty($_FILES['ticket_attachment'])) {
             $config['upload_path'] = './uploads/';
@@ -41,7 +39,8 @@ class Tickets_model extends My_model {
         $data['insert']['dt_updated'] = DATE_TIME;
         $data['table'] = TABLE_TICKET;
         $result = $this->insertRecord($data);
-
+//     $this->sendTicketMail($postData, $result);
+//     exit;
         unset($data);
         if ($result) {
             $this->sendTicketMail($postData, $result);
@@ -53,13 +52,16 @@ class Tickets_model extends My_model {
 
     public function sendTicketMail($postData, $result) {
         // print_r($postData);exit;
-        $postData['link'] = admin_url() . 'tickets/view/' . $this->utility->encode($result);
-        // $data['message'] = $this->load->view('email_template/ticket_mail',$n,true);
-        $data ['message'] = $postData['ticket_message'] . '<br>' . $postData['link'];
-        $data ['from_title'] = 'Create Ticketd';
-        $data ['subject'] = $postData['subject'];
-        $data ['to'] = 'shaileshvanaliya91@gmail.com';
-        // $data ["to"] = $postData['person_email'];
+        $data['link'] = base_url_index() . 'admin/tickets/view/' . $this->utility->encode($result);
+        $data['ticket_code'] = $postData['ticket_code'];
+        $data['status'] = $postData['status'];
+        $data['client_email'] = $postData['client_email'];
+        $data['message'] = $this->load->view('email_template/ticket_mail', $data, true);
+        
+        $data['from_title'] = 'Create Ticketd';
+        $data['subject'] = $postData['subject'];
+        $data['to'] = 'shaileshvanaliya91@gmail.com';
+     // $data["to"] = $postData['person_email'];
         $mailSend = $this->utility->sendMailSMTP($data);
         return true;
     }

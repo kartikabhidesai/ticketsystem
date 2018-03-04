@@ -34,7 +34,7 @@
                                         <td><?= $getTicket[$i]->first_name .' ' . $getTicket[$i]->last_name; ?> </td>
                                         <td><?= $getTicket[$i]->name; ?></td>
                                         <td><?= $getTicket[$i]->priority; ?></td>
-                                        <td><?= $getTicket[$i]->status; ?></td>
+                                        <td><?= str_replace('_',' ',$getTicket[$i]->status); ?></td>
                                         <td>   
                                         <a title="Edit Ticket"  href="<?= admin_url().'tickets/edit/' .  $this->utility->encode($getTicket[$i]->id); ?>"> <i class="fa fa-edit text-navy"></i> </a>
 
