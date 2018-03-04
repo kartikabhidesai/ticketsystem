@@ -7,7 +7,8 @@ class Tickets_model extends My_model {
     }
 
     function addTicket($postData) {
-        
+
+     
         $ticket_attachment = '';
         if(!empty($_FILES['ticket_attachment'])){
             $config['upload_path'] = './uploads/';
@@ -43,10 +44,10 @@ class Tickets_model extends My_model {
         $data['insert']['dt_updated'] = DATE_TIME;
         $data['table'] = TABLE_TICKET;
         $result = $this->insertRecord($data);
-       
+
         unset($data);
         if ($result) {
-            $this->sendTicketMail($postData);
+            $this->sendTicketMail($postData,$result);
             return true;
         } else {
            return false;
@@ -54,16 +55,18 @@ class Tickets_model extends My_model {
        
     }
 
-        public function sendTicketMail($postData){
-          
-            $data ['message'] = $postData['ticket_message'] . 
+    public function sendTicketMail($postData,$result){
+             // print_r($postData);exit;
+            $postData['link'] = admin_url().'tickets/view/'.  $this->utility->encode($result);
+            // $data['message'] = $this->load->view('email_template/ticket_mail',$n,true);
+            $data ['message'] = $postData['ticket_message'] . '<br>' . $postData['link'];
             $data ['from_title'] = 'Create Ticketd';
             $data ['subject'] = $postData['subject'];
             $data ['to'] = 'shaileshvanaliya91@gmail.com';
             // $data ["to"] = $postData['person_email'];
             $mailSend = $this->utility->sendMailSMTP($data);
             return true;
-        }
+    }
 
     function getClientTicketList($client_id) {
         

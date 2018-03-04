@@ -23,7 +23,8 @@
                 <label class="col-sm-3 control-label">Ticket Code *</label>
                 <div class="col-sm-7">
                     <input type="text" placeholder="Enter Ticket Code" name="ticket_code" class="form-control ticketCode">
-                    <input type="hidden" value="OPEN" placeholder="Enter Ticket Code" name="status" class="form-control">
+                    <input type="hidden" value="OPEN" placeholder="Enter Ticket Code" name="status" class="form-control">      
+                    <input type="hidden" value=""  name="client_email" class="form-control client_email">
                 </div>
             </div>
             <div class="form-group">
@@ -35,11 +36,11 @@
               <div class="form-group">
                 <label class="col-sm-3 control-label">Reporter *</label>
                 <div class="col-sm-7">
-                      <select class="form-control m-b" name="client_id">
+                      <select class="form-control m-b client_id" id="client_id" name="client_id">
                            <option value="">Select Reporter</option>
                         <?php for($i=0; $i<count($reporter_detail); $i++){
                         ?>
-                            <option value="<?= $reporter_detail[$i]->id;?>"><?= $reporter_detail[$i]->first_name;?></option>
+                            <option data-email="<?= $reporter_detail[$i]->email;?>" value="<?= $reporter_detail[$i]->id;?>"><?= $reporter_detail[$i]->first_name;?></option>
                         <?php } ?>
 
                     </select>

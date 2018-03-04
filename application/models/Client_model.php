@@ -241,7 +241,7 @@ class Client_model extends My_model {
     }
 
     function getReporterDetail($id = NULL) {
-        $data['select'] = ['last_name','id','first_name'];
+        $data['select'] = ['last_name','id','first_name','email'];
             $data['where'] = ['type' => 'C'];
             // $data['where'] = ['is_verify' => '1'];
         $data['table'] = TABLE_USER;

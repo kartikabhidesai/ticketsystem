@@ -134,8 +134,17 @@ var Tickets = function() {
             }else{
                 $('.ticketCode').val(''); 
             }
-            
         });
+
+        $('.client_id').on('change',function(){
+            var clientEmail = $('option:selected', this).attr('data-email');
+            if(clientEmail != ''){
+                $('.client_email').val(clientEmail); 
+            }else{
+                $('.client_email').val(''); 
+            }
+        });
+
     }
     
     function randomString() {
