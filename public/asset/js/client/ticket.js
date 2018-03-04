@@ -162,5 +162,8 @@ var Tickets = function() {
             ticketEdit();
             genral();
         },
+        clientViews: function() {
+            deleteTicket();
+        },
     };
 }();

@@ -26,7 +26,7 @@
         </div>
       </label>
       <label class="col-sm-2 displaylable">
-        <a  href="javascript:;" style="margin:10px" data-toggle="tooltip" data-original-title="Delete Ticket" class="btn btn-danger btn-sm pull-right"><strong><i class="fa fa-trash-o"></i> Delete Ticket</strong></a>
+        <a data-toggle="modal" data-target="#myModal_autocomplete" data-href="<?= client_url().'tickets/deleteTicket'?>" data-id="<?php echo $getTicket[0]->id;?>" style="margin:10px" data-toggle="tooltip" data-original-title="Delete Ticket" class="btn btn-danger btn-sm pull-right deletebutton"><strong><i class="fa fa-trash-o"></i> Delete Ticket</strong></a>
       </label>
     </div>
 
@@ -120,5 +120,24 @@
     </div>
   </div>
 </div>
+<div class="modal inmodal" id="myModal_autocomplete" tabindex="-1" role="dialog" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content animated bounceInRight">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                    <i class="fa fa-close modal-icon"></i>
+                                    <h4 class="modal-title">Delete</h4>
+                                    <!--<small class="font-bold">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</small>-->
+                                </div>
+                                <div class="modal-body">
+                                    <h4>Are you sure?</h4>
 
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+                                    <button  id='btndelete' data-url="" data-id="" type="button" class="btn btn-primary">Delete</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 </div>

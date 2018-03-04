@@ -95,7 +95,7 @@ class Tickets extends Admin_Controller {
             'admin/ticket.js',
         );
         $data['init'] = array(
-            'Tickets.ticketAdd()',
+            'Tickets.clientViews()',
         );
         
         $data['getTicket'] = $this->this_model->getTicketDetail($ticketId);

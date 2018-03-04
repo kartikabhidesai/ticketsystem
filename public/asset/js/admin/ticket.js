@@ -116,6 +116,7 @@ var Tickets = function() {
     var deleteTicket = function(){
         
         $('body').on('click','.deletebutton',function(){
+            alert();
             var personId = $(this).attr('data-id');
             var dataUrl = $(this).attr('data-href');
           
@@ -171,6 +172,9 @@ var Tickets = function() {
         ticketEdit: function() {
             ticketEdit();
             genral();
+        },
+        clientViews: function() {
+            deleteTicket();
         },
     };
 }();

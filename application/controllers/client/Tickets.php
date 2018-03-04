@@ -100,7 +100,7 @@ class Tickets extends Client_Controller {
             'client/ticket.js',
         );
         $data['init'] = array(
-            'Tickets.ticketAdd()',
+            'Tickets.clientViews()',
         );
         $data['getTicket'] = $this->this_model->getTicketDetail($ticketId);
         if(empty($data['getTicket'])){
@@ -140,7 +140,7 @@ class Tickets extends Client_Controller {
             'Tickets.ticketEdit()',
         );
         $data['decodeId'] = $id;
-        
+
         $data['department_detail'] = $this->Department_model->getDepartmentDetail();
         $data['getTicket'] = $this->this_model->getTicketDetail($ticketId);
 

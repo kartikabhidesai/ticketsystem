@@ -31,7 +31,7 @@
                                     <tr>
                                         <td><?= $getTicket[$i]->ticket_code; ?></td>
                                         <td><?= $getTicket[$i]->subject; ?></td>
-                                        <td><?= $getTicket[$i]->first_name .' ' . $getTicket[$i]->last_name; ?></td>
+                                        <td><?= $getTicket[$i]->first_name .' ' . $getTicket[$i]->last_name; ?> </td>
                                         <td><?= $getTicket[$i]->name; ?></td>
                                         <td><?= $getTicket[$i]->priority; ?></td>
                                         <td><?= $getTicket[$i]->status; ?></td>
