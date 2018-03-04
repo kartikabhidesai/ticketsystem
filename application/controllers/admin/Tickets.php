@@ -76,9 +76,9 @@ class Tickets extends Admin_Controller {
 
     function view($id) {
          $ticketId = $this->utility->decode($id);
-        // if(!ctype_digit($ticketId)){
-        //      redirect(admin_url().'tickets');
-        // }
+         if(!ctype_digit($ticketId)){
+              redirect(admin_url().'tickets');
+         }
         $data['page'] = "admin/tickets/view";
         $data['ticket'] = 'active';
         $data['pagetitle'] = 'Tickets';

@@ -8,7 +8,7 @@
 <div class="wrapper wrapper-content white-bg m-t">
   <div class=" animated fadeInRightBig">
 
-    <form method="post" class="form-horizontal"  enctype="multipart/form-data"  action="<?= client_url(); ?>tickets/edit" id='ticketEditForm'>
+    <form method="post" class="form-horizontal"  enctype="multipart/form-data"  action="" id=''>
 
       <div class="form-group headingmain">                        
         <label class="col-sm-2 displaylable">
@@ -90,54 +90,66 @@
         <div class="row">
 
           <div class="" style="border: 1px solid #e7eaec;padding:10px;">
-            <form role="form" method="post" id="addComment">
-              <div class="form-group">
-                <textarea class="form-control" placeholder="Ticket #HO4IZGL reply"></textarea>
+              <form method="post" class="form-horizontal" action="<?= client_url(); ?>tickets/preview" id='addCommentForm'>
+               <div class="form-group">
+                <textarea class="form-control" name="message_reply" placeholder="Ticket #<?= $getTicket[0]->ticket_code ?> reply"></textarea>
               </div>
+              <input type="hidden" name="ticket_id" value="<?php echo $getTicket[0]->id;?>">
+              <input type="hidden" name="replay_by" value="C">
+              <input type="hidden" name="replay_id" value="0">
               <div class="text-right">
                 <button type="submit" class="btn btn-sm btn-primary m-t-n-xs"><strong>Replay Ticket</strong></button>
               </div>
             </form>
           </div>
 
+        <?php
+          if (count($comment_replay) == 0) {
+            echo '<h2> Sorry, No Comment Found.<h2>';  
+          }
+          ?>
+          <?php foreach ($comment_replay as $key => $value) {
+              ?>
           <div class="col-lg-12" style="border: 1px solid #e7eaec;padding:10px;margin-top:10px; ">
-            <div class="ibox float-e-margins">
+             <div class="ibox float-e-margins">
               <div class="feed-activity-list">
                 <div class="">
                   <div class="media-body">
-                    <small class="pull-right"> <i class="fa fa-clock-o"></i> 3 Years ago</small>
-                    <strong>Justin.govan</strong> <strong class="btn btn-primary btn-xs btn-danger">Monica Smith</strong> 
+                    <small class="pull-right"> <i class="fa fa-clock-o"></i> 
+                      <?= time_ago_new($value->dt_created) ?> ago</small>
+                    <strong><?php echo $value->first_name .' '. $value->last_name; ?></strong> <strong class="btn btn-primary btn-xs btn-danger"><?= ($value->replay_by == 'A' ? 'Admin' : 'Client'); ?></strong> 
                     <div class="" style="border-top: 1px solid #e7eaec;margin: 15px; padding-top: 15px; ">
-                      Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever 
+                      <?php echo $value->description; ?>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
+          <?php  } ?>
         </div>
       </div>
     </div>
   </div>
 </div>
-<div class="modal inmodal" id="myModal_autocomplete" tabindex="-1" role="dialog" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content animated bounceInRight">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                                    <i class="fa fa-close modal-icon"></i>
-                                    <h4 class="modal-title">Delete</h4>
-                                    <!--<small class="font-bold">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</small>-->
-                                </div>
-                                <div class="modal-body">
-                                    <h4>Are you sure?</h4>
+    <div class="modal inmodal" id="myModal_autocomplete" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content animated bounceInRight">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <i class="fa fa-close modal-icon"></i>
+                    <h4 class="modal-title">Delete</h4>
+                    <!--<small class="font-bold">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</small>-->
+                </div>
+                <div class="modal-body">
+                    <h4>Are you sure?</h4>
 
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
-                                    <button  id='btndelete' data-url="" data-id="" type="button" class="btn btn-primary">Delete</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+                    <button  id='btndelete' data-url="" data-id="" type="button" class="btn btn-primary">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

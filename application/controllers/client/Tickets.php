@@ -97,6 +97,8 @@ class Tickets extends Client_Controller {
         $data['css'] = array();
         
         $data['js'] = array(
+            'ajaxfileupload.js',
+            'jquery.form.min.js',
             'client/ticket.js',
         );
         $data['init'] = array(
@@ -107,6 +109,7 @@ class Tickets extends Client_Controller {
             redirect(client_url().'tickets');
         }
         $data['department_detail'] = $this->Department_model->getDepartmentDetail();
+        $data['comment_replay'] = $this->this_model->getCommentReplay($ticketId, 'C');
         if($this->input->post()){
             $res = $this->this_model->updateCoversation($this->input->post(),$ticketId);
             echo json_encode($res); exit();
@@ -167,6 +170,13 @@ class Tickets extends Client_Controller {
         }
     }
     
+    function preview() {
+          if($this->input->post()){
+            $res = $this->this_model->updateCoversation($this->input->post(),'');
+            echo json_encode($res); exit();
+        }
+    }
+
 }
 
 ?>

@@ -112,6 +112,17 @@ var Tickets = function() {
         });
     }
     
+    var addCommentReplay = function() {
+        var form = $('#addCommentForm');
+        var rules = {
+            message_reply: {required: true},
+        };
+        handleFormValidate(form, rules, function(form) {
+            handleAjaxFormSubmit(form);
+        });
+    };
+    
+    
     var deleteTicket = function(){
         
         $('body').on('click','.deletebutton',function(){
@@ -147,7 +158,7 @@ var Tickets = function() {
 	}
 	return randomstring;
     }
-    
+  
     return {
         //main function to initiate the module
         clientList: function() {
@@ -162,8 +173,10 @@ var Tickets = function() {
             ticketEdit();
             genral();
         },
-        clientViews: function() {
+      clientViews: function() {
+    
             deleteTicket();
+            addCommentReplay();
         },
     };
 }();

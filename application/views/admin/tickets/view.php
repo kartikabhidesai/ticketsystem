@@ -104,11 +104,16 @@
               </div>
             </form>
           </div>
-        <?php foreach ($comment_replay as $key => $value) {
+          <?php
+          if (count($comment_replay) == 0) {
+            echo '<h2> Sorry, No Comment Found.<h2>';  
+          }
           ?>
-          <div class="col-lg-12" style="border: 1px solid #e7eaec;padding:10px;margin-top:10px; ">
-         
-            <div class="ibox float-e-margins">
+          <?php foreach ($comment_replay as $key => $value) {
+              ?>
+              <div class="col-lg-12" style="border: 1px solid #e7eaec;padding:10px;margin-top:10px; ">
+
+                  <div class="ibox float-e-margins">
               <div class="feed-activity-list">
                 <div class="">
                   <div class="media-body">
