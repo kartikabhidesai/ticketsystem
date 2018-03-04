@@ -60,8 +60,8 @@ class Tickets_model extends My_model {
         
         $data['from_title'] = 'Create Ticketd';
         $data['subject'] = $postData['subject'];
-        $data['to'] = 'shaileshvanaliya91@gmail.com';
-     // $data["to"] = $postData['person_email'];
+        // $data['to'] = 'shaileshvanaliya91@gmail.com';
+        $data["to"] = $postData['client_email'];
         $mailSend = $this->utility->sendMailSMTP($data);
         return true;
     }
