@@ -58,11 +58,11 @@ class Tickets_model extends My_model {
         $data['client_email'] = $postData['client_email'];
         $data['message'] = $this->load->view('email_template/ticket_mail', $data, true);
         
-        $data['from_title'] = 'Create Ticketd';
+        $data['from_title'] = 'Create Ticket';
         $data['subject'] = $postData['subject'];
 //         $data['to'] = 'shaileshvanaliya91@gmail.com';
         $data["to"] = $postData['client_email'];
-        $data["reply_to"] = REPLAY_EMAIL;
+        $data["replyto"] = REPLAY_EMAIL;
         $mailSend = $this->utility->sendMailSMTP($data);
         return true;
     }
