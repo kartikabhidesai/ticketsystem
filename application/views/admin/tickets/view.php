@@ -7,9 +7,7 @@
 </style>
 <div class="wrapper wrapper-content white-bg m-t">
     <div class=" animated fadeInRightBig">
-
         <form method="post" class="form-horizontal"  enctype="multipart/form-data"  action="<?= admin_url(); ?>tickets/edit" id='ticketEditForm'>
-
             <div class="form-group headingmain">                        
                 <label class="col-sm-2 displaylable">
                     <a href="<?= admin_url() . 'tickets/edit/' . $decodeId; ?>" style="margin:10px" class="btn btn-sm btn-primary pull-left m-t-n-xs" ><strong><i class="fa fa-tag"></i> Edit Ticket</strong></a>
@@ -17,12 +15,13 @@
                 <label class="col-sm-8 displaylable" style="margin-top:10px">
                     <div class="input-group-btn">
                         <div class="col-md-4">
+                            <?php $priority = json_decode(STATUS); ?>
                             <select class="changeStatus form-control">
                                 <option value="">Select Status</option>
-                                <option value="ANSWERED">Answer</option>
-                                <option value="CLOSED">Close</option>
-                                <option value="Open">Open</option>
-                                <option value="IN_PROGRESS">In Progress</option>
+                                <?php foreach ($priority as $key => $value) { ?>
+                                    <option value="<?= $key ?>"><?= $value; ?></option>
+                                <?php }
+                                ?>
                             </select>
                         </div>
                     </div>
@@ -69,8 +68,7 @@
                     <div class="form-group">
                         <label class="col-sm-5 displaylable"> Created</label>
                         <div class="col-sm-7">
-                            <?= date('Y-m-d h:i:s', $getTicket[0]->dt_created) ?>
-
+                           <?= date('Y-m-d h:i:s', strtotime($getTicket[0]->dt_created)) ?>
                         </div>
                     </div>
                 </div>

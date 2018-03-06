@@ -81,7 +81,7 @@ var Tickets = function() {
             handleAjaxFormSubmit(form);
         });
         
-        $('body').on('click', '.changeStatus', function() {
+        $('body').on('change', '.changeStatus', function() {
             var status = $('.changeStatus option:selected').val();
             var ticket_id = $('#ticket_id').val();
          
@@ -169,7 +169,21 @@ var Tickets = function() {
                 $('.client_email').val(''); 
             }
         });
-
+        
+         $('body').on('change', '.reporter', function() {
+            var reporter = $('.reporter option:selected').val();
+            var ticket_id = $('#ticket_id').val();
+         
+            if (reporter != '') {
+                var url = baseurl + 'admin/tickets/getCompanyName';
+                var data = {reporter: reporter,ticket_id: ticket_id};
+                ajaxcall(url, data, function(output) {
+                     var output = JSON.parse(output);
+                      $('.compnayName').text(output[0]['name']);
+                });
+            }
+        });
+        
     }
     
     function randomString() {
@@ -196,6 +210,9 @@ var Tickets = function() {
         ticketEdit: function() {
             ticketEdit();
             genral();
+            setTimeout(function(){
+                $('.reporter').trigger('change');
+            },1500);
         },
         clientViews: function() {
             deleteTicket();

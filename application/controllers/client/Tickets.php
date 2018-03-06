@@ -61,6 +61,8 @@ class Tickets extends Client_Controller {
        // $data['ticketcode'] = $this->generateRandomString();
         $data['department_detail'] = $this->Department_model->getDepartmentDetail();
 //        print_r($this->session->userdata['client_login']['id']);exit;
+         $data['reporter'] = $this->session->userdata['client_login']['id'];
+         $data['company_details'] = $this->this_model->getCompanyName($data);
         if($this->input->post()){
             $res = $this->this_model->addTicket($this->input->post());
             
@@ -146,7 +148,8 @@ class Tickets extends Client_Controller {
 
         $data['department_detail'] = $this->Department_model->getDepartmentDetail();
         $data['getTicket'] = $this->this_model->getTicketDetail($ticketId);
-
+        $data['reporter'] = $this->session->userdata['client_login']['id'];
+        $data['company_details'] = $this->this_model->getCompanyName($data);
         if($this->input->post()){
             $res = $this->this_model->editTicket($this->input->post(),$ticketId);
             if($res)

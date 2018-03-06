@@ -214,6 +214,14 @@ class Tickets extends Admin_Controller {
         }
     }
 
+    function getCompanyName() {
+        if ($this->input->post()) {
+            $res = $this->this_model->getCompanyName($this->input->post());
+            echo json_encode($res);
+            exit();
+        }
+    }
+
 }
 
 ?>

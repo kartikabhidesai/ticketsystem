@@ -16,12 +16,14 @@
                 <label class="col-sm-8 displaylable" style="margin-top:10px">
                     <div class="input-group-btn">
                         <div class="col-md-4">
+                            <?php $priority = json_decode(STATUS);?>
                             <select class="changeStatus form-control">
                                 <option value="">Select Status</option>
-                                <option value="ANSWERED">Answer</option>
-                                <option value="CLOSED">Close</option>
-                                <option value="Open">Open</option>
-                                <option value="IN_PROGRESS">In Progress</option>
+                               <?php
+                            foreach ($priority as $key => $value){ ?>
+                                <option value="<?= $key ?>"><?= $value; ?></option>
+                            <?php }
+                             ?>
                             </select>
                         </div>
                     </div>
@@ -68,7 +70,7 @@
                     <div class="form-group">
                         <label class="col-sm-5 displaylable"> Created</label>
                         <div class="col-sm-7">
-                            <?= date('Y-m-d h:i:s', $getTicket[0]->dt_created) ?>
+                            <?= date('Y-m-d h:i:s', strtotime($getTicket[0]->dt_created)) ?>
                         </div>
                     </div>
                 </div>

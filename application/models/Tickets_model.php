@@ -60,8 +60,9 @@ class Tickets_model extends My_model {
         
         $data['from_title'] = 'Create Ticketd';
         $data['subject'] = $postData['subject'];
-        // $data['to'] = 'shaileshvanaliya91@gmail.com';
+//         $data['to'] = 'shaileshvanaliya91@gmail.com';
         $data["to"] = $postData['client_email'];
+        $data["reply_to"] = REPLAY_EMAIL;
         $mailSend = $this->utility->sendMailSMTP($data);
         return true;
     }
@@ -229,7 +230,21 @@ class Tickets_model extends My_model {
         }
         return $json_response;
     }
-
+    
+       // GET TICKET REPLAY COMMENT
+    function getCompanyName($data) {
+        $data['select'] = ['cmpny.*'];
+            $data['where'] = ['usr.id' => $data['reporter']];
+        $data['join'] = [
+            TABLE_COMPANY . ' as cmpny' => [
+                'cmpny.id = usr.company_id',
+                '',
+            ],
+        ];
+        $data['table'] = TABLE_USER . ' as usr';
+        $result = $this->selectFromJoin($data);
+        return $result;
+    }
 }
 
 ?>

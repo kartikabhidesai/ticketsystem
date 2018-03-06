@@ -9,7 +9,12 @@
                         <a href="<?= client_url().'tickets/view/' . $decodeId; ?>" style="margin:10px" class="btn btn-sm btn-primary pull-right m-t-n-xs" ><strong><i class="fa fa-tag"></i> View Tickets </strong></a> 
                 </h2> 
             </div>
-
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Company Name</label>
+                <div class="col-sm-7">
+                     <label class="col-sm-3 control-label"><?=  $company_details[0]->name; ?></label>
+                </div>
+            </div>
             <div class="form-group">
                 <label class="col-sm-3 control-label">Department *</label>
                 <div class="col-sm-7">

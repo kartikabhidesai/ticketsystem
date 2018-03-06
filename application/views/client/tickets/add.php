@@ -7,7 +7,12 @@
             <div class="form-group headingmain">						
                 <h2 class="title" style="margin:10px">Ticket Details</h2>								
             </div>
-
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Company Name</label>
+                <div class="col-sm-7">
+                     <label class="col-sm-3 control-label"><?=  $company_details[0]->name; ?></label>
+                </div>
+            </div>
             <div class="form-group">
                 <label class="col-sm-3 control-label">Department *</label>
                 <div class="col-sm-7">
@@ -24,9 +29,10 @@
                 <div class="col-sm-7">
                     <input type="text" placeholder="Enter Ticket Code" name="ticket_code" class="form-control ticketCode">
                     <input type="hidden" value="<?= $this->session->userdata['client_login']['id']; ?>" placeholder="Enter Ticket Code" name="client_id" class="form-control">
-                    <input type="hidden" value="OPEN" placeholder="Enter Ticket Code" name="status" class="form-control">
+                    <input type="hidden" value="NEW" placeholder="Enter Ticket Code" name="status" class="form-control">
                 </div>
             </div>
+          
             <div class="form-group">
                 <label class="col-sm-3 control-label">Subject  *</label>
                 <div class="col-sm-7">

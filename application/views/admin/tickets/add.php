@@ -19,24 +19,10 @@
                     </select>
                 </div>
             </div>
-            <div class="form-group">
-                <label class="col-sm-3 control-label">Ticket Code *</label>
-                <div class="col-sm-7">
-                    <input type="text" placeholder="Enter Ticket Code" name="ticket_code" class="form-control ticketCode">
-                    <input type="hidden" value="OPEN" placeholder="Enter Ticket Code" name="status" class="form-control">      
-                    <input type="hidden" value=""  name="client_email" class="form-control client_email">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-3 control-label">Subject  *</label>
-                <div class="col-sm-7">
-                    <input type="text" placeholder="Enter Subject " name="subject" class="form-control">
-                </div>
-            </div>
               <div class="form-group">
                 <label class="col-sm-3 control-label">Reporter *</label>
                 <div class="col-sm-7">
-                      <select class="form-control m-b client_id" id="client_id" name="client_id">
+                      <select class="form-control m-b reporter" id="reporter" name="client_id">
                            <option value="">Select Reporter</option>
                         <?php for($i=0; $i<count($reporter_detail); $i++){
                         ?>
@@ -46,6 +32,27 @@
                     </select>
                 </div>
             </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Company Name</label>
+                <div class="col-sm-7">
+                    <label class="col-sm-3 control-label"> <b class="compnayName"></b></label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Ticket Code *</label>
+                <div class="col-sm-7">
+                    <input type="text" placeholder="Enter Ticket Code" name="ticket_code" class="form-control ticketCode">
+                    <input type="hidden" value="NEW" placeholder="" name="status" class="form-control">      
+                    <input type="hidden" value=""  name="client_email" class="form-control client_email">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Subject  *</label>
+                <div class="col-sm-7">
+                    <input type="text" placeholder="Enter Subject " name="subject" class="form-control">
+                </div>
+            </div>
+            
 
             <?php $priority = json_decode(PRIORITY);?>
              <div class="form-group">
