@@ -12,7 +12,7 @@
                 </div>
             </div>
               <div class="form-group">
-                <label class="col-sm-3 control-label">Reporter *</label>
+                <label class="col-sm-3 control-label">Client *</label>
                 <div class="col-sm-7">
                       <select class="form-control m-b reporter" id="reporter" name="client_id">
                            <option value="">Select Reporter</option>
