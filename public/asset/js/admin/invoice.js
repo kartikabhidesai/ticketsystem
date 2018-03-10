@@ -67,6 +67,9 @@ var Invoice = function() {
         $(".showDicount").click(function() {
             $(".discountDiv").toggle();
         });
+        $(".recurring").click(function() {
+            $(".showRecurring").toggle();
+        });
     }
 
 

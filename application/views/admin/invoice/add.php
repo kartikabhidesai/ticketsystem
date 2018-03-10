@@ -11,7 +11,19 @@
                     <input type="text" placeholder="Enter Company Name" name="company_name" class="form-control">
                 </div>
             </div>
+              <div class="form-group">
+                <label class="col-sm-3 control-label">Reporter *</label>
+                <div class="col-sm-7">
+                      <select class="form-control m-b reporter" id="reporter" name="client_id">
+                           <option value="">Select Reporter</option>
+                        <?php for($i=0; $i<count($client_list); $i++){
+                        ?>
+                            <option data-email="<?= $client_list[$i]->email;?>" value="<?= $client_list[$i]->id;?>"><?= $client_list[$i]->first_name;?></option>
+                        <?php } ?>
 
+                    </select>
+                </div>
+            </div>
             <div class="form-group" id="data_1">
                 <label class="col-sm-3 control-label">Due Date</label>
                 <div class="input-group date col-sm-7">

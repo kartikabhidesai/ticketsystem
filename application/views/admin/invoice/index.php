@@ -4,9 +4,9 @@
             <div class="col-lg-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>Tickets List</h5>
+                        <h5>Invoice List</h5>
                         <div class="ibox-tools">
-                            <a href="<?= admin_url(); ?>tickets/add" class="btn btn-primary">
+                            <a href="<?= admin_url(); ?>invoice/add" class="btn btn-primary">
                                 <i class="fa fa-plus"></i>Add New
                             </a>
                         </div>
@@ -17,37 +17,35 @@
                             <table class="table table-striped table-bordered table-hover dataTables-example" >
                                 <thead>
                                     <tr>
-                                        <th>Ticket Code</th>
-                                        <th>Subject</th>
-                                        <th>Reporter</th>
-                                        <th>Department</th>
-                                        <th>Priority</th>
                                         <th>Status</th>
+                                        <th>Invoice</th>
+                                        <th>Due Date</th>
+                                        <th>Client Name</th>
+                                        <th>Amount</th>
+                                        <th>Due Amount</th>
                                         <th>Options</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php for($i=0; $i<count($getTicket); $i++) { ?>
-                                    <tr>
-                                        <td><?= $getTicket[$i]->ticket_code; ?></td>
-                                        <td><?= $getTicket[$i]->subject; ?></td>
-                                        <td><?= $getTicket[$i]->first_name .' ' . $getTicket[$i]->last_name; ?> </td>
-                                        <td><?= $getTicket[$i]->name; ?></td>
-                                        <td><?= $getTicket[$i]->priority; ?></td>
-                                        <td><?= str_replace('_',' ',$getTicket[$i]->status); ?></td>
-                                        <td>   
-                                        <a title="Edit Ticket"  href="<?= admin_url().'tickets/edit/' .  $this->utility->encode($getTicket[$i]->id); ?>"> <i class="fa fa-edit text-navy"></i> </a>
-
-                                        <a title="Preview Ticket"  href="<?= admin_url().'tickets/view/'.  $this->utility->encode($getTicket[$i]->id); ?>"> <i class="fa fa-eye"></i> </a>
-
-                                        <a data-toggle="modal" data-target="#myModal_autocomplete" data-href="<?= admin_url().'tickets/deleteTicket'?>" data-id="<?php echo $getTicket[$i]->id;?>" class="deletebutton"> <i class="fa fa-close text-navy"></i>
-                                        </a> 
-
-                                        </td> 
-                                    </tr>
+                                    <?php for ($i = 0; $i < 10; $i++) { ?>
+                                        <tr>
+                                            <td>OPEN</td>
+                                            <td>INVS000<?= $i; ?></td>
+                                            <td>12-03-2018</td>
+                                            <td>test client</td>
+                                            <td>CAD155.15</td>
+                                            <td>CAD10.55</td>
+                                            <td>   
+                                                 <a title="Preview Ticket"  href="<?= admin_url() . 'invoice/view/' . $i; ?>"> <i class="fa fa-eye"></i> </a>
+                                                <a title="Edit Ticket"  href="<?= admin_url() . 'invoice/edit/' . $i; ?>"> <i class="fa fa-edit text-navy"></i> </a>
+                                                <a title="Invoice History"  href="<?= admin_url() . 'invoice/history/' . $i; ?>"> <i class="fa fa-book text-navy"></i> </a>
+                                                <a title="Email Invoice "  href="javascript:;"> <i class="fa fa-male text-navy"></i> </a>
+                                                <a title="Send Remainder"  href="javascript:;"> <i class="fa fa-refresh text-navy"></i> </a>
+                                                <a title="Pdf"  href="javascript:;"> <i class="fa fa-file-pdf-o text-navy"></i> </a>
+                                            </td> 
+                                        </tr>
                                     <?php } ?>
                                 </tbody>
-
                             </table>
                         </div>
                     </div>

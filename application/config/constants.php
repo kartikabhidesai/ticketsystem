@@ -106,3 +106,11 @@ define('STATUS', json_encode(['NEW' => 'New','ANSWERED' => 'Answered', 'CLOSED' 
 //define ticket priority
 
 define('PRIORITY', json_encode(['LOW' => 'Low', 'MEDIUM' => 'Medium', 'HIGH' => 'High']));
+
+//define ticket Short Invoice
+define('SHORTINVOICE', json_encode(['REF_NO' => 'Ref No', 'DUEDATE' => 'Due Date', 'TEX' => 'Tax', 'STATUS' => 'Status','DATE_SENT' => 'Date Sent','CREATED' => 'Created']));
+
+//define ticket More Actions
+define('TICKETMOREACTIONS', json_encode(['EMAIL_INVOICE' => 'Email Invoice', 'SEND_REMAINDER' => 'Send Reminder', 'INVOICE_HISTORY' => 'Invoice History', 'EDIT_INVOICE' => 'Edit Invoice','DELETE_INVOICE' => 'Delete Invoice']));
+//define ticket More Actions
+define('RECURRING', json_encode(['NONE' => 'None', 'WEEK' => 'Week', 'MONTH' => 'Month', 'QUARTER' => 'Quarter','SIX_MONTH' => 'Six Month','YEAR' => 'Year']));

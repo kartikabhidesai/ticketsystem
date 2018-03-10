@@ -5,7 +5,7 @@
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
                         <div class="col-md-3">
-                            <?php $priority = json_decode(STATUS); ?>
+                            <?php $priority = json_decode(SHORTINVOICE); ?>
                             <select class="changeStatus form-control">
                                 <option value="">Short Invoice</option>
                                 <?php foreach ($priority as $key => $value) { ?>
@@ -24,7 +24,7 @@
                             <a  data-href="javascript:;" data-id="" style="margin:5px 5px 5px 20px"  data-original-title="Pay Invoice" class="btn btn-danger btn-sm "><strong><i class="fa fa-trash-o"></i> Pay Ticket</strong></a>
                         </div>
                         <div class="col-sm-3 displaylable" style="margin-left: 20px;">
-                            <?php $priority = json_decode(STATUS); ?>
+                            <?php $priority = json_decode(TICKETMOREACTIONS); ?>
                             <select class="changeStatus form-control">
                                 <option value="">More Action</option>
                                 <?php foreach ($priority as $key => $value) { ?>
@@ -51,7 +51,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php for ($i = 0; $i < count($getComany); $i++) { ?>
+                                    <?php for ($i = 0; $i < 5; $i++) { ?>
                                         <tr>
                                             <td>Sept 25th | Scanner issues</td>
                                             <td>Scanner issues after several intermittent power outages. Had Jackie power the scanner/fax off, remove the power cable and perform a power drain on the machine. She plugged it back in and turned it back on tested it and it worked.</td>
