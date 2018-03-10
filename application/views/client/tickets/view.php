@@ -79,7 +79,7 @@
             <div class="form-group headingmain">                        
                 <h2 class="title" style="margin:10px">Subject: <?php echo $getTicket[0]->subject; ?></h2>
             </div>
-            <div class=" headingmain" style="margin: 0px 0px 0px 28px;font-size: 18px;">                     
+            <div class=" headingmain" style="padding: 10px;font-size: 18px;">                     
                 <?php echo 'Description : ' . $getTicket[0]->ticket_message; ?>
             </div>
         </form>
