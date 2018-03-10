@@ -146,7 +146,7 @@ class Utility
             $CI->email->bcc($data ["bcc"]);
         }
         if(isset($data ["replyto"])){
-            $CI->email->reply_to($data ["replyto"], $data ['from_title']);
+            $CI->email->reply_to(REPLAY_EMAIL, $data ['from_title']);
         }
         $CI->email->subject($data ["subject"]);
         $CI->email->message($message);
