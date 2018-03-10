@@ -93,8 +93,11 @@ define("SMTP_HOST", "smtpout.secureserver.net");
 define("SMTP_PORT", '80');
 define("SMTP_USER", 'admin@helpdesk.experttech.ca');
 define("SMTP_PASS", '7688328jg');
+if($_SERVER['HTTP_HOST'] == "localhost"){
 define("IMAGES", 'http://' . $_SERVER['HTTP_HOST'] . '/ticketsystem/public/asset/images/');
-
+}else{
+    define("IMAGES", 'http://' . $_SERVER['HTTP_HOST'] . '/public/asset/images/');
+}
 define('DATE_TIME',date('Y-m-d H:i:s'));
 define('PROJECT_NAME', 'Ticket System');
 define('REPLAY_EMAIL', 'helpdesk@experttech.ca');
