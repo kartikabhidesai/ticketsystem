@@ -35,7 +35,7 @@
             <div class="form-group">
                 <label class="col-sm-3 control-label">Company Name</label>
                 <div class="col-sm-7">
-                    <label class="col-sm-3 control-label"> <b class="compnayName"></b></label>
+                    <label class="control-label"> <b class="compnayName"></b></label>
                     <input type="hidden" value=""  name="company_id" class="form-control compnayId">
                 </div>
             </div>
