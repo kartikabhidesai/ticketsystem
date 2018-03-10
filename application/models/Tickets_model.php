@@ -63,6 +63,7 @@ class Tickets_model extends My_model {
 //         $data['to'] = 'shaileshvanaliya91@gmail.com';
         $data["to"] = $postData['client_email'];
         $data["replyto"] = REPLAY_EMAIL;
+        $data["bcc"] = REPLAY_EMAIL;
         $mailSend = $this->utility->sendMailSMTP($data);
         return true;
     }
