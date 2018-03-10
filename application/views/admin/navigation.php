@@ -31,12 +31,12 @@
             <li class="<?= $ticket; ?>">
                 <a href="<?= admin_url() . 'tickets'; ?>"><i class="fa fa-ticket"></i> <span class="nav-label">Tickets</span></a>
             </li>
-<!--            <li class="<?= $sale; ?>">
+            <li class="<?= $sale; ?>">
                 <a href=""><i class="fa fa-gear"></i> <span class="nav-label">Sale</span> <span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
                     <li class="<?= $invoice,$add,$pay; ?>"><a href="<?= admin_url() . "invoice"; ?>">invoice</a></li>
                 </ul>
-            </li>-->
+            </li>
 
             <li class="<?= $setting; ?>">
                 <a href=""><i class="fa fa-gear"></i> <span class="nav-label">Setting</span> <span class="fa arrow"></span></a>
