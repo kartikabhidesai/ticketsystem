@@ -180,7 +180,6 @@ var Tickets = function() {
                 ajaxcall(url, data, function(output) {
                      var output = JSON.parse(output);
                       $('.compnayName').text(output[0]['name']);
-                      $('.compnayId').val(output[0]['id']);
                 });
             }
         });

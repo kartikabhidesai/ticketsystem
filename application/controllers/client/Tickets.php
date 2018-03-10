@@ -32,8 +32,8 @@ class Tickets extends Client_Controller {
         );
         
         $client_id = $this->session->userdata['client_login']['id'];
-         
-        $data['getTicket'] = $this->this_model->getClientTicketList($client_id);
+        $companyId =  $this->session->userdata['client_login']['companyId'];
+        $data['getTicket'] = $this->this_model->getClientTicketList($client_id,$companyId);
        
         $this->load->view(CLIENT_LAYOUT, $data);
     }

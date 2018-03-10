@@ -34,13 +34,13 @@ class Tickets_model extends My_model {
         $data['insert']['ticket_message'] = $postData['ticket_message'];
         $data['insert']['status'] = $postData['status'];
         $data['insert']['priority'] = $postData['priority'];
+        $data['insert']['company_id'] = $postData['company_id'];
         $data['insert']['image'] = $ticket_attachment;
         $data['insert']['dt_created'] = DATE_TIME;
         $data['insert']['dt_updated'] = DATE_TIME;
         $data['table'] = TABLE_TICKET;
         $result = $this->insertRecord($data);
-//     $this->sendTicketMail($postData, $result);
-//     exit;
+   
         unset($data);
         if ($result) {
             $this->sendTicketMail($postData, $result);
@@ -60,19 +60,22 @@ class Tickets_model extends My_model {
         
         $data['from_title'] = 'Create Ticket';
         $data['subject'] = $postData['subject'];
-//         $data['to'] = 'shaileshvanaliya91@gmail.com';
-        $data["to"] = $postData['client_email'];
+         $data['to'] = 'shaileshvanaliya91@gmail.com';
+//        $data["to"] = $postData['client_email'];
         $data["replyto"] = REPLAY_EMAIL;
         $mailSend = $this->utility->sendMailSMTP($data);
         return true;
     }
 
-    function getClientTicketList($client_id) {
+    function getClientTicketList($client_id,$company_id) {
 
         $data['select'] = ['t.id', 't.ticket_code', 't.subject', 't.status', 't.priority', 'mdt.name', 'usr.first_name', 'usr.last_name'];
-        if ($client_id != "") {
-            $data['where'] = ['client_id' => $client_id];
+        if ($company_id != "") {
+            $data['where'] = ['t.company_id' => $company_id];
         }
+//        if ($client_id != "") {
+//            $data['where'] = ['client_id' => $client_id];
+//        }
         $data['join'] = [
             TABLE_MASTER_DEPARTMENT . ' as mdt' => [
                 'mdt.id = t.department_id',
@@ -131,6 +134,7 @@ class Tickets_model extends My_model {
         $data['update']['subject'] = $postData['subject'];
         $data['update']['ticket_message'] = $postData['ticket_message'];
         $data['update']['priority'] = $postData['priority'];
+        $data['update']['company_id'] = $postData['company_id'];
         if (!empty($_FILES['ticket_attachment'])) {
             $data['update']['image'] = $ticket_attachment;
         }

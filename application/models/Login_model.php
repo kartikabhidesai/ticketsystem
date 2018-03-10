@@ -11,7 +11,7 @@ class Login_model extends MY_Model{
             /*Set Session*/
             if ($row['password'] == md5($data['password']) && $row['status'] == '1' && $row['is_verify'] == '1') {
               
-             
+            
              /*Check User Type and redirect to respective login*/
              
              if($row['type'] == 'A'){
@@ -29,6 +29,7 @@ class Login_model extends MY_Model{
                     'email' => $row['email'],
                     'firstname' => $row['first_name'],
                     'lastname' => $row['last_name'],
+                    'companyId' => $row['company_id'],
                 ];
                 $this->session->set_userdata($sessionData);
                 $url = client_url().'dashboard';

@@ -168,8 +168,9 @@ var Tickets = function() {
                 var url = baseurl + 'admin/tickets/getCompanyName';
                 var data = {reporter: reporter,ticket_id: ticket_id};
                 ajaxcall(url, data, function(output) {
-                     var output = JSON.parse(output);
-                      $('.compnayName').text(output[0]['name']);
+                    var output = JSON.parse(output);
+                    $('.compnayName').text(output[0]['name']);
+                    $('.compnayId').val(output[0]['id']);
                 });
             }
         });
