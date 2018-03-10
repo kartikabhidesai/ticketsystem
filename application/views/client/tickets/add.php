@@ -12,6 +12,7 @@
                 <div class="col-sm-7">
                      <label class="col-sm-3 control-label"><?=  $company_details[0]->name; ?></label>
                      <input type="hidden" value="<?= $this->session->userdata['client_login']['companyId']; ?>"  name="company_id" class="form-control compnayId">
+                     <input type="hidden" value="<?= $this->session->userdata['client_login']['email']; ?>"  name="client_email" class="form-control client_email">
                 </div>
             </div>
             <div class="form-group">

@@ -22,7 +22,7 @@
               <div class="form-group">
                 <label class="col-sm-3 control-label">Client *</label>
                 <div class="col-sm-7">
-                      <select class="form-control m-b reporter" id="reporter" name="client_id">
+                      <select class="form-control m-b client_id reporter" id="reporter" name="client_id">
                            <option value="">Select Reporter</option>
                         <?php for($i=0; $i<count($reporter_detail); $i++){
                         ?>
