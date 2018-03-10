@@ -80,7 +80,7 @@
                 <h2 class="title" style="margin:10px">Subject: <?php echo $getTicket[0]->subject; ?></h2>
             </div>
             <div class=" headingmain" style="margin: 0px 0px 0px 28px;font-size: 18px;">                     
-                <b>Description: </b> <?php echo $getTicket[0]->ticket_message; ?>
+                <?php echo 'Description : ' . $getTicket[0]->ticket_message; ?>
             </div>
         </form>
     </div>

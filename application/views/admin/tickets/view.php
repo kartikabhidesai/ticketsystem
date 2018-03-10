@@ -79,7 +79,7 @@
             </div>
             <div class=" headingmain" style="padding: 10px;font-size: 18px;">                        
                 <!-- Would like to have new printer installed. -->
-                <b>Description: </b>  <?php echo $getTicket[0]->ticket_message; ?>
+              <?php echo 'Description : ' . $getTicket[0]->ticket_message; ?>
             </div>
         </form>
     </div>
