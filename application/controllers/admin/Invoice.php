@@ -1,6 +1,6 @@
 <?php
 
-class Client extends Admin_Controller {
+class Invoice extends Admin_Controller {
 
     function __construct() {
         parent::__construct();
@@ -8,13 +8,14 @@ class Client extends Admin_Controller {
     }
 
     function index() {
-        $data['page'] = "admin/client/index";
-        $data['client'] = 'active';
-        $data['pagetitle'] = 'Client';
-        $data['var_meta_title'] = 'Client';
+        $data['page'] = "admin/invoice/index";
+        $data['sale'] = 'active';
+        $data['invoice'] = 'active';
+        $data['pagetitle'] = 'Invoice';
+        $data['var_meta_title'] = 'Invoice';
         $data['breadcrumb'] = array(
             'dashboard'=>'Home',
-            'client'=>'Client List',
+            'invoice'=>'Invoice List',
         );
         $data['css'] = array(
             'plugins/dataTables/datatables.min.css'
@@ -22,30 +23,35 @@ class Client extends Admin_Controller {
         
         $data['js'] = array(
              'plugins/dataTables/datatables.min.js',
-             'admin/client.js',
+             'admin/invoice.js',
         );
         $data['init'] = array(
-            'Client.clientList()',
+            'Invoice.invoiceList()',
         );
         $data['getComany'] = $this->this_model->getcompanyDetail();
         $this->load->view(ADMIN_LAYOUT, $data);
     }
     function add() {
-        $data['page'] = "admin/client/add";
-        $data['client'] = 'active';
-        $data['pagetitle'] = 'Client';
-        $data['var_meta_title'] = 'Client';
+        $data['page'] = "admin/invoice/add";
+        $data['sale'] = 'active';
+        $data['pay'] = 'active';
+        $data['pagetitle'] = 'Invoice';
+        $data['var_meta_title'] = 'Invoice';
         $data['breadcrumb'] = array(
             'dashboard'=>'Home',
-            'client'=>'Client Add',
+            'client'=>'Invoice Add',
         );
-        $data['css'] = array();
+        $data['css'] = array(
+            'plugins/datapicker/datepicker3.css',
+        );
         
         $data['js'] = array(
-            'admin/client.js',
+            'admin/invoice.js',
+            'plugins/datapicker/bootstrap-datepicker.js',
         );
+      
         $data['init'] = array(
-            'Client.clientAdd()',
+            'Invoice.invoiceAdd()',
         );
         
         $data['country'] = $this->this_model->countryList();
@@ -62,13 +68,13 @@ class Client extends Admin_Controller {
             redirect(admin_url().'client');
         }
         
-        $data['page'] = "admin/client/edit";
+        $data['page'] = "admin/invoice/edit";
         $data['client'] = 'active';
-        $data['pagetitle'] = 'Client';
-        $data['var_meta_title'] = 'Client';
+        $data['pagetitle'] = 'Invoice';
+        $data['var_meta_title'] = 'Invoice';
         $data['breadcrumb'] = array(
             'dashboard'=>'Home',
-            'client'=>'Client Edit',
+            'client'=>'Invoice Edit',
         );
         $data['css'] = array();
         
@@ -94,13 +100,13 @@ class Client extends Admin_Controller {
         if(!ctype_digit($companyId)){
             return(admin_url().'client');
         }
-        $data['page'] = "admin/client/detail";
+        $data['page'] = "admin/invoice/detail";
         $data['client'] = 'active';
-        $data['pagetitle'] = 'Client Detail';
-        $data['var_meta_title'] = 'Client Detail';
+        $data['pagetitle'] = 'Invoice Detail';
+        $data['var_meta_title'] = 'Invoice Detail';
         $data['breadcrumb'] = array(
             'dashboard'=>'Home',
-            'client'=>'Client Detail',
+            'client'=>'Invoice Detail',
         );
         $data['css'] = array('plugins/dataTables/datatables.min.css');
         
@@ -164,39 +170,6 @@ class Client extends Admin_Controller {
             echo json_encode($result); exit();
         }
     }
-    
-    function sendEmail(){
-        $this->load->library('email');
-        
-        $config['protocol'] = "smtp";
-        $config['smtp_host'] = SMTP_HOST;
-        $config['smtp_port'] = SMTP_PORT;
-        $config['smtp_user'] = SMTP_USER;
-        $config['smtp_pass'] = SMTP_PASS;
-        
-        $config['smtp_timeout'] = 20;
-        $config['priority'] = 1;
-        $config['charset'] = 'utf-8';
-        $config['wordwrap'] = TRUE;
-        $config['crlf'] = "\r\n";
-        $config['newline'] = "\r\n";
-        $config['mailtype'] = "html";
-        $config['starttls']  = true;
-                
-        
-        
-        $this->email->initialize($config);
-        //$this->email->clear(TRUE);
-        $this->email->to('kartikdesai123@gmail.com');
-        $this->email->from($config ['smtp_user'], PROJECT_NAME);
-        
-        $this->email->subject('Test Email');
-        $this->email->message('Hello this is test mgs');
-       
-        $response = $this->email->send();
-        echo $this->email->print_debugger();exit;
-    }
-
 }
 
 ?>

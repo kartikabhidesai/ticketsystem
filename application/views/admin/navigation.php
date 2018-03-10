@@ -5,7 +5,7 @@
                 <div class="dropdown profile-element">
                     <span>
                        <!--<img class="img-rounded"  src="" width='50' height="50">-->
-                       
+
                     </span>
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                         <span class="clear" style='width: 50%'>
@@ -15,7 +15,7 @@
                         </span>
                     </a>
                     <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                        <li><a href="<?php echo base_url();?>account/logout/A">Logout</a></li>
+                        <li><a href="<?php echo base_url(); ?>account/logout/A">Logout</a></li>
                     </ul>
                 </div>
                 <div class="logo-element">
@@ -28,21 +28,28 @@
             <li class="<?= $client; ?>">
                 <a href="<?= admin_url(); ?>client"><i class="fa fa-users"></i> <span class="nav-label">Client</span></a>
             </li>
-               <li class="<?= $ticket; ?>">
-                <a href="<?= admin_url().'tickets'; ?>"><i class="fa fa-ticket"></i> <span class="nav-label">Tickets</span></a>
+            <li class="<?= $ticket; ?>">
+                <a href="<?= admin_url() . 'tickets'; ?>"><i class="fa fa-ticket"></i> <span class="nav-label">Tickets</span></a>
             </li>
-                <li class="<?= $setting; ?>">
-                    <a href=""><i class="fa fa-gear"></i> <span class="nav-label">Setting</span> <span class="fa arrow"></span></a>
-                    <ul class="nav nav-second-level">
-                        <li class="<?= $department; ?>"><a href="<?= admin_url() ."setting"; ?>">Department</a></li>
-                    </ul>
-                    <!-- <ul class="nav nav-second-level">
-                        <li class="<?= $general; ?>"><a href="<?= admin_url() ."setting/general"; ?>">General Settings</a></li>
-                    </ul>
-                       <ul class="nav nav-second-level">
-                        <li class="<?= $email_setting; ?>"><a href="<?= admin_url() ."setting/email_setting"; ?>">Email Settings</a></li>
-                    </ul> -->
-                </li>
+<!--            <li class="<?= $sale; ?>">
+                <a href=""><i class="fa fa-gear"></i> <span class="nav-label">Sale</span> <span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                    <li class="<?= $invoice,$add,$pay; ?>"><a href="<?= admin_url() . "invoice"; ?>">invoice</a></li>
+                </ul>
+            </li>-->
+
+            <li class="<?= $setting; ?>">
+                <a href=""><i class="fa fa-gear"></i> <span class="nav-label">Setting</span> <span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                    <li class="<?= $department; ?>"><a href="<?= admin_url() . "setting"; ?>">Department</a></li>
+                </ul>
+                <!-- <ul class="nav nav-second-level">
+                    <li class="<?= $general; ?>"><a href="<?= admin_url() . "setting/general"; ?>">General Settings</a></li>
+                </ul>
+                   <ul class="nav nav-second-level">
+                    <li class="<?= $email_setting; ?>"><a href="<?= admin_url() . "setting/email_setting"; ?>">Email Settings</a></li>
+                </ul> -->
+            </li>
         </ul>
 
     </div>

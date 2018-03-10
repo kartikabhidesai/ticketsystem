@@ -4,50 +4,65 @@
             <div class="col-lg-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>Tickets List</h5>
-                        <div class="ibox-tools">
-                            <a href="<?= admin_url(); ?>tickets/add" class="btn btn-primary">
-                                <i class="fa fa-plus"></i>Add New
-                            </a>
+                        <div class="col-md-3">
+                            <?php $priority = json_decode(STATUS); ?>
+                            <select class="changeStatus form-control">
+                                <option value="">Short Invoice</option>
+                                <?php foreach ($priority as $key => $value) { ?>
+                                    <option value="<?= $key ?>"><?= $value; ?></option>
+                                <?php }
+                                ?>
+                            </select>
+                        </div>
+                        <div class="col-sm-1 displaylable">
+                            <a href="<?= admin_url() . 'tickets/edit/' . $decodeId; ?>" style="margin:5px" class="btn btn-sm btn-primary  m-t-n-xs" ><strong><i class="fa fa-print"></i></strong></a>
+                        </div>
+                        <div class="col-sm-1 displaylable">
+                            <a href="javascript:;" style="margin:5px" class="btn btn-sm btn-primary m-t-n-xs"><strong> <i class="fa fa-address-card"></i> Items </strong></a>
+                        </div>
+                        <div class="col-sm-2 displaylable">
+                            <a  data-href="javascript:;" data-id="" style="margin:5px 5px 5px 20px"  data-original-title="Pay Invoice" class="btn btn-danger btn-sm "><strong><i class="fa fa-trash-o"></i> Pay Ticket</strong></a>
+                        </div>
+                        <div class="col-sm-3 displaylable" style="margin-left: 20px;">
+                            <?php $priority = json_decode(STATUS); ?>
+                            <select class="changeStatus form-control">
+                                <option value="">More Action</option>
+                                <?php foreach ($priority as $key => $value) { ?>
+                                    <option value="<?= $key ?>"><?= $value; ?></option>
+                                <?php }
+                                ?>
+                            </select>
+                        </div>
+                        <div class="col-sm-1 displaylable">
+                            <a href="javascript:;" style="margin:5px" class="btn btn-sm btn-primary pull-right m-t-n-xs" ><strong><i class="fa fa-file-pdf-o"></i></strong></a>
                         </div>
                     </div>
-                    <div class="ibox-content">
 
+                    <div class="ibox-content">
                         <div class="table-responsive">
                             <table class="table table-striped table-bordered table-hover dataTables-example" >
                                 <thead>
                                     <tr>
-                                        <th>Ticket Code</th>
-                                        <th>Subject</th>
-                                        <th>Reporter</th>
-                                        <th>Department</th>
-                                        <th>Priority</th>
-                                        <th>Status</th>
-                                        <th>Options</th>
+                                        <th>Item Name </th>
+                                        <th>Description</th>
+                                        <th>Qty</th>
+                                        <th>Unit Price </th>
+                                        <th>Total</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php for($i=0; $i<count($getTicket); $i++) { ?>
-                                    <tr>
-                                        <td><?= $getTicket[$i]->ticket_code; ?></td>
-                                        <td><?= $getTicket[$i]->subject; ?></td>
-                                        <td><?= $getTicket[$i]->first_name .' ' . $getTicket[$i]->last_name; ?> </td>
-                                        <td><?= $getTicket[$i]->name; ?></td>
-                                        <td><?= $getTicket[$i]->priority; ?></td>
-                                        <td><?= str_replace('_',' ',$getTicket[$i]->status); ?></td>
-                                        <td>   
-                                        <a title="Edit Ticket"  href="<?= admin_url().'tickets/edit/' .  $this->utility->encode($getTicket[$i]->id); ?>"> <i class="fa fa-edit text-navy"></i> </a>
-
-                                        <a title="Preview Ticket"  href="<?= admin_url().'tickets/view/'.  $this->utility->encode($getTicket[$i]->id); ?>"> <i class="fa fa-eye"></i> </a>
-
-                                        <a data-toggle="modal" data-target="#myModal_autocomplete" data-href="<?= admin_url().'tickets/deleteTicket'?>" data-id="<?php echo $getTicket[$i]->id;?>" class="deletebutton"> <i class="fa fa-close text-navy"></i>
-                                        </a> 
-
-                                        </td> 
-                                    </tr>
+                                    <?php for ($i = 0; $i < count($getComany); $i++) { ?>
+                                        <tr>
+                                            <td>Sept 25th | Scanner issues</td>
+                                            <td>Scanner issues after several intermittent power outages. Had Jackie power the scanner/fax off, remove the power cable and perform a power drain on the machine. She plugged it back in and turned it back on tested it and it worked.</td>
+                                            <td>0.25</td>
+                                            <td>45.00</td>
+                                            <td>
+                                                11.25 <a href=""><i class="fa fa-trash-o"></i></a>
+                                            </td>
+                                        </tr>
                                     <?php } ?>
                                 </tbody>
-
                             </table>
                         </div>
                     </div>
