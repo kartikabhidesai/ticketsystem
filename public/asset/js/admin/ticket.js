@@ -178,6 +178,7 @@ var Tickets = function() {
                 var data = {reporter: reporter,ticket_id: ticket_id};
                 ajaxcall(url, data, function(output) {
                      var output = JSON.parse(output);
+                      $('.companyShow').show();
                       $('.compnayName').text(output[0]['name']);
                       $('.compnayId').val(output[0]['id']);
                 });

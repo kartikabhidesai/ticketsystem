@@ -17,6 +17,7 @@
                             <table class="table table-striped table-bordered table-hover dataTables-example" >
                                 <thead>
                                     <tr>
+                                        <th>Company Name</th>
                                         <th>Ticket Code</th>
                                         <th>Subject</th>
                                         <th>Department</th>
@@ -28,6 +29,7 @@
                                 <tbody>
                                     <?php for($i=0; $i<count($getTicket); $i++) { ?>
                                     <tr>
+                                        <td><?= $getTicket[$i]->companyName; ?></td>
                                         <td><?= $getTicket[$i]->ticket_code; ?></td>
                                         <td><?= $getTicket[$i]->subject; ?></td>
                                         <td><?= $getTicket[$i]->name; ?></td>

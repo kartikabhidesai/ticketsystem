@@ -19,7 +19,7 @@
                             <select class="changeStatus form-control">
                                 <option value="">Select Status</option>
                                 <?php foreach ($priority as $key => $value) { ?>
-                                    <option value="<?= $key ?>"><?= $value; ?></option>
+                                    <option value="<?= $key ?>" <?php if($getTicket[0]->status == $key) { echo "selected='selected'"; }?>><?= $value; ?></option>
                                 <?php }
                                 ?>
                             </select>
@@ -56,7 +56,7 @@
                     <div class="form-group">
                         <label class="col-sm-5 displaylable">Status</label>
                         <div class="col-sm-7">
-                            <span class="btn btn-primary btn-xs">  <?= str_replace('_', ' ', $getTicket[0]->status) ?> </span>
+                            <span class="btn btn-primary btn-xs">  <?= getStatus($getTicket[0]->status) ?> </span>
                         </div>
                     </div>
                     <div class="form-group">

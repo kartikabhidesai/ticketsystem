@@ -40,7 +40,7 @@ class Tickets_model extends My_model {
         $data['insert']['dt_updated'] = DATE_TIME;
         $data['table'] = TABLE_TICKET;
         $result = $this->insertRecord($data);
-   
+
         unset($data);
         if ($result) {
             $this->sendTicketMail($postData, $result);
@@ -57,7 +57,7 @@ class Tickets_model extends My_model {
         $data['status'] = $postData['status'];
         $data['client_email'] = $postData['client_email'];
         $data['message'] = $this->load->view('email_template/ticket_mail', $data, true);
-        
+
         $data['from_title'] = 'Create Ticket';
         $data['subject'] = $postData['subject'];
 //         $data['to'] = 'shaileshvanaliya91@gmail.com';
@@ -68,15 +68,12 @@ class Tickets_model extends My_model {
         return true;
     }
 
-    function getClientTicketList($client_id,$company_id) {
+    function getClientTicketList($client_id, $company_id) {
 
-        $data['select'] = ['t.id', 't.ticket_code', 't.subject', 't.status', 't.priority', 'mdt.name', 'usr.first_name', 'usr.last_name'];
-        if ($company_id != "") {
-            $data['where'] = ['t.company_id' => $company_id];
-        }
-//        if ($client_id != "") {
-//            $data['where'] = ['client_id' => $client_id];
-//        }
+        $data['select'] = ['t.id', 't.ticket_code',
+            't.subject', 't.status', 't.priority', 'mdt.name',
+            'usr.first_name', 'usr.last_name',
+            'c.name as companyName'];
         $data['join'] = [
             TABLE_MASTER_DEPARTMENT . ' as mdt' => [
                 'mdt.id = t.department_id',
@@ -86,7 +83,15 @@ class Tickets_model extends My_model {
                 'usr.id = t.client_id',
                 'LEFT',
             ],
+            TABLE_COMPANY . ' as c' => [
+                'c.id = t.company_id',
+                'LEFT',
+            ],
         ];
+
+        if ($company_id != "") {
+            $data['where'] = ['t.company_id' => $company_id];
+        }
         $data['table'] = TABLE_TICKET . ' as t';
         $result = $this->selectFromJoin($data);
         return $result;
@@ -173,15 +178,27 @@ class Tickets_model extends My_model {
     function updateCoversation($postData, $ticketId) {
         // print_r($postData);exit;
         $data['insert']['ticket_id'] = $postData['ticket_id'];
-        $data['insert']['replay_id'] = $postData['replay_id'];
+        $data['insert']['replay_id'] = $this->user_id;
         $data['insert']['description'] = $postData['message_reply'];
         $data['insert']['replay_by'] = $postData['replay_by'];
         $data['insert']['dt_created'] = DATE_TIME;
         $data['table'] = TABLE_TICKET_CONVERSATION;
-        $deparmentId = $this->insertRecord($data);
+        $commentId = $this->insertRecord($data);
 
         unset($data);
-        if ($deparmentId) {
+        if ($commentId) {
+            $dataArr = $this->Client_model->companyUserDetail();
+            print_r($dataArr);exit;
+            $data['replay'] = $postData['message_reply'];
+            $data['message'] = $this->load->view('email_template/ticket_update', $data, true);
+            $data['from_title'] = 'Update Comment';
+            $data['subject'] = 'Comment Replay';
+//           $data['to'] = 'shaileshvanaliya91@gmail.com';
+            $data["to"] = $postData[''];
+            $data["replyto"] = REPLAY_EMAIL;
+            $data["bcc"] = REPLAY_EMAIL;
+            $mailSend = $this->utility->sendMailSMTP($data);
+
             $json_response['status'] = 'success';
             $json_response['message'] = 'Ticket Replay add successfully';
             $json_response['jscode'] = 'setTimeout(function(){location.reload();},1000)';
@@ -199,9 +216,6 @@ class Tickets_model extends My_model {
         if ($ticketId) {
             $data['where'] = ['ticket_id' => $ticketId];
         }
-        if ($type) {
-            $data['where'] = ['replay_by' => $type];
-        }
 
         $data['join'] = [
             TABLE_TICKET . ' as tkt' => [
@@ -209,13 +223,14 @@ class Tickets_model extends My_model {
                 'LEFT',
             ],
             TABLE_USER . ' as usr' => [
-                'usr.id = tkt.client_id',
+                'usr.id = con.replay_id',
                 'LEFT',
             ],
         ];
-        $data['order'] = ['con.id' => 'DESC'];
+
         $data['table'] = TABLE_TICKET_CONVERSATION . ' as con';
         $result = $this->selectFromJoin($data);
+
         return $result;
     }
 
@@ -226,6 +241,8 @@ class Tickets_model extends My_model {
         $result = $this->updateRecords($data);
         unset($data);
         if ($result) {
+
+
             $json_response['status'] = 'success';
             $json_response['message'] = 'Status Change successfully';
             $json_response['jscode'] = 'setTimeout(function(){location.reload();},1000)';
@@ -235,11 +252,11 @@ class Tickets_model extends My_model {
         }
         return $json_response;
     }
-    
-       // GET TICKET REPLAY COMMENT
+
+    // GET TICKET REPLAY COMMENT
     function getCompanyName($data) {
         $data['select'] = ['cmpny.*'];
-            $data['where'] = ['usr.id' => $data['reporter']];
+        $data['where'] = ['usr.id' => $data['reporter']];
         $data['join'] = [
             TABLE_COMPANY . ' as cmpny' => [
                 'cmpny.id = usr.company_id',
@@ -250,6 +267,7 @@ class Tickets_model extends My_model {
         $result = $this->selectFromJoin($data);
         return $result;
     }
+
 }
 
 ?>

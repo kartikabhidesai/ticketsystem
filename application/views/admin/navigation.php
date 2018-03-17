@@ -50,6 +50,9 @@
                     <li class="<?= $email_setting; ?>"><a href="<?= admin_url() . "setting/email_setting"; ?>">Email Settings</a></li>
                 </ul> -->
             </li>
+            <li class="<?= $resetPassword; ?>">
+                <a href="<?= admin_url() . 'reset_password'; ?>"><i class="fa fa-ticket"></i> <span class="nav-label">Reset Password</span></a>
+            </li>
         </ul>
 
     </div>

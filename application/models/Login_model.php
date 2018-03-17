@@ -20,6 +20,7 @@ class Login_model extends MY_Model{
                     'email' => $row['email'],
                     'firstname' => $row['first_name'],
                     'lastname' => $row['last_name'],
+                    'companyId' => $row['company_id'],
                 ];
              $this->session->set_userdata($sessionData);
                  $url = admin_url().'dashboard';

@@ -610,3 +610,12 @@ function isFileExist($url)
     }
 
 }
+
+function getStatus($status){
+    
+    $sta = json_decode(STATUS);
+   
+    if(array_key_exists($status, $sta)){
+        return $sta->$status;
+    }
+}

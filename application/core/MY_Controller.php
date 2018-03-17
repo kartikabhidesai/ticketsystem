@@ -37,6 +37,7 @@ class Admin_Controller extends MY_Controller
                 redirect(base_url());
             }
         }
+        $this->user_id = $this->session->userdata['valid_login']['id'];
     }
     
 
@@ -60,6 +61,9 @@ class Client_Controller extends MY_Controller
                 redirect(base_url());
             }
         }
+        
+        $this->user_id = $this->session->userdata['client_login']['id'];
+        
     }
     
 

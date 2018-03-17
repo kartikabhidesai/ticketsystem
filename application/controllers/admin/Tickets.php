@@ -32,6 +32,7 @@ class Tickets extends Admin_Controller {
         $clientId = '';
         $companyId = '';
         $data['getTicket'] = $this->this_model->getClientTicketList($clientId,$companyId);
+        
         $this->load->view(ADMIN_LAYOUT, $data);
     }
 

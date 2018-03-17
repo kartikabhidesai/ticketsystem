@@ -28,6 +28,9 @@
             <li class="<?= $ticket; ?>">
                 <a href="<?= client_url(); ?>tickets"><i class="fa fa-ticket"></i> <span class="nav-label">Tickets</span></a>
             </li>
+            <li class="<?= $resetPassword; ?>">
+                <a href="<?= client_url() . 'reset_password'; ?>"><i class="fa fa-ticket"></i> <span class="nav-label">Reset Password</span></a>
+            </li>
         </ul>
 
     </div>

@@ -32,13 +32,15 @@
                     </select>
                 </div>
             </div>
-            <div class="form-group">
-                <label class="col-sm-3 control-label">Company Name</label>
+            
+            <div class="form-group companyShow" style="display: none">
+                <label class="col-sm-3 control-label">Company Name : </label>
                 <div class="col-sm-7">
-                    <label class="control-label"> <b class="compnayName"></b></label>
+                    <label class="control-label compnayName"></label>
                     <input type="hidden" value=""  name="company_id" class="form-control compnayId">
                 </div>
             </div>
+            
             <div class="form-group">
                 <label class="col-sm-3 control-label">Ticket Code *</label>
                 <div class="col-sm-7">
