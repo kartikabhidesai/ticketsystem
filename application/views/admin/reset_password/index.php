@@ -1,8 +1,11 @@
 
 <div class="wrapper wrapper-content white-bg m-t">
     <div class=" animated fadeInRightBig">
-
-        <form method="post" class="form-horizontal"  action="<?php admin_url() . 'reset_password' ?>" id = 'changePassword' method="post" accept-charset="utf-8">
+<div class="ibox-title">
+    <h5>Reset Password</h5>
+</div>
+        <div class="ibox-content">
+            <form method="post" class="form-horizontal"  action="<?php admin_url() . 'reset_password' ?>" id = 'changePassword' method="post" accept-charset="utf-8">
 
 <!--            <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
                 <div class="form-group col-md-4">
@@ -25,7 +28,7 @@
                     
                 </div>
             </div>
-            <div class="hr-line-dashed"></div>
+            
             <div class="form-group">
                 <div class="col-sm-4 col-sm-offset-2">
                     <a class="btn btn-white" href="<?= admin_url('reset_password'); ?>" type="button">Cancel</a>
@@ -33,5 +36,6 @@
                 </div>
             </div>
         </form>
+        </div>
     </div>
 </div>
