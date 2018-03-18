@@ -4,6 +4,7 @@ class Tickets_model extends My_model {
 
     public function __construct() {
         parent::__construct();
+         $this->load->model('Client_model', 'Client_model');
     }
 
     function addTicket($postData) {
@@ -98,7 +99,7 @@ class Tickets_model extends My_model {
     }
 
     function getTicketDetail($ticketId) {
-        $data['select'] = ['t.*', 'mdt.name as departmentName', 'usr.first_name', 'usr.last_name'];
+        $data['select'] = ['t.*', 'mdt.name as departmentName', 'usr.first_name', 'usr.last_name', 'usr.email'];
         $data['where'] = ['t.id' => $ticketId];
         $data['join'] = [
             TABLE_MASTER_DEPARTMENT . ' as mdt' => [
@@ -184,17 +185,18 @@ class Tickets_model extends My_model {
         $data['insert']['dt_created'] = DATE_TIME;
         $data['table'] = TABLE_TICKET_CONVERSATION;
         $commentId = $this->insertRecord($data);
-
+        
         unset($data);
         if ($commentId) {
-            $dataArr = $this->Client_model->companyUserDetail();
-            print_r($dataArr);exit;
+            $dataArr = $this->getTicketDetail($postData['ticket_id']);
+            
+            $data['ticketDetial'] = $dataArr[0];
             $data['replay'] = $postData['message_reply'];
             $data['message'] = $this->load->view('email_template/ticket_update', $data, true);
             $data['from_title'] = 'Update Comment';
             $data['subject'] = 'Comment Replay';
 //           $data['to'] = 'shaileshvanaliya91@gmail.com';
-            $data["to"] = $postData[''];
+            $data["to"] = $dataArr[0]->email;
             $data["replyto"] = REPLAY_EMAIL;
             $data["bcc"] = REPLAY_EMAIL;
             $mailSend = $this->utility->sendMailSMTP($data);
