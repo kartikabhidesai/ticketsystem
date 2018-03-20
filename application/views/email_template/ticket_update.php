@@ -11,7 +11,7 @@
                     <p>Subject# <?php echo $ticketDetial->subject; ?></p>
                     <p>Reply# <?php echo $replay; ?></p>
                     <p>Regards,</p>
-                    <p>Technical Suport</p>
+                    <p>Technical Support</p>
 
             </div>
             <!-- content over -->
