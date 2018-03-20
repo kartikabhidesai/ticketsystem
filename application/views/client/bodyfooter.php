@@ -1,8 +1,8 @@
 <div class="footer">
     <div class="pull-right">
-        Example text
+        Expert Tech
     </div>
     <div>
-        <strong>Copyright</strong> Example Company &copy; <?= date('d-m-Y'); ?>
+        <strong>Copyright</strong> Expert Tech &copy; <?= date('Y'); ?>
     </div>
 </div>

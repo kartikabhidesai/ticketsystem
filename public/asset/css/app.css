@@ -817,6 +817,12 @@ body.canvas-menu.mini-navbar nav.navbar-static-side {
 .nav > li.active{
     border-left: 4px solid #CB080D !important;
 }
+h2.title {
+    color: #CB080D !important;
+    font-family: Helvetica;
+    font-size: 20px;
+}
+
 .btn-success {
   background-color: #1c84c6;
   border-color: #1c84c6;
