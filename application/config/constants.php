@@ -99,7 +99,7 @@ define("IMAGES", 'http://' . $_SERVER['HTTP_HOST'] . '/ticketsystem/public/asset
     define("IMAGES", 'http://' . $_SERVER['HTTP_HOST'] . '/public/asset/images/');
 }
 define('DATE_TIME',date('Y-m-d H:i:s'));
-define('PROJECT_NAME', 'Ticket System');
+define('PROJECT_NAME', 'Help Desk Support');
 define('REPLAY_EMAIL', 'helpdesk@experttech.ca');
 
 //define ticket status

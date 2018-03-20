@@ -9,9 +9,9 @@
                     <p>Ticket# <?php echo $ticketDetial->ticket_code; ?></p>
                     <p>Status# <?= $ticketDetial->status ?></p>
                     <p>Subject# <?php echo $ticketDetial->subject; ?></p>
-                    <p>Replay# <?php echo $replay; ?></p>
+                    <p>Reply# <?php echo $replay; ?></p>
                     <p>Regards,</p>
-                    <p>Technical Support<br>The <?php echo PROJECT_NAME; ?> Team<br></p>
+                    <p>Technical Suport<br>The <?php echo PROJECT_NAME; ?> Team<br></p>
 
             </div>
             <!-- content over -->

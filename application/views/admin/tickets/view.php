@@ -100,7 +100,7 @@
                                 <input type="hidden" name="replay_by" value="A">
                                 <input type="hidden" name="replay_id" value="0">
                                 <div class="text-right">
-                                    <button type="submit" class="btn btn-sm btn-primary m-t-n-xs"><strong>Replay Ticket</strong></button>
+                                    <button type="submit" class="btn btn-sm btn-primary m-t-n-xs"><strong>Reply Ticket</strong></button>
                                 </div>
                             </form>
                         </div>

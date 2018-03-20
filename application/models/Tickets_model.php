@@ -194,7 +194,7 @@ class Tickets_model extends My_model {
             $data['replay'] = $postData['message_reply'];
             $data['message'] = $this->load->view('email_template/ticket_update', $data, true);
             $data['from_title'] = 'Update Comment';
-            $data['subject'] = 'Comment Replay';
+            $data['subject'] = 'Your Ticket Has Been Updated';
 //           $data['to'] = 'shaileshvanaliya91@gmail.com';
             $data["to"] = $dataArr[0]->email;
             $data["replyto"] = REPLAY_EMAIL;
@@ -202,7 +202,7 @@ class Tickets_model extends My_model {
             $mailSend = $this->utility->sendMailSMTP($data);
 
             $json_response['status'] = 'success';
-            $json_response['message'] = 'Ticket Replay add successfully';
+            $json_response['message'] = 'Ticket Reply add successfully';
             $json_response['jscode'] = 'setTimeout(function(){location.reload();},1000)';
         } else {
             $json_response['status'] = 'error';
