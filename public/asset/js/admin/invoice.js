@@ -23,8 +23,8 @@ var Invoice = function() {
                 }
             ]
         });
-        
-        
+
+
 //         $('body').on('click', '.interestedlist', function() {
 //            var muckId = $(this).attr('data-id');
 //            var data = '';
@@ -72,6 +72,63 @@ var Invoice = function() {
         });
     }
 
+    var invoiceAdd = function() {
+
+
+        var form = $('#invoiceAdd');
+        var rules = {
+            ref_no: {required: true},
+            due_date: {required: true, },
+            client_id: {required: true},
+            default_tax: {required: true},
+            discount: {required: true, number: true},
+            currency: {required: true},
+            notes: {required: true},
+        };
+        handleFormValidate(form, rules, function(form) {
+            handleAjaxFormSubmit(form);
+        });
+
+    };
+
+    var invoiceEdit = function() {
+        var form = $('#invoiceEdit');
+        var rules = {
+            ref_no: {required: true},
+            due_date: {required: true, },
+            client_id: {required: true},
+            default_tax: {required: true},
+            discount: {required: true, number: true},
+            currency: {required: true},
+            notes: {required: true},
+        };
+        handleFormValidate(form, rules, function(form) {
+            handleAjaxFormSubmit(form);
+        });
+    };
+    var invoiceDetail = function() {
+
+        var form = $('#invoiceDetail');
+        var rules = {
+            item_name: {required: true},
+            item_desc: {required: true},
+            price: {required: true, number: true},
+            quentiry: {required: true, number: true},
+        };
+        handleFormValidate(form, rules, function(form) {
+            handleAjaxFormSubmit(form);
+        });
+    };
+    var deleteInvoicePayment = function() {
+        $('body').on('click', '.deletePayment', function() {
+            var personId = $(this).attr('data-id');
+            var dataUrl = $(this).attr('data-href');
+            $('#btndelete').attr('data-url', dataUrl);
+            $('#btndelete').attr('data-id', personId);
+        });
+        handleDelete();
+    }
+
 
     return {
         //main function to initiate the module
@@ -79,6 +136,13 @@ var Invoice = function() {
             invoiceList();
         },
         invoiceAdd: function() {
+            genral();
+            invoiceAdd();
+        },
+        initEdit: function() {
+            invoiceEdit();
+            invoiceDetail();
+            deleteInvoicePayment();
             genral();
         },
     };

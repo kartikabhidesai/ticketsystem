@@ -1,25 +1,16 @@
-<style>
-/*    .customDate {
-    float: none;
-    padding-right: -10px;
-    padding-left: 15px;
-}*/
-</style>
-
 <div class="wrapper wrapper-content white-bg m-t">
     <div class=" animated fadeInRightBig">
-        <form method="post" class="form-horizontal"  enctype="multipart/form-data"  action="<?= admin_url(); ?>client/add" id='clientAdd'>
+        <form method="post" class="form-horizontal"  action="<?= admin_url('invoice/edit/').$this->utility->encode($invoiceData[0]->id); ?>" id='invoiceEdit'>
             <div class="form-group headingmain">						
                 <h2 class="title" style="margin:10px"> Invoice Details
-                <a href="<?= admin_url() . 'invoice/view/' . 2; ?>" style="margin:10px" class="btn btn-sm btn-primary pull-right m-t-n-xs" ><strong><i class="fa fa-tag"></i> View Tickets </strong></a> 
+                <a href="<?= admin_url() . 'invoice/view/' . $this->utility->encode($invoiceData[0]->id) ?>" style="margin:10px" class="btn btn-sm btn-primary pull-right m-t-n-xs" ><strong><i class="fa fa-tag"></i> View Tickets </strong></a> 
                 </h2>								
-                
             </div>
-
             <div class="form-group">
                 <label class="col-sm-3 control-label">Ref No*</label>
                 <div class="col-sm-7">
-                    <input type="text" placeholder="Enter Company Name" name="company_name" class="form-control">
+                    <input type="text" readonly="" placeholder="Enter ref no" name="ref_no" value="<?= $invoiceData[0]->ref_no; ?>" class="form-control">
+                    <input type="hidden"  name="id" value="<?= $invoiceData[0]->id; ?>" class="form-control">
                 </div>
             </div>
             <div class="form-group">
@@ -28,29 +19,37 @@
                     <button class="btn btn-primary recurring" type="button">Recurring</button>
                 </div>
             </div>
-            <div class="form-group showRecurring" style="display: none;">
+            <?php
+            $recur = (empty($invoiceData[0]->recur_every)) ? 'display: none;' : 'display: block;';
+            $startDate = (empty($invoiceData[0]->start_date)) ? 'display: none;' : 'display: block;';
+            $endDate = (empty($invoiceData[0]->end_date)) ? 'display: none;' : 'display: block;';
+            $discount = ($invoiceData[0]->discount < 0) ? 'display: none;' : 'display: block;';
+            ?>
+            <div class="form-group showRecurring" style="<?= $recur; ?>">
                 <label class="col-sm-3 control-label">Recur every </label>
                 <div class="col-sm-7">
                     <?php $priority = json_decode(RECURRING); ?>
-                    <select class="changeStatus form-control">
+                    <select name="recure_every" class="recure_every form-control">
                         <option value="">Select Recur every</option>
                         <?php foreach ($priority as $key => $value) { ?>
-                            <option value="<?= $key ?>"><?= $value; ?></option>
+                            <option <?php if ($key == $invoiceData[0]->recur_every) {
+                                        echo "selected='selected'";
+                                    }?> value="<?= $key ?>"><?= $value; ?></option>
                         <?php }
                         ?>
                     </select>
                 </div>
             </div>
-            <div class="form-group  showRecurring" style="display: none;" id="data_1">
+            <div class="form-group  showRecurring" style="<?= $startDate; ?>" id="data_1">
                 <label class="col-sm-3 control-label">Start Date</label>
                 <div class="input-group date col-sm-7 ">
-                    <span class="input-group-addon customDate"><i class="fa fa-calendar"></i></span><input type="text" name="start_date" class="form-control" value="03/04/2014">
+                    <span class="input-group-addon customDate"><i class="fa fa-calendar"></i></span><input type="text" name="start_date" class="form-control" value="<?= (!empty($invoiceData[0]->start_date)) ?  date('m-d-Y',  strtotime($invoiceData[0]->start_date)) : ''; ?>">
                 </div>
             </div>
-            <div class="form-group  showRecurring" style="display: none;" id="data_1">
+            <div class="form-group  showRecurring" style="<?= $endDate; ?>" id="data_1">
                 <label class="col-sm-3 control-label">End Date</label>
                 <div class="input-group date col-sm-7 ">
-                    <span class="input-group-addon customDate"><i class="fa fa-calendar"></i></span><input type="text" name="end_date" class="form-control" value="03/04/2014">
+                    <span class="input-group-addon customDate"><i class="fa fa-calendar"></i></span><input type="text" name="end_date" class="form-control" value="<?= (!empty($invoiceData[0]->end_date)) ?  date('m-d-Y',  strtotime($invoiceData[0]->end_date)) : ''; ?>">
                 </div>
             </div>
             <div class="form-group">
@@ -60,7 +59,11 @@
                         <option value="">Select Reporter</option>
                         <?php for ($i = 0; $i < count($client_list); $i++) {
                             ?>
-                            <option data-email="<?= $client_list[$i]->email; ?>" value="<?= $client_list[$i]->id; ?>"><?= $client_list[$i]->first_name; ?></option>
+                            <option <?php
+                                    if ($client_list[$i]->id == $invoiceData[0]->client_id) {
+                                        echo "selected='selected'";
+                                    }
+                                    ?> value="<?= $client_list[$i]->id; ?>"><?= $client_list[$i]->first_name; ?></option>
                         <?php } ?>
 
                     </select>
@@ -69,40 +72,40 @@
             <div class="form-group" id="data_1">
                 <label class="col-sm-3 control-label">Due Date</label>
                 <div class="input-group date col-sm-7 ">
-                    <span class="input-group-addon customDate"><i class="fa fa-calendar"></i></span><input type="text" class="form-control" value="03/04/2014">
+                    <span class="input-group-addon customDate"><i class="fa fa-calendar"></i></span><input type="text" class="form-control" name="due_date" value="<?= date('m-d-Y',  strtotime($invoiceData[0]->due_date)); ?>">
                 </div>
             </div>
 
             <div class="form-group">
                 <label class="col-sm-3 control-label">Default Tax*</label>
                 <div class="col-sm-7">
-                    <div class="input-group m-b"><span class="input-group-addon">%</span> <input placeholder="Default Tax" class="form-control" type="text"></div>
+                    <div class="input-group m-b"><span class="input-group-addon">%</span> <input placeholder="Default Tax" name="default_tax" class="form-control" value="<?= $invoiceData[0]->default_tax; ?>" type="text"></div>
                 </div>
             </div>
 
             <div class="form-group">
                 <label class="col-sm-3 control-label"></label>
                 <div class="col-sm-7">
-                    <button class="btn btn-primary showDicount" type="button">Discount</button>
+                    <button class="btn btn-primary showDicount" value="show" type="button">Discount</button>
                 </div>
             </div>
-            <div class="form-group discountDiv" style="display: none;">
+            <div class="form-group discountDiv" style="<?=  $discount; ?>">
                 <label class="col-sm-3 control-label">Discount</label>
                 <div class="col-sm-7">
-                    <div class="input-group m-b"><span class="input-group-addon">%</span> <input placeholder="Dicount" class="form-control" type="text"></div>
+                    <div class="input-group m-b"><span class="input-group-addon">%</span> <input placeholder="Dicount" value="<?= $invoiceData[0]->discount; ?>" class="form-control" name="discount" type="text"></div>
                 </div>
             </div>
 
             <div class="form-group">
                 <label class="col-sm-3 control-label">Currency</label>
                 <div class="col-sm-7">
-                    <input type="text" name="company_city" placeholder="Enter Currency" class="form-control">
+                    <input type="text" name="currency" placeholder="Enter Currency" value="<?= $invoiceData[0]->currency; ?>" class="form-control">
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-3 control-label">Notes *</label>
                 <div class="col-sm-7">
-                    <textarea class="form-control" name="additional_information"></textarea>
+                     <textarea class="form-control" name="notes" ><?= $invoiceData[0]->note; ?></textarea>
                 </div>
             </div>
 

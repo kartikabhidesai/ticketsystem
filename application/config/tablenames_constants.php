@@ -13,3 +13,5 @@ define("TABLE_COUNTRIES", "countries");
 define("TABLE_MASTER_DEPARTMENT", "master_department");
 define("TABLE_TICKET", "ticket");
 define("TABLE_TICKET_CONVERSATION", "ticket_conversation");
+define("TABLE_INVOICE", "invoice");
+define("TABLE_INVOICE_DETAILS", "invoice_details");

@@ -1,6 +1,6 @@
 <div class="wrapper wrapper-content white-bg m-t">
     <div class=" animated fadeInRightBig">
-        <form method="post" class="form-horizontal"  enctype="multipart/form-data"  action="<?= admin_url(); ?>client/add" id='clientAdd'>
+        <form method="post" class="form-horizontal"  enctype="multipart/form-data"  action="<?= admin_url(); ?>invoice/add" id='invoiceAdd'>
             <div class="form-group headingmain">						
                 <h2 class="title" style="margin:10px"> Invoice Details</h2>								
             </div>
@@ -8,14 +8,14 @@
             <div class="form-group">
                 <label class="col-sm-3 control-label">Ref No*</label>
                 <div class="col-sm-7">
-                    <input type="text" placeholder="Enter Company Name" name="company_name" class="form-control">
+                    <input type="text" placeholder="Enter ref no" name="ref_no" value="<?= $invoiceNo ?> " class="form-control">
                 </div>
             </div>
               <div class="form-group">
                 <label class="col-sm-3 control-label">Client *</label>
                 <div class="col-sm-7">
-                      <select class="form-control m-b reporter" id="reporter" name="client_id">
-                           <option value="">Select Reporter</option>
+                      <select class="form-control m-b reporter" id="client_id" name="client_id">
+                           <option value="">Select Client</option>
                         <?php for($i=0; $i<count($client_list); $i++){
                         ?>
                             <option data-email="<?= $client_list[$i]->email;?>" value="<?= $client_list[$i]->id;?>"><?= $client_list[$i]->first_name;?></option>
@@ -27,14 +27,14 @@
             <div class="form-group" id="data_1">
                 <label class="col-sm-3 control-label">Due Date</label>
                 <div class="input-group date col-sm-7">
-                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" class="form-control" value="03/04/2014">
+                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" class="form-control" name="due_date" value="03/04/2014">
                 </div>
             </div>
           
             <div class="form-group">
                 <label class="col-sm-3 control-label">Default Tax*</label>
                 <div class="col-sm-7">
-                    <div class="input-group m-b"><span class="input-group-addon">%</span> <input placeholder="Default Tax" class="form-control" type="text"></div>
+                    <div class="input-group m-b"><span class="input-group-addon">%</span> <input placeholder="Default Tax" name="default_tax" class="form-control" type="text"></div>
                 </div>
             </div>
          
@@ -47,20 +47,20 @@
             <div class="form-group discountDiv" style="display: none;">
                 <label class="col-sm-3 control-label">Discount</label>
                 <div class="col-sm-7">
-                    <div class="input-group m-b"><span class="input-group-addon">%</span> <input placeholder="Dicount" class="form-control" type="text"></div>
+                    <div class="input-group m-b"><span class="input-group-addon">%</span> <input placeholder="Dicount" class="form-control" name="discount" type="text"></div>
                 </div>
             </div>
 
             <div class="form-group">
                 <label class="col-sm-3 control-label">Currency</label>
                 <div class="col-sm-7">
-                    <input type="text" name="company_city" placeholder="Enter Currency" class="form-control">
+                    <input type="text" name="currency" placeholder="Enter Currency" class="form-control">
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-3 control-label">Notes *</label>
                 <div class="col-sm-7">
-                    <textarea class="form-control" name="additional_information"></textarea>
+                    <textarea class="form-control" name="notes"></textarea>
                 </div>
             </div>
 

@@ -4,7 +4,7 @@ class Invoice extends Admin_Controller {
 
     function __construct() {
         parent::__construct();
-        $this->load->model('Client_model', 'this_model');
+        $this->load->model('Invoice_model', 'this_model');
         $this->load->model('Client_model', 'Client_model');
     }
 
@@ -29,7 +29,7 @@ class Invoice extends Admin_Controller {
         $data['init'] = array(
             'Invoice.invoiceList()',
         );
-        $data['getComany'] = $this->this_model->getcompanyDetail();
+        $data['getInvoice'] = $this->this_model->getInvoiceList();
         $this->load->view(ADMIN_LAYOUT, $data);
     }
 
@@ -55,26 +55,35 @@ class Invoice extends Admin_Controller {
             'Invoice.invoiceAdd()',
         );
 
-        $data['country'] = $this->this_model->countryList();
         if ($this->input->post()) {
-            $res = $this->this_model->addCompany($this->input->post());
-            echo json_encode($res);
+            $res = $this->this_model->addInvoice($this->input->post());
+            if ($res) {
+                $json_response['status'] = 'success';
+                $json_response['message'] = 'Invoice add successfully.';
+                $json_response['redirect'] = admin_url() . 'invoice';
+            } else {
+                $json_response['status'] = 'error';
+                $json_response['message'] = 'Something went wrong.';
+            }
+            echo json_encode($json_response);
             exit();
         }
+        $data['invoiceNo'] = $this->this_model->generateInvoiceNos();
         $clientId = '';
         $data['client_list'] = $this->Client_model->getReporterDetail($clientId);
         $this->load->view(ADMIN_LAYOUT, $data);
     }
 
     function edit($id) {
-        $companyId = $this->utility->decode($id);
+        $invoiceId = $this->utility->decode($id);
 
-        if (!ctype_digit($companyId)) {
-//            redirect(admin_url().'invoice');
+        if (!ctype_digit($invoiceId)) {
+            redirect(admin_url() . 'invoice');
         }
 
         $data['page'] = "admin/invoice/edit";
-        $data['client'] = 'active';
+        $data['invoice'] = 'active';
+        $data['sale'] = 'active';
         $data['pagetitle'] = 'Invoice';
         $data['var_meta_title'] = 'Invoice';
         $data['breadcrumb'] = array(
@@ -87,15 +96,25 @@ class Invoice extends Admin_Controller {
             'plugins/datapicker/bootstrap-datepicker.js',
         );
         $data['init'] = array(
-            'Invoice.invoiceAdd()',
+            'Invoice.initEdit()',
         );
-
-        $data['country'] = $this->this_model->countryList();
-        $data['companyDeatail'] = $this->this_model->companyDetail($companyId);
+        $clientId = '';
+        $data['client_list'] = $this->Client_model->getReporterDetail($clientId);
+        $data['invoiceData'] = $this->this_model->getInvoiceById($invoiceId);
 
         if ($this->input->post()) {
-            $res = $this->this_model->editCompany($this->input->post(), $companyId);
-            echo json_encode($res);
+//            print_r($this->input->post());
+//            exit;
+            $res = $this->this_model->editInvoice($this->input->post(), $invoiceId);
+            if ($res) {
+                $json_response['status'] = 'success';
+                $json_response['message'] = 'Invoice Updated successfully.';
+                $json_response['redirect'] = admin_url() . 'invoice';
+            } else {
+                $json_response['status'] = 'error';
+                $json_response['message'] = 'Something went wrong.';
+            }
+            echo json_encode($json_response);
             exit();
         }
         $this->load->view(ADMIN_LAYOUT, $data);
@@ -130,32 +149,46 @@ class Invoice extends Admin_Controller {
     }
 
     function view($id) {
-        $companyId = $this->utility->decode($id);
-        if (!ctype_digit($companyId)) {
-//            return(admin_url().'client');
+        $invoiceId = $this->utility->decode($id);
+        if (!ctype_digit($invoiceId)) {
+            return(admin_url() . 'invoice');
         }
+
         $data['page'] = "admin/invoice/view";
-        $data['client'] = 'active';
+        $data['invoice'] = 'active';
+        $data['sale'] = 'active';
         $data['pagetitle'] = 'Invoice Preview';
         $data['var_meta_title'] = 'Invoice Preview';
         $data['breadcrumb'] = array(
             'dashboard' => 'Home',
             'client' => 'Invoice Preview',
         );
-        $data['css'] = array('plugins/dataTables/datatables.min.css');
-
-        $data['js'] = array(
-            'plugins/dataTables/datatables.min.js',
-            'admin/client.js',
+       $data['js'] = array(
+            'admin/invoice.js',
+            'plugins/datapicker/bootstrap-datepicker.js',
         );
         $data['init'] = array(
-            'Client.clientDetail()',
+            'Invoice.initEdit()',
         );
-        $data['companyId'] = $companyId;
-        $data['companyDeatail'] = $this->this_model->companyDetail($companyId);
-        $data['companyUserDetail'] = $this->this_model->companyUserDetail($companyId);
+       
+        if ($this->input->post()) {
+            $res = $this->this_model->addInvoiceDetails($this->input->post());
+            if ($res) {
+                $json_response['status'] = 'success';
+                $json_response['message'] = 'Invoice Details successfully.';
+                $json_response['redirect'] = admin_url() . 'invoice/view/'.$id;
+            } else {
+                $json_response['status'] = 'error';
+                $json_response['message'] = 'Something went wrong.';
+            }
+            echo json_encode($json_response);
+            exit();
+        }
+        $data['invoiceData'] = $this->this_model->getInvoiceById($invoiceId);
+        $data['invoicepaymentData'] = $this->this_model->getInvoicePaymentDetails($invoiceId);
         $this->load->view(ADMIN_LAYOUT, $data);
     }
+
     function history($id) {
         $companyId = $this->utility->decode($id);
         if (!ctype_digit($companyId)) {
@@ -179,9 +212,9 @@ class Invoice extends Admin_Controller {
         $data['init'] = array(
             'Client.clientDetail()',
         );
-        $data['companyId'] = $companyId;
-        $data['companyDeatail'] = $this->this_model->companyDetail($companyId);
-        $data['companyUserDetail'] = $this->this_model->companyUserDetail($companyId);
+//        $data['companyId'] = $companyId;
+//        $data['companyDeatail'] = $this->this_model->companyDetail($companyId);
+//        $data['companyUserDetail'] = $this->this_model->companyUserDetail($companyId);
         $this->load->view(ADMIN_LAYOUT, $data);
     }
 
@@ -230,9 +263,9 @@ class Invoice extends Admin_Controller {
         }
     }
 
-    function clientDelete() {
+    function paymentDelete() {
         if ($this->input->post()) {
-            $result = $this->this_model->deleteClient($this->input->post());
+            $result = $this->this_model->deletePaymentInvoice($this->input->post());
             echo json_encode($result);
             exit();
         }
