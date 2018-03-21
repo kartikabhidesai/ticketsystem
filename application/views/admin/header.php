@@ -1,7 +1,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ticketsystem - <?php echo $var_meta_title; ?> </title>
+    <title>Helpdesk - <?php echo $var_meta_title; ?> </title>
 
 
     <link rel="stylesheet" href="<?= base_url() ?>public/asset/css/vendor.css" />
