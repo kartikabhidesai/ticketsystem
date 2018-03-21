@@ -8,7 +8,7 @@
             <div class="form-group">
                 <label class="col-sm-3 control-label">Ref No*</label>
                 <div class="col-sm-7">
-                    <input type="text" placeholder="Enter ref no" name="ref_no" value="<?= $invoiceNo ?> " class="form-control">
+                    <input type="text" placeholder="Enter ref no" readonly="" name="ref_no" value="<?= $invoiceNo ?> " class="form-control">
                 </div>
             </div>
               <div class="form-group">
