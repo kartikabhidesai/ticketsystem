@@ -1,5 +1,6 @@
 <div class="wrapper wrapper-content white-bg m-t">
     <div class=" animated fadeInRightBig">
+        
         <div class="row">
             <div class="col-lg-12">
                 <form method="post" class="form-horizontal" action="<?= admin_url('invoice/view/') . $this->utility->encode($invoiceData[0]->id); ?>" id='invoiceDetail'>

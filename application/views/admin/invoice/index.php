@@ -28,8 +28,7 @@
                                 </thead>
                                 <tbody>
                                     <?php for ($i = 0; $i < count($getInvoice); $i++) {
-                                        $invoiceId = $getInvoice[$i]->id;
-                                        ?>
+                                        $invoiceId = $getInvoice[$i]->id;?>
                                         <tr>
                                             <td>OPEN</td>
                                             <td><?= $getInvoice[$i]->ref_no; ?></td>
