@@ -163,7 +163,7 @@
                                         <?php
                                         if ($invoiceData[0]->discount > 0) {
                                             $discount = ($total * $invoiceData[0]->discount) / 100;
-                                            $total = $total - $discount;
+                                            $total = $total - ($discount + $defaultTax);
                                             ?>
                                             <tr>
                                                 <td><strong>Discount - <?= $invoiceData[0]->discount ?>%:</strong></td>
