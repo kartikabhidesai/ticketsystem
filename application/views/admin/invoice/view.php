@@ -28,12 +28,12 @@
                             <a href="javascript:;" style="margin:5px" class="btn btn-sm btn-primary  m-t-n-xs" ><strong><i class="fa fa-print"></i></strong></a>
                         </div>
                         <div class="col-sm-1 displaylable">
-                            <a href="javascript:;" style="margin:5px" class="btn btn-sm btn-primary m-t-n-xs"><strong> <i class="fa fa-address-card"></i> Items </strong></a>
+                            <a href="javascript:;" style="margin:5px -20px" class="btn btn-sm btn-primary m-t-n-xs"><strong> <i class="fa fa-address-card"></i> Items </strong></a>
                         </div>
                         <div class="col-sm-2 displaylable">
-                            <a  data-href="javascript:;" data-id="" style="margin:5px 5px 5px 20px"  data-original-title="Pay Invoice" class="btn btn-primary btn-sm "><strong><i class="fa fa-trash-o"></i> Pay Invoice</strong></a>
+                            <a  href="<?= admin_url('invoice/pay/') . $this->utility->encode($invoiceData[0]->id); ?>"  style="margin:5px 5px 5px -6px"  data-original-title="Pay Invoice" class="btn btn-primary btn-sm "><strong><i class="fa fa-google-wallet"></i> Pay Invoice</strong></a>
                         </div>
-                        <div class="col-sm-5 displaylable" style="margin-top: 5px;">
+                        <div class="col-sm-5 displaylable" style="margin: 5px -25px;">
                             <?php $ticketMoreAction = json_decode(TICKETMOREACTIONS); ?>
 <!--                            <select class="changeStatus form-control">
                                 <option value="">More Action</option>

@@ -217,6 +217,7 @@ class Invoice extends Admin_Controller {
 //        $data['companyUserDetail'] = $this->this_model->companyUserDetail($companyId);
         $this->load->view(ADMIN_LAYOUT, $data);
     }
+    
 
     function addUpdatePerson() {
 
@@ -270,6 +271,32 @@ class Invoice extends Admin_Controller {
             exit();
         }
     }
+    
+    function pay($id) {
+        $companyId = $this->utility->decode($id);
+        if (!ctype_digit($companyId)) {
+//            return(admin_url().'client');
+        }
+        $data['page'] = "admin/invoice/pay";
+        $data['invoice'] = 'active';
+        $data['sale'] = 'active';
+        $data['pagetitle'] = 'Invoice Pay';
+        $data['var_meta_title'] = 'Invoice Pay';
+        $data['breadcrumb'] = array(
+            'dashboard' => 'Home',
+            'client' => 'Invoice Pay',
+        );
+        $data['css'] = array('plugins/dataTables/datatables.min.css');
+        $data['js'] = array(
+            'plugins/dataTables/datatables.min.js',
+            'admin/client.js',
+        );
+        $data['init'] = array(
+            'Client.clientDetail()',
+        );
+        $this->load->view(ADMIN_LAYOUT, $data);
+    }
+    
 
 }
 
