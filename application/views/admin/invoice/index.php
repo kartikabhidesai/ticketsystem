@@ -38,7 +38,7 @@
                                             <td><?= number_format($getInvoice[$i]->totalPrice,2); ?></td>
                                             <td><?= number_format($getInvoice[$i]->totalPrice,2); ?></td>
                                             <td>   
-                                                 <a title="Preview Ticket"  href="<?= admin_url() . 'invoice/view/' . $this->utility->encode($invoiceId) ; ?>"> <i class="fa fa-eye"></i> </a>
+                                                 <a title="Preview Ticket"  href="<?= admin_url() . 'invoice/view/' . $this->utility->encode($invoiceId) ; ?>"> <i class="fa fa-eye text-navy"></i> </a>
                                                 <a title="Edit Ticket"  href="<?= admin_url() . 'invoice/edit/' . $this->utility->encode($invoiceId); ?>"> <i class="fa fa-edit text-navy"></i> </a>
                                                 <a title="Invoice History"  href="<?= admin_url() . 'invoice/history/' . $this->utility->encode($invoiceId); ?>"> <i class="fa fa-book text-navy"></i> </a>
                                                 <a title="Email Invoice "  href="javascript:;"> <i class="fa fa-male text-navy"></i> </a>
