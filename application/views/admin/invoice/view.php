@@ -9,7 +9,7 @@
                                     <select class="changeStatus form-control">
                                         <option value="">Short Invoice</option>
         <?php foreach ($priority as $key => $value) { ?>
-                                                                                    <option value="<?= $key ?>"><?= $value; ?></option>
+                                                                                        <option value="<?= $key ?>"><?= $value; ?></option>
         <?php }
         ?>
                                     </select>
@@ -28,7 +28,7 @@
                                     <select class="changeStatus form-control">
                                         <option value="">More Action</option>
         <?php foreach ($priority as $key => $value) { ?>
-                                                                                    <option value="<?= $key ?>"><?= $value; ?></option>
+                                                                                        <option value="<?= $key ?>"><?= $value; ?></option>
         <?php }
         ?>
                                     </select>
@@ -52,15 +52,15 @@
                                         </thead>
                                         <tbody>
         <?php for ($i = 0; $i < 5; $i++) { ?>
-                                                                                        <tr>
-                                                                                            <td>Sept 25th | Scanner issues</td>
-                                                                                            <td>Scanner issues after several intermittent power outages. Had Jackie power the scanner/fax off, remove the power cable and perform a power drain on the machine. She plugged it back in and turned it back on tested it and it worked.</td>
-                                                                                            <td>0.25</td>
-                                                                                            <td>45.00</td>
-                                                                                            <td>
-                                                                                                11.25 <a href=""><i class="fa fa-trash-o"></i></a>
-                                                                                            </td>
-                                                                                        </tr>
+                                                                                            <tr>
+                                                                                                <td>Sept 25th | Scanner issues</td>
+                                                                                                <td>Scanner issues after several intermittent power outages. Had Jackie power the scanner/fax off, remove the power cable and perform a power drain on the machine. She plugged it back in and turned it back on tested it and it worked.</td>
+                                                                                                <td>0.25</td>
+                                                                                                <td>45.00</td>
+                                                                                                <td>
+                                                                                                    11.25 <a href=""><i class="fa fa-trash-o"></i></a>
+                                                                                                </td>
+                                                                                            </tr>
         <?php } ?>
                                         </tbody>
                                     </table>
@@ -151,12 +151,12 @@
                                                     <td> <?= $invoicepaymentData[$i]->price ?></td>
                                                     <td>
                                                         <?= $itemTotal; ?> 
-                                                            <a data-toggle="modal" data-target="#myModal_autocomplete" data-href="<?= admin_url() . 'invoice/paymentDelete' ?>" data-id="<?php echo $invoicepaymentData[$i]->paymentId; ?>" class="deletePayment">
-                                                                <i class="fa fa-trash-o"></i>
-                                                            </a>
+                                                        <a data-toggle="modal" data-target="#myModal_autocomplete" data-href="<?= admin_url() . 'invoice/paymentDelete' ?>" data-id="<?php echo $invoicepaymentData[$i]->paymentId; ?>" class="deletePayment">
+                                                            <i class="fa fa-trash-o"></i>
+                                                        </a>
                                                     </td>
                                                 </tr>
-                                            <?php
+                                                <?php
                                             }
                                         }
                                         ?>
@@ -176,62 +176,66 @@
                                     </tbody>
                                 </table>
                             </div><!-- /table-responsive -->
-<?php if (count($invoicepaymentData) > 0) { ?>
+                            <?php if (count($invoicepaymentData) > 0) { ?>
                                 <table class="table invoice-total">
                                     <tbody>
                                         <tr>
                                             <td><strong>Sub Total :</strong></td>
-                                            <td><?= $invoiceData[0]->currency . number_format($total,2); ?></td>
+                                            <td><?= $invoiceData[0]->currency . number_format($total, 2); ?></td>
                                         </tr>
                                         <tr>
-                                            <td><strong>Tax - 0.00% :</strong></td>
-                                            <td><?= $invoiceData[0]->currency . '0.00' ?></td>
+                                            <td><strong>Tax - <?= $invoiceData[0]->default_tax ?>% :</strong></td>
+                                            <td><?php
+                                                $defaultTax = ($total * $invoiceData[0]->default_tax) / 100;
+                                                echo $invoiceData[0]->currency . number_format($defaultTax,2);
+                                                ?></td>
                                         </tr>
-                                          <?php if ($invoiceData[0]->discount > 0) { 
-                                             $discount = ($total * $invoiceData[0]->discount)/100;
-                                             $total  = $total - $discount;
-                                             ?>
+                                        <?php
+                                        if ($invoiceData[0]->discount > 0) {
+                                            $discount = ($total * $invoiceData[0]->discount) / 100;
+                                            $total = $total - $discount;
+                                            ?>
                                             <tr>
                                                 <td><strong>Discount - <?= $invoiceData[0]->discount ?>%:</strong></td>
-                                                <td><?= number_format($discount,2) ?></td>
+                                                <td><?= number_format($discount, 2) ?></td>
                                             </tr>
-                                         <?php } ?>
-                                            
+                                        <?php } ?>
+
                                         <tr>
                                             <td><strong>Payment Made:</strong></td>
                                             <td><?= $invoiceData[0]->currency . 0.00 ?></td>
                                         </tr>
-                                       
+
                                         <tr>
                                             <td><strong>TOTAL :</strong></td>
-                                            <td><?= $invoiceData[0]->currency . number_format($total,2) ?></td>
+                                            <td><?= $invoiceData[0]->currency . number_format($total, 2) ?></td>
                                         </tr>
                                     </tbody>
                                 </table>
                             <?php } ?>
-                            <div class="well m-t"><?=$invoiceData[0]->note; ?>
+                            <div class="well m-t"><?= $invoiceData[0]->note; ?>
                             </div>
                         </div>
-                           <div class="modal inmodal" id="myModal_autocomplete" tabindex="-1" role="dialog" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content animated bounceInRight">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                                    <i class="fa fa-close modal-icon"></i>
-                                    <h4 class="modal-title">Delete</h4>
-                                    <!--<small class="font-bold">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</small>-->
-                                </div>
-                                <div class="modal-body">
-                                    <h4>Are you sure?</h4>
+                        <div class="modal inmodal" id="myModal_autocomplete" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content animated bounceInRight">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                        <i class="fa fa-close modal-icon"></i>
+                                        <h4 class="modal-title">Delete</h4>
+                                        <!--<small class="font-bold">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</small>-->
+                                    </div>
+                                    <div class="modal-body">
+                                        <h4>Are you sure?</h4>
 
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
-                                    <button  id='btndelete' data-url="" data-id="" type="button" class="btn btn-primary">Delete</button>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+                                        <button  id='btndelete' data-url="" data-id="" type="button" class="btn btn-primary">Delete</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
                     </div>
                 </form>
             </div>
