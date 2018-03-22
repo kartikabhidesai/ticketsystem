@@ -89,9 +89,9 @@
 
                                 <div class="col-sm-6 text-right">
                                     <h4>Bill To:</h4>
-                                    <h4>General Seed Company</h4>
-                                    <h4>648 Alberton Road South Alberton,ON Canada</h4>
-                                    <h4>Phone : 905-648-2101</h4>
+                                    <h4><?= $invoiceData[0]->companyName; ?></h4>
+                                    <h4><?= $invoiceData[0]->companyAddress .', ' .$invoiceData[0]->companyCity .', ' .$invoiceData[0]->countryName ?></h4>
+                                    <h4>Phone : <?= $invoiceData[0]->companyPhone  ?></h4>
                                 </div>
                             </div>
 

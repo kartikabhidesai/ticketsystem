@@ -83,13 +83,36 @@ class Invoice_model extends My_model {
     }
 
     function getInvoiceById($id) {
-        $data['select'] = ['inv.*'];
+        $data['select'] = ['inv.*',
+            'usr.first_name',
+            'usr.last_name',
+            'c.name as companyName',
+            'c.phone as companyPhone',
+            'c.address as companyAddress',
+            'c.city as companyCity',
+            'con.name as countryName',
+            'inv.*',
+            ];
+        
         if ($id) {
-            $data['where'] = ['id' => $id];
+            $data['where'] = ['inv.id' => $id];
         }
+          $data['join'] = [
+            TABLE_USER . ' as usr' => [
+                'usr.id = inv.client_id',
+                'LEFT',
+            ],
+            TABLE_COMPANY . ' as c' => [
+                'c.id = usr.company_id',
+                'LEFT',
+            ],
+            TABLE_COUNTRIES . ' as con' => [
+                'con.id = c.country_id',
+                'LEFT',
+            ],
+        ];
         $data['table'] = TABLE_INVOICE . ' as inv';
-        $result = $this->selectRecords($data);
-
+        $result = $this->selectFromJoin($data);
         return $result;
     }
 
