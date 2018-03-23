@@ -31,8 +31,8 @@
                                         $invoiceId = $getInvoice[$i]->id;?>
                                         <tr>
                                             <td>OPEN</td>
-                                            <td><?= $getInvoice[$i]->ref_no; ?></td>
-                                            <td><?= $getInvoice[$i]->due_date; ?></td>
+                                            <td><a href="<?= admin_url() . 'invoice/view/' . $this->utility->encode($invoiceId) ; ?>"><?= $getInvoice[$i]->ref_no; ?></a></td>
+                                            <td><?= date('d-m-Y',  strtotime($getInvoice[$i]->due_date)); ?></td>
                                             <td><?= $getInvoice[$i]->first_name . ' ' .$getInvoice[$i]->last_name; ?></td>
                                             <td><?= number_format($getInvoice[$i]->totalPrice,2); ?></td>
                                             <td><?= number_format($getInvoice[$i]->totalPrice,2); ?></td>

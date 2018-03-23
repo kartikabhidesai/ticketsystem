@@ -163,20 +163,20 @@ class Invoice extends Admin_Controller {
             'dashboard' => 'Home',
             'client' => 'Invoice Preview',
         );
-       $data['js'] = array(
+        $data['js'] = array(
             'admin/invoice.js',
             'plugins/datapicker/bootstrap-datepicker.js',
         );
         $data['init'] = array(
             'Invoice.initEdit()',
         );
-       
+
         if ($this->input->post()) {
             $res = $this->this_model->addInvoiceDetails($this->input->post());
             if ($res) {
                 $json_response['status'] = 'success';
                 $json_response['message'] = 'Invoice Details successfully.';
-                $json_response['redirect'] = admin_url() . 'invoice/view/'.$id;
+                $json_response['redirect'] = admin_url() . 'invoice/view/' . $id;
             } else {
                 $json_response['status'] = 'error';
                 $json_response['message'] = 'Something went wrong.';
@@ -190,9 +190,9 @@ class Invoice extends Admin_Controller {
     }
 
     function history($id) {
-        $companyId = $this->utility->decode($id);
-        if (!ctype_digit($companyId)) {
-//            return(admin_url().'client');
+        $invoiceId = $this->utility->decode($id);
+        if (!ctype_digit($invoiceId)) {
+            return(admin_url() . 'invoice');
         }
         $data['page'] = "admin/invoice/history";
         $data['invoice'] = 'active';
@@ -212,12 +212,10 @@ class Invoice extends Admin_Controller {
         $data['init'] = array(
             'Client.clientDetail()',
         );
-//        $data['companyId'] = $companyId;
-//        $data['companyDeatail'] = $this->this_model->companyDetail($companyId);
-//        $data['companyUserDetail'] = $this->this_model->companyUserDetail($companyId);
+        $data['invoiceId'] = $id;
+        $data['historyArr'] = $this->this_model->getHistoryList($invoiceId);
         $this->load->view(ADMIN_LAYOUT, $data);
     }
-    
 
     function addUpdatePerson() {
 
@@ -271,11 +269,11 @@ class Invoice extends Admin_Controller {
             exit();
         }
     }
-    
+
     function pay($id) {
-        $companyId = $this->utility->decode($id);
-        if (!ctype_digit($companyId)) {
-//            return(admin_url().'client');
+        $invoiceId = $this->utility->decode($id);
+        if (!ctype_digit($invoiceId)) {
+//            return(admin_url().'invoice');
         }
         $data['page'] = "admin/invoice/pay";
         $data['invoice'] = 'active';
@@ -284,19 +282,25 @@ class Invoice extends Admin_Controller {
         $data['var_meta_title'] = 'Invoice Pay';
         $data['breadcrumb'] = array(
             'dashboard' => 'Home',
-            'client' => 'Invoice Pay',
+            'Invoice' => 'Invoice Pay',
         );
-        $data['css'] = array('plugins/dataTables/datatables.min.css');
         $data['js'] = array(
-            'plugins/dataTables/datatables.min.js',
-            'admin/client.js',
+            'admin/invoice.js',
+            'plugins/datapicker/bootstrap-datepicker.js',
+            'plugins/switchery/switchery.js',
         );
+        $data['css'] = array(
+            'plugins/dataTables/datatables.min.css',
+            'plugins/switchery/switchery.css',
+        );
+
         $data['init'] = array(
-            'Client.clientDetail()',
+            'Invoice.payInit()',
         );
+
+
         $this->load->view(ADMIN_LAYOUT, $data);
     }
-    
 
 }
 

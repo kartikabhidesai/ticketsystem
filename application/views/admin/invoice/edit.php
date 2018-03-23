@@ -72,7 +72,7 @@
             <div class="form-group" id="data_1">
                 <label class="col-sm-3 control-label">Due Date</label>
                 <div class="input-group date col-sm-7 ">
-                    <span class="input-group-addon customDate"><i class="fa fa-calendar"></i></span><input type="text" class="form-control" name="due_date" value="<?= date('m-d-Y',  strtotime($invoiceData[0]->due_date)); ?>">
+                    <span class="input-group-addon customDate"><i class="fa fa-calendar"></i></span><input type="text" class="form-control" name="due_date" value="<?= date('d-m-Y',  strtotime($invoiceData[0]->due_date)); ?>">
                 </div>
             </div>
 

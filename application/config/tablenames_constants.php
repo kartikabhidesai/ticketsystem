@@ -15,3 +15,4 @@ define("TABLE_TICKET", "ticket");
 define("TABLE_TICKET_CONVERSATION", "ticket_conversation");
 define("TABLE_INVOICE", "invoice");
 define("TABLE_INVOICE_DETAILS", "invoice_details");
+define("TABLE_INVOICE_HISTORY", "invoice_history");

@@ -19,8 +19,14 @@ class Invoice_model extends My_model {
         $data['insert']['dt_updated'] = DATE_TIME;
         $data['table'] = TABLE_INVOICE;
         $result = $this->insertRecord($data);
+        $objHistory = array(
+            'description' => "created INVOICE #" . $postData['ref_no'],
+            'invoiceId' => $result,
+            'userId' => $this->session->userdata['valid_login']['id'],
+        );
         unset($data);
         if ($result) {
+            $this->addHistory($objHistory);
             return true;
         } else {
             return false;
@@ -29,7 +35,7 @@ class Invoice_model extends My_model {
 
     function getInvoiceList() {
 
-        $data['select'] = ['inv.*','SUM(invDetail.total) as totalPrice',
+        $data['select'] = ['inv.*', 'SUM(invDetail.total) as totalPrice',
             'usr.first_name', 'usr.last_name',
         ];
         $data['join'] = [
@@ -66,6 +72,12 @@ class Invoice_model extends My_model {
         $result = $this->updateRecords($data);
         unset($data);
         if ($result) {
+            $objHistory = array(
+                'description' => $this->session->userdata['valid_login']['firstname'] . " edited INVOICE #" . $postData['ref_no'],
+                'invoiceId' => $postData['id'],
+                'userId' => $this->session->userdata['valid_login']['id'],
+            );
+            $this->addHistory($objHistory);
             return true;
         } else {
             return false;
@@ -92,12 +104,12 @@ class Invoice_model extends My_model {
             'c.city as companyCity',
             'con.name as countryName',
             'inv.*',
-            ];
-        
+        ];
+
         if ($id) {
             $data['where'] = ['inv.id' => $id];
         }
-          $data['join'] = [
+        $data['join'] = [
             TABLE_USER . ' as usr' => [
                 'usr.id = inv.client_id',
                 'LEFT',
@@ -138,7 +150,7 @@ class Invoice_model extends My_model {
     function getInvoicePaymentDetails($invoiceId) {
 
         $data['select'] = ['inv.*', 'invDetail.price', 'invDetail.item_name',
-            'invDetail.item_desc', 'invDetail.quentity','invDetail.id as paymentId',
+            'invDetail.item_desc', 'invDetail.quentity', 'invDetail.id as paymentId',
         ];
         $data['where'] = ['inv.id' => $invoiceId];
         $data['join'] = [
@@ -165,6 +177,41 @@ class Invoice_model extends My_model {
             $json_response['message'] = 'Something went wrong';
         }
         return $json_response;
+    }
+
+    function addHistory($postData) {
+        $data['insert']['invoice_id'] = $postData['invoiceId'];
+        $data['insert']['history_desc'] = $postData['description'];
+        $data['insert']['user_id'] = $postData['userId'];
+        $data['insert']['dt_created'] = DATE_TIME;
+        $data['insert']['dt_updated'] = DATE_TIME;
+        $data['table'] = TABLE_INVOICE_HISTORY;
+        $result = $this->insertRecord($data);
+        unset($data);
+        if ($result) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    function getHistoryList($invoiceId) {
+
+        $data['select'] = ['invHis.*', 'usr.first_name', 'usr.last_name',];
+        $data['join'] = [
+            TABLE_INVOICE . ' as inv' => [
+                'inv.id = invHis.invoice_id',
+                'LEFT',
+            ],
+            TABLE_USER . ' as usr' => [
+                'usr.id = invHis.user_id',
+                'LEFT',
+            ],
+        ];
+        $data['where'] = ['invoice_id' => $invoiceId];
+        $data['table'] = TABLE_INVOICE_HISTORY . ' as invHis';
+        $result = $this->selectFromJoin($data);
+        return $result;
     }
 
 }

@@ -2,13 +2,13 @@
     <div class=" animated fadeInRightBig">
         <form method="post" class="form-horizontal"  enctype="multipart/form-data"  action="<?= admin_url(); ?>invoice/add" id='invoiceAdd'>
             <div class="form-group headingmain">						
-                <h2 class="title" style="margin:10px"> Invoice Details</h2>								
+                <h2 class="title" style="margin:10px"> Payment Details</h2>								
             </div>
 
             <div class="form-group">
                 <label class="col-sm-3 control-label">Trans ID *</label>
                 <div class="col-sm-7">
-                    <input type="text" placeholder="Enter Trans ID " readonly="" name="ref_no" value="<?= $invoiceNo ?> " class="form-control">
+                    <input type="text" placeholder="Enter Trans ID " readonly="" name="ref_no" value="TNP0021" class="form-control">
                 </div>
             </div>
 
@@ -45,15 +45,14 @@
             <div class="form-group">
                 <label class="col-sm-3 control-label">Send Email</label>
                 <div class="col-sm-1">
-                    <input type="checkbox" name="amount" placeholder="" class="form-control">
+                    <input type="checkbox" class="js-switch" checked />
                 </div>
             </div>
-
             <div class="hr-line-dashed"></div>
             <div class="form-group">
                 <div class="col-sm-4 col-sm-offset-2">
                     <button class="btn btn-white" type="button">Cancel</button>
-                    <button class="btn btn-primary" type="submit">Create Invoice</button>
+                    <button class="btn btn-primary" type="submit">Add Payment</button>
                 </div>
             </div>
         </form>
