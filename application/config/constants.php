@@ -104,7 +104,7 @@ define('REPLAY_EMAIL', 'helpdesk@experttech.ca');
 
 //define ticket status
 
-define('STATUS', json_encode(['NEW' => 'New','ANSWERED' => 'Answered', 'CLOSED' => 'Closed', 'OPEN' => 'Open','IN_fPROGRESS' => 'In Progress']));
+define('STATUS', json_encode(['NEW' => 'New','ANSWERED' => 'Answered', 'CLOSED' => 'Closed', 'OPEN' => 'Open','IN_PROGRESS' => 'In Progress']));
 
 //define ticket priority
 

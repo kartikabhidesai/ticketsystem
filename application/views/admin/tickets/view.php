@@ -56,7 +56,21 @@
                     <div class="form-group">
                         <label class="col-sm-5 displaylable">Status</label>
                         <div class="col-sm-7">
-                            <span class="btn btn-primary btn-xs">  <?= getStatus($getTicket[0]->status) ?> </span>
+                            <?php
+                           
+                            if(getStatus($getTicket[0]->status) == 'New'){
+                                $color = 'background-color:#999999;color:white;';
+                            }else if(getStatus($getTicket[0]->status) == 'Answered'){
+                                $color = 'background-color:#1a7bb9;color:white;';
+                            }else if(getStatus($getTicket[0]->status) == 'Closed'){
+                               $color = 'background-color:green;color:white;';
+                            }else if(getStatus($getTicket[0]->status) == 'Open'){
+                                $color = 'background-color:red;color:white;';
+                            }else if(getStatus($getTicket[0]->status) == 'In Progress'){
+                                 $color = 'background-color:#999999;color:white;';
+                            }
+                            ?>
+                            <span class="btn btn-xs" style="<?php echo $color; ?>">  <?php echo getStatus($getTicket[0]->status); ?> </span>
                         </div>
                     </div>
                     <div class="form-group">
