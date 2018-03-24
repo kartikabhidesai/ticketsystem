@@ -75,8 +75,8 @@ class Invoice_model extends My_model {
         $data['update']['ref_no'] = $postData['ref_no'];
         $data['update']['recur_every'] = $postData['recure_every'];
         $data['update']['due_date'] = date('Y-m-d', strtotime($postData['due_date']));
-        $data['update']['start_date'] = date('Y-m-d', strtotime($postData['start_date']));
-        $data['update']['end_date'] = date('Y-m-d', strtotime($postData['end_date']));
+        $data['update']['start_date'] = ($postData['start_date'] == '01-19-1970') ? '' :  date('Y-m-d', strtotime($postData['start_date']));
+        $data['update']['end_date'] = ($postData['end_date'] == '01-19-1970') ? '' :  date('Y-m-d', strtotime($postData['end_date']));
         $data['update']['default_tax'] = $postData['default_tax'];
         $data['update']['discount'] = $postData['discount'];
         $data['update']['currency'] = $postData['currency'];
@@ -261,10 +261,41 @@ class Invoice_model extends My_model {
         $result = $this->insertRecord($data);
         unset($data);
         if ($result) {
+            $objHistory = array(
+                'description' => "Payment of " . $postData['currency'] . $postData['amount'] . " received and applied to INVOICE #" . $postData['ref_no'],
+                'invoiceId' => $postData['invoiceId'],
+                'userId' => $this->session->userdata['valid_login']['id'],
+            );
+            $this->addHistory($objHistory);
             return true;
         } else {
             return false;
         }
+    }
+
+    function deleteInvoice($data) {
+        $this->db->where('id', $data['id']);
+        $this->db->delete(TABLE_INVOICE);
+
+        $this->db->where('invoice_id', $data['id']);
+        $this->db->delete(TABLE_INVOICE_DETAILS);
+
+
+        $this->db->where('invoice_id', $data['id']);
+        $this->db->delete(TABLE_INVOICE_PAYMENT);
+
+        $this->db->where('invoice_id', $data['id']);
+        $result = $this->db->delete(TABLE_INVOICE_HISTORY);
+
+        if ($result) {
+            $json_response['status'] = 'success';
+            $json_response['message'] = 'Invoice delete successfully';
+            $json_response['redirect'] = admin_url('invoice');
+        } else {
+            $json_response['status'] = 'error';
+            $json_response['message'] = 'Something went wrong';
+        }
+        return $json_response;
     }
 
 }

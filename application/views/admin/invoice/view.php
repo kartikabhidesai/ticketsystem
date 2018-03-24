@@ -17,7 +17,7 @@
                                 <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle">Short Invoice <span class="caret"></span></button>
                                 <ul class="dropdown-menu">
                                     <?php foreach ($priority as $key => $value) { ?>
-                                        <li><a href="#" value="<?= $key ?>" class="font-bold"><?= $value; ?></a></li>
+                                    <li><a href="<?php echo admin_url('invoice/view/').$this->utility->encode($invoiceData[0]->id)."/$key"; ?>" value="<?= $key ?>" class="font-bold"><?= $value; ?></a></li>
                                     <?php }
                                     ?>
                                 </ul>
@@ -25,10 +25,10 @@
                         </div>
 
                         <div class="col-sm-1 displaylable">
-                            <a href="javascript:;" style="margin:5px" class="btn btn-sm btn-primary  m-t-n-xs" ><strong><i class="fa fa-print"></i></strong></a>
+                            <a href="javascript:;" style="margin:5px" class="btn btn-sm btn-primary  m-t-n-xs invoicePrint" ><strong><i class="fa fa-print"></i></strong></a>
                         </div>
                         <div class="col-sm-1 displaylable">
-                            <a href="javascript:;" style="margin:5px -20px" class="btn btn-sm btn-primary m-t-n-xs"><strong> <i class="fa fa-address-card"></i> Items </strong></a>
+                            <a href="javascript:;" style="margin:5px -20px" class="btn btn-sm btn-primary m-t-n-xs "><strong> <i class="fa fa-address-card"></i> Items </strong></a>
                         </div>
                         <div class="col-sm-2 displaylable">
                             <a  href="<?= admin_url('invoice/pay/') . $this->utility->encode($invoiceData[0]->id); ?>"  style="margin:5px 5px 5px -6px"  data-original-title="Pay Invoice" class="btn btn-primary btn-sm "><strong><i class="fa fa-google-wallet"></i> Pay Invoice</strong></a>
@@ -43,10 +43,10 @@
                             ?>
                             </select>-->
                             <div class="btn-group">
-                                <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle">More Action <span class="caret"></span></button>
-                                <ul class="dropdown-menu">
+                                <button data-toggle="dropdown" id="moreAction" class="btn btn-primary dropdown-toggle">More Action <span class="caret"></span></button>
+                                <ul class="dropdown-menu moreAction">
                                     <?php foreach ($ticketMoreAction as $key => $value) { ?>
-                                        <li><a href="#" value="<?= $key ?>" class="font-bold"><?= $value; ?></a></li>
+                                        <li><a href="#" data-value="<?= $key ?>" class="font-bold"><?= $value; ?></a></li>
                                     <?php }
                                     ?>
                                 </ul>
@@ -59,7 +59,7 @@
                 </div>
             </div>
         </div>
-
+<input type="hidden" name="encodeUrl" value="<?= $this->utility->encode($invoiceData[0]->id); ?>" class="encodeUrl">
         <div class="row">
             <div class="col-lg-12">
                 <form method="post" class="form-horizontal" action="<?= admin_url('invoice/view/') . $this->utility->encode($invoiceData[0]->id); ?>" id='invoiceDetail'>
@@ -137,7 +137,7 @@
                                             <td><input type="text" placeholder="Item Description" name="item_desc" class="form-control"></td>
                                             <td><input type="text" placeholder="1" name="quentity" class="form-control"></td>
                                             <td><input type="text" placeholder="56.12" name="price" class="form-control"></td>
-                                    <input type="hidden" name="id" value="<?= $invoiceData[0]->id; ?>" class="form-control">
+                                    <input type="hidden" name="id" id="invoiceId" value="<?= $invoiceData[0]->id; ?>" class="form-control">
                                     <td>
                                         <div class="text-right">
                                             <button  class="btn btn-success "><i class="fa fa-check"></i> Save</button>
@@ -178,7 +178,7 @@
 
                                         <tr>
                                             <td><strong>Payment Made:</strong></td>
-                                            <td><?php echo $invoiceData[0]->currency . $totalPaid; ?></td>
+                                            <td><?php echo $invoiceData[0]->currency . number_format($totalPaid,2); ?></td>
                                         </tr>
 
                                         <tr>

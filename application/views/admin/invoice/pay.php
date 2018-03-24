@@ -40,6 +40,8 @@
                     <input type="text" name="amount" placeholder="Enter Amount (CAD)" value="<?= $total ?>" class="form-control amount">
                     <input type="hidden" name="hidAmount" value="<?= $total ?>" class="totalAmount">
                     <input type="hidden" name="invoiceId" value="<?= $invoicepaymentData[0]->id ?>" class="">
+                    <input type="hidden" name="ref_no" value="<?= $invoicepaymentData[0]->ref_no; ?>" class="">
+                    <input type="hidden" name="currency" value="<?= $invoicepaymentData[0]->currency; ?>" class="">
                 </div>
             </div>
             <div class="form-group">

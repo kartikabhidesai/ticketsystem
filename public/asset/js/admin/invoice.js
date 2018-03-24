@@ -72,6 +72,23 @@ var Invoice = function() {
         $(".recurring").click(function() {
             $(".showRecurring").toggle();
         });
+        $('body').on('click', '.invoicePrint', function() {
+            window.print();
+        });
+        $('.moreAction  li a').click(function(e) {
+            e.stopPropagation();
+            var encodeUrl = $('.encodeUrl').val();
+            var invoiceId = $('#invoiceId').val();
+            if ($(this).attr('data-value') == 'EDIT_INVOICE') {
+                window.location.href = baseurl + 'admin/invoice/edit/' + encodeUrl;
+            } else if ($(this).attr('data-value') == 'INVOICE_HISTORY') {
+                window.location.href = baseurl + 'admin/invoice/history/' + encodeUrl;
+            } else if ($(this).attr('data-value') == 'DELETE_INVOICE') {
+                $('#myModal_autocomplete').modal('show');
+                $('#btndelete').attr('data-url', baseurl + 'admin/invoice/deleteInvoice');
+                $('#btndelete').attr('data-id', invoiceId);
+            }
+        });
     }
 
     var invoiceAdd = function() {
