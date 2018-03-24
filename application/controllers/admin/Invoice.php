@@ -273,7 +273,7 @@ class Invoice extends Admin_Controller {
     function pay($id) {
         $invoiceId = $this->utility->decode($id);
         if (!ctype_digit($invoiceId)) {
-//            return(admin_url().'invoice');
+            return(admin_url() . 'invoice');
         }
         $data['page'] = "admin/invoice/pay";
         $data['invoice'] = 'active';
@@ -297,8 +297,25 @@ class Invoice extends Admin_Controller {
         $data['init'] = array(
             'Invoice.payInit()',
         );
+        if ($this->input->post()) {
+//            print_r($this->input->post());exit;
+            $res = $this->this_model->addPayment($this->input->post());
+            if ($res) {
+                $json_response['status'] = 'success';
+                $json_response['message'] = 'Payment Add successfully.';
+                $json_response['redirect'] = admin_url() . 'invoice/view/' . $id;
+            } else {
+                $json_response['status'] = 'error';
+                $json_response['message'] = 'Something went wrong.';
+            }
+            echo json_encode($json_response);
+            exit();
+        }
 
-
+        $data['invoiceId'] = $id;
+        $data['tranNos'] = $this->this_model->generateTransactionNos();
+        $data['invoicepaymentData'] = $this->this_model->getInvoiceList($invoiceId);
+//        print_r($data['invoicepaymentData']);exit;
         $this->load->view(ADMIN_LAYOUT, $data);
     }
 

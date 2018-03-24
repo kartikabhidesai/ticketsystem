@@ -9,7 +9,7 @@
 <!--                            <select class="changeStatus form-control">
                                 <option value="">Short Invoice</option>
                             <?php foreach ($priority as $key => $value) { ?>
-                                        <option value="<?= $key ?>"><?= $value; ?></option>
+                                                        <option value="<?= $key ?>"><?= $value; ?></option>
                             <?php }
                             ?>
                             </select>-->
@@ -37,12 +37,12 @@
                             <?php $ticketMoreAction = json_decode(TICKETMOREACTIONS); ?>
 <!--                            <select class="changeStatus form-control">
                                 <option value="">More Action</option>
-                                <?php foreach ($ticketMoreAction as $key => $value) { ?>
-                                    <option value="<?= $key ?>"><?= $value; ?></option>
-                                <?php }
-                                ?>
+                            <?php foreach ($ticketMoreAction as $key => $value) { ?>
+                                                    <option value="<?= $key ?>"><?= $value; ?></option>
+                            <?php }
+                            ?>
                             </select>-->
-                              <div class="btn-group">
+                            <div class="btn-group">
                                 <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle">More Action <span class="caret"></span></button>
                                 <ul class="dropdown-menu">
                                     <?php foreach ($ticketMoreAction as $key => $value) { ?>
@@ -76,7 +76,9 @@
                                     <h4>Invoice No. <?= $invoiceData[0]->ref_no; ?></h4>
                                     <h4>Invoice Date: <?= date('M d, Y', strtotime($invoiceData[0]->dt_created)); ?>    </h4>
                                     <h4>Due Date: <?= date('M d, Y', strtotime($invoiceData[0]->due_date)); ?> </h4>
-                                    <h4>Payment Status: <button type="button" class="btn btn-outline btn-success btn-xs">Not paid</button></h4>
+                                    <h4>Payment Status: 
+                                        <button type="button" class="btn btn-outline btn-success btn-xs">Not paid</button>
+                                    </h4>
                                 </div>
                             </div>
                             <div class="row well m-t">
@@ -108,19 +110,19 @@
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $total = 0;
+                                        $subTotal = 0;
                                         for ($i = 0; $i < count($invoicepaymentData); $i++) {
                                             if (!empty($invoicepaymentData[$i]->price)) {
                                                 $itemTotal = $invoicepaymentData[$i]->quentity * $invoicepaymentData[$i]->price;
-                                                $total += $itemTotal;
+                                                $subTotal += $itemTotal;
                                                 ?>
                                                 <tr>
                                                     <td><?= date('M d', strtotime($invoiceData[0]->dt_created)); ?> | <?= $invoicepaymentData[$i]->item_name ?> </td>
                                                     <td> <?= $invoicepaymentData[$i]->item_desc ?></td>
                                                     <td> <?= $invoicepaymentData[$i]->quentity ?></td>
-                                                    <td> <?= $invoicepaymentData[$i]->price ?></td>
+                                                    <td> <?= $invoiceData[0]->currency . $invoicepaymentData[$i]->price ?></td>
                                                     <td>
-                                                        <?= $itemTotal; ?> 
+                                                        <?= $invoiceData[0]->currency . $itemTotal; ?> 
                                                         <a data-toggle="modal" data-target="#myModal_autocomplete" data-href="<?= admin_url() . 'invoice/paymentDelete' ?>" data-id="<?php echo $invoicepaymentData[$i]->paymentId; ?>" class="deletePayment">
                                                             <i class="fa fa-trash-o"></i>
                                                         </a>
@@ -146,24 +148,27 @@
                                     </tbody>
                                 </table>
                             </div><!-- /table-responsive -->
-                            <?php if (count($invoicepaymentData) > 0) { ?>
+                            <?php
+                            if (count($invoicepaymentData) > 0) {
+                                $defaultTax = ($subTotal * $invoiceData[0]->default_tax) / 100;
+                                $discount = ($subTotal * $invoiceData[0]->discount) / 100;
+                                $totalPaid = getPaidAmount($invoiceData[0]->id);
+                                $total2 =  $subTotal + $defaultTax;
+                                $total1 =  ($totalPaid + $discount);
+                                $finalTotal = $total2 - $total1;
+                                ?>
                                 <table class="table invoice-total">
                                     <tbody>
                                         <tr>
                                             <td><strong>Sub Total :</strong></td>
-                                            <td><?= $invoiceData[0]->currency . number_format($total, 2); ?></td>
+                                            <td><?= $invoiceData[0]->currency . number_format($subTotal, 2); ?></td>
                                         </tr>
                                         <tr>
                                             <td><strong>Tax - <?= $invoiceData[0]->default_tax ?>% :</strong></td>
-                                            <td><?php
-                                                $defaultTax = ($total * $invoiceData[0]->default_tax) / 100;
-                                                echo $invoiceData[0]->currency . number_format($defaultTax, 2);
-                                                ?></td>
+                                            <td><?php echo $invoiceData[0]->currency . number_format($defaultTax, 2); ?></td>
                                         </tr>
                                         <?php
                                         if ($invoiceData[0]->discount > 0) {
-                                            $discount = ($total * $invoiceData[0]->discount) / 100;
-                                            $total = $total - ($discount + $defaultTax);
                                             ?>
                                             <tr>
                                                 <td><strong>Discount - <?= $invoiceData[0]->discount ?>%:</strong></td>
@@ -173,12 +178,12 @@
 
                                         <tr>
                                             <td><strong>Payment Made:</strong></td>
-                                            <td><?= $invoiceData[0]->currency . '0.00' ?></td>
+                                            <td><?php echo $invoiceData[0]->currency . $totalPaid; ?></td>
                                         </tr>
 
                                         <tr>
                                             <td><strong>TOTAL :</strong></td>
-                                            <td><?= $invoiceData[0]->currency . number_format($total, 2) ?></td>
+                                            <td><?= $invoiceData[0]->currency . number_format($finalTotal, 2) ?></td>
                                         </tr>
                                     </tbody>
                                 </table>

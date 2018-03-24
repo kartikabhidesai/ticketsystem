@@ -33,10 +33,17 @@ class Invoice_model extends My_model {
         }
     }
 
-    function getInvoiceList() {
-
+    function getInvoiceList($invoiceId = null) {
         $data['select'] = ['inv.*', 'SUM(invDetail.total) as totalPrice',
+//            'SUM(invPayment.amount) as totalPaidAmount',
+            'GROUP_CONCAT(invDetail.id) as totalPaidAmount',
+//            'GROUP_CONCAT(DISTINCT invDetail.id) as totalPaidAmount',
             'usr.first_name', 'usr.last_name',
+            'invDetail.item_name',
+            'invDetail.item_desc',
+//            'invPayment.payment_date',
+//            'invPayment.notes as paymentNote',
+//            'invPayment.amount as paidAmount',
         ];
         $data['join'] = [
             TABLE_USER . ' as usr' => [
@@ -47,11 +54,18 @@ class Invoice_model extends My_model {
                 'invDetail.invoice_id = inv.id',
                 'LEFT',
             ],
+//            TABLE_INVOICE_PAYMENT . ' as invPayment' => [
+//                'invPayment.invoice_id = inv.id',
+//                'LEFT',
+//            ],
         ];
-
+        if ($invoiceId) {
+            $data['where'] = ['inv.id' => $invoiceId];
+        }
         $data['groupBy'] = ['inv.id'];
         $data['table'] = TABLE_INVOICE . ' as inv';
         $result = $this->selectFromJoin($data);
+//        print_r($result);exit;
         return $result;
     }
 
@@ -151,6 +165,8 @@ class Invoice_model extends My_model {
 
         $data['select'] = ['inv.*', 'invDetail.price', 'invDetail.item_name',
             'invDetail.item_desc', 'invDetail.quentity', 'invDetail.id as paymentId',
+            'SUM(invPayment.amount) as totalPaidAmount',
+            'SUM(invDetail.total) as total',
         ];
         $data['where'] = ['inv.id' => $invoiceId];
         $data['join'] = [
@@ -158,9 +174,16 @@ class Invoice_model extends My_model {
                 'invDetail.invoice_id = inv.id',
                 'LEFT',
             ],
+            TABLE_INVOICE_PAYMENT . ' as invPayment' => [
+                'invPayment.invoice_id = invDetail.id',
+                'LEFT',
+            ],
         ];
+        $data['groupBy'] = ['invDetail.id'];
         $data['table'] = TABLE_INVOICE . ' as inv';
         $result = $this->selectFromJoin($data);
+//        echo '<pre/>';
+//        print_r($result);exit;
         return $result;
     }
 
@@ -212,6 +235,36 @@ class Invoice_model extends My_model {
         $data['table'] = TABLE_INVOICE_HISTORY . ' as invHis';
         $result = $this->selectFromJoin($data);
         return $result;
+    }
+
+    function generateTransactionNos() {
+        $newInvoice = '';
+        $query = $this->db->from(TABLE_INVOICE_PAYMENT)->order_by("id", "desc")->get()->row();
+        $totalLength = (6 - strlen($query->id));
+        $invoiceFix = 'TNP';
+        $newInvoiceNo = str_pad($invoiceFix, $totalLength, "0");
+        $newInvoice = $newInvoiceNo . ($query->id + 1);
+        return $newInvoice;
+    }
+
+    public function addPayment($postData) {
+        $data['insert']['invoice_id'] = $postData['invoiceId'];
+        $data['insert']['amount'] = $postData['amount'];
+        $data['insert']['trans_id'] = $postData['trans_id'];
+        $data['insert']['payment_date'] = date('Y-m-d', strtotime($postData['payment_date']));
+        $data['insert']['payment_method'] = $postData['payment_method'];
+        $data['insert']['notes'] = $postData['notes'];
+        $data['insert']['send_mail'] = (!empty($postData['send_mail'])) ? '1' : '0';
+        $data['insert']['dt_created'] = DATE_TIME;
+        $data['insert']['dt_updated'] = DATE_TIME;
+        $data['table'] = TABLE_INVOICE_PAYMENT;
+        $result = $this->insertRecord($data);
+        unset($data);
+        if ($result) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }

@@ -35,7 +35,7 @@
                                             <td><?= date('d-m-Y',  strtotime($getInvoice[$i]->due_date)); ?></td>
                                             <td><?= $getInvoice[$i]->first_name . ' ' .$getInvoice[$i]->last_name; ?></td>
                                             <td><?= number_format($getInvoice[$i]->totalPrice,2); ?></td>
-                                            <td><?= number_format($getInvoice[$i]->totalPrice,2); ?></td>
+                                            <td><?= number_format(getPaidAmount($invoiceId),2); ?></td>
                                             <td>   
                                                  <a title="Preview Ticket"  href="<?= admin_url() . 'invoice/view/' . $this->utility->encode($invoiceId) ; ?>"> <i class="fa fa-eye text-navy"></i> </a>
                                                 <a title="Edit Ticket"  href="<?= admin_url() . 'invoice/edit/' . $this->utility->encode($invoiceId); ?>"> <i class="fa fa-edit text-navy"></i> </a>

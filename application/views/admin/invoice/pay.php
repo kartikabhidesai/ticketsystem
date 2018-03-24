@@ -1,6 +1,6 @@
 <div class="wrapper wrapper-content white-bg m-t">
     <div class=" animated fadeInRightBig">
-        <form method="post" class="form-horizontal"  enctype="multipart/form-data"  action="<?= admin_url(); ?>invoice/add" id='invoiceAdd'>
+        <form method="post" class="form-horizontal"  enctype="multipart/form-data"  action="<?= admin_url('invoice/pay/') . $invoiceId; ?>" id='invoicePayment'>
             <div class="form-group headingmain">						
                 <h2 class="title" style="margin:10px"> Payment Details</h2>								
             </div>
@@ -8,7 +8,7 @@
             <div class="form-group">
                 <label class="col-sm-3 control-label">Trans ID *</label>
                 <div class="col-sm-7">
-                    <input type="text" placeholder="Enter Trans ID " readonly="" name="ref_no" value="TNP0021" class="form-control">
+                    <input type="text" placeholder="Enter Trans ID " readonly="" name="trans_id" value="<?= $tranNos; ?>" class="form-control">
                 </div>
             </div>
 
@@ -16,7 +16,7 @@
                 <label class="col-sm-3 control-label">Payment Method *</label>
                 <div class="col-sm-7">
                     <?php $paymentMethod = json_decode(PAYMENT_METOHD); ?>
-                    <select class="payment_method form-control">
+                    <select class="payment_method form-control" name="payment_method">
                         <?php foreach ($paymentMethod as $key => $value) { ?>
                             <option value="<?= $key ?>"><?= $value; ?></option>
                         <?php }
@@ -27,13 +27,19 @@
             <div class="form-group" id="data_1">
                 <label class="col-sm-3 control-label">Payment Date</label>
                 <div class="input-group date col-sm-7">
-                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" class="form-control" name="due_date" value="03/04/2014">
+                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" class="form-control" name="payment_date" value="">
                 </div>
             </div>
+            <?php
+            $paidAmount = getPaidAmount($invoicepaymentData[0]->id);
+            $total = $invoicepaymentData[0]->totalPrice - $paidAmount;
+            ?>
             <div class="form-group">
                 <label class="col-sm-3 control-label">Amount (CAD) *</label>
                 <div class="col-sm-7">
-                    <input type="text" name="amount" placeholder="Enter Amount (CAD)" class="form-control">
+                    <input type="text" name="amount" placeholder="Enter Amount (CAD)" value="<?= $total ?>" class="form-control amount">
+                    <input type="hidden" name="hidAmount" value="<?= $total ?>" class="totalAmount">
+                    <input type="hidden" name="invoiceId" value="<?= $invoicepaymentData[0]->id ?>" class="">
                 </div>
             </div>
             <div class="form-group">
@@ -45,14 +51,14 @@
             <div class="form-group">
                 <label class="col-sm-3 control-label">Send Email</label>
                 <div class="col-sm-1">
-                    <input type="checkbox" class="js-switch" checked />
+                    <input type="checkbox" name="send_mail" class="js-switch" checked />
                 </div>
             </div>
             <div class="hr-line-dashed"></div>
             <div class="form-group">
                 <div class="col-sm-4 col-sm-offset-2">
                     <button class="btn btn-white" type="button">Cancel</button>
-                    <button class="btn btn-primary" type="submit">Add Payment</button>
+                    <button class="btn btn-primary submitBtn" type="submit">Add Payment</button>
                 </div>
             </div>
         </form>
