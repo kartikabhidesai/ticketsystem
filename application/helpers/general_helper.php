@@ -1,7 +1,6 @@
 <?php
 
-function get_country($ip)
-{
+function get_country($ip) {
     $CI = &get_instance();
     $CI->load->model('curl_function');
     $url = "http://api.wipmania.com/" . $ip . "?" . base_url();
@@ -9,37 +8,31 @@ function get_country($ip)
     return $result;
 }
 
-function admin_url($url = '')
-{
+function admin_url($url = '') {
     $CI = &get_instance();
     return $CI->config->config['admin_url'] . $url;
 }
-function base_url_index($url = '')
-{
+
+function base_url_index($url = '') {
     $CI = &get_instance();
     return $CI->config->config['base_url_index'] . $url;
 }
 
-function client_url($url = '')
-{
+function client_url($url = '') {
     $CI = &get_instance();
     return $CI->config->config['client_url'] . $url;
 }
 
-
-function get_project_name()
-{
+function get_project_name() {
     $CI = &get_instance();
     return $CI->config->config['project_name'];
 }
 
-function get_skip($page_no = 1, $per_page = 24)
-{
+function get_skip($page_no = 1, $per_page = 24) {
     return (($page_no - 1) * $per_page);
 }
 
-function upload_single_image($file, $name, $path, $thumb = FALSE)
-{
+function upload_single_image($file, $name, $path, $thumb = FALSE) {
     $CI = &get_instance();
 
     $return['error'] = '';
@@ -91,13 +84,11 @@ function upload_single_image($file, $name, $path, $thumb = FALSE)
     return $return;
 }
 
-function delete_single_image($fullPath, $fileName)
-{
+function delete_single_image($fullPath, $fileName) {
     unlink($fullPath . '/' . $fileName);
 }
 
-function delete_image($array, $path)
-{
+function delete_image($array, $path) {
     $CI = &get_instance();
     $img = $CI->db->select($array['field'])->where('int_glcode', $array['id'])->get($array['table'])->row_array();
     $mainImg = $img[$array['field']];
@@ -109,8 +100,7 @@ function delete_image($array, $path)
     return TRUE;
 }
 
-function apply_lang($string, $delimiter = ' ')
-{
+function apply_lang($string, $delimiter = ' ') {
     $CI = &get_instance();
     $str_array = explode($delimiter, $string);
     $return_string = '';
@@ -127,8 +117,7 @@ function apply_lang($string, $delimiter = ' ')
     return $return_string;
 }
 
-function sorttextlen($text, $limit)
-{
+function sorttextlen($text, $limit) {
     if (strlen($text) < $limit) {
         $sort_text = mb_substr($text, 0, $limit);
     } else if (strlen($text) > $limit) {
@@ -138,15 +127,12 @@ function sorttextlen($text, $limit)
     return $sort_text;
 }
 
-
-function date_formate($date)
-{
+function date_formate($date) {
     $date = date('M', strtotime($date)) . ' ' . date('j', strtotime($date)) . "'" . date('y', strtotime($date)) . ' at' . ' ' . date('h:i', strtotime($date));
     return $date;
 }
 
-function str_replace_first($from, $to, $subject)
-{
+function str_replace_first($from, $to, $subject) {
     $from = '/' . preg_quote($from, '/') . '/';
 
     return preg_replace($from, $to, $subject, 1);
@@ -154,8 +140,7 @@ function str_replace_first($from, $to, $subject)
 
 /* ----   Start Function to get the client IP address ----- */
 
-function get_ip()
-{
+function get_ip() {
     $ipaddress = '';
     if (getenv('HTTP_CLIENT_IP')) {
         $ipaddress = getenv('HTTP_CLIENT_IP');
@@ -177,8 +162,7 @@ function get_ip()
 
 /* ---- End Function to get the client IP address ----- */
 
-function getLoginUserData()
-{
+function getLoginUserData() {
     $CI = &get_instance();
     if ($CI->session->userdata['valid_user']) {
         $result = $CI->session->userdata['valid_user'];
@@ -190,8 +174,7 @@ function getLoginUserData()
     return $result;
 }
 
-function get_img($path, $image, $multiple_img = FALSE)
-{
+function get_img($path, $image, $multiple_img = FALSE) {
     $path = trim($path);
     $image = trim($image);
     if ($multiple_img == TRUE) {
@@ -219,8 +202,7 @@ function get_img($path, $image, $multiple_img = FALSE)
     return $data;
 }
 
-function getLoginUserType($userData)
-{
+function getLoginUserType($userData) {
     $CI = &get_instance();
     if ($CI->session->userdata['valid_dealer'] && $CI->uri->segment(1) == 'dealer') {
         $result = $CI->session->userdata['valid_dealer'];
@@ -232,8 +214,7 @@ function getLoginUserType($userData)
     return $result['user_type'];
 }
 
-function getbaseURL($url = '')
-{
+function getbaseURL($url = '') {
     $CI = &get_instance();
     if ($CI->session->userdata['valid_dealer'] && $CI->uri->segment(1) == 'dealer') {
         return dealer_url($url);
@@ -246,18 +227,15 @@ function getbaseURL($url = '')
     }
 }
 
-function tz_date($date, $formate = 'Y-m-d H:i:s', $zone = null)
-{
+function tz_date($date, $formate = 'Y-m-d H:i:s', $zone = null) {
     return date($formate, strtotime($date));
 }
 
-function timezone_offset_string($offset)
-{
+function timezone_offset_string($offset) {
     return sprintf("%s%02d:%02d", ($offset >= 0) ? '+' : '-', abs($offset / 3600), abs($offset % 3600));
 }
 
-function getTimezoneOfset($timeZone, $isString = FALSE)
-{
+function getTimezoneOfset($timeZone, $isString = FALSE) {
     $offset = timezone_offset_get(new DateTimeZone($timeZone), new DateTime());
     if ($isString === TRUE) {
         $offset = timezone_offset_string($offset);
@@ -265,21 +243,18 @@ function getTimezoneOfset($timeZone, $isString = FALSE)
     return $offset;
 }
 
-function getTimeZone()
-{
+function getTimeZone() {
     $CI = &get_instance();
     $settings = $CI->authlibrary->getStoreSetting();
     $settings = $settings[0];
     return ($settings['var_time_zone']) ? $settings['var_time_zone'] : "UTC";
 }
 
-function date_tz($format = 'Y-m-d H:i:s')
-{
+function date_tz($format = 'Y-m-d H:i:s') {
     return convert_date_from_utc(date('Y-m-d H:i:s'), getTimeZone(), $format);
 }
 
-function array_insert($array, $index, $val)
-{
+function array_insert($array, $index, $val) {
     $size = count($array); //because I am going to use this more than one time
     if (!is_int($index) || $index < 0 || $index > $size) {
         return -1;
@@ -290,13 +265,11 @@ function array_insert($array, $index, $val)
     }
 }
 
-function escapeJavaScriptText($string)
-{
-    return str_replace("\n", '\n', str_replace('"', '\"', addcslashes(str_replace("\r", '', (string)$string), "\0..\37'\\")));
+function escapeJavaScriptText($string) {
+    return str_replace("\n", '\n', str_replace('"', '\"', addcslashes(str_replace("\r", '', (string) $string), "\0..\37'\\")));
 }
 
-function addForeignKey($sourceTable, $sourceField, $targetTable, $targetField = 'id', $onDelete = 'RESTRICT', $onUpdate = 'RESTRICT')
-{
+function addForeignKey($sourceTable, $sourceField, $targetTable, $targetField = 'id', $onDelete = 'RESTRICT', $onUpdate = 'RESTRICT') {
     $CI = &get_instance();
     $dbName = $CI->db->database;
 
@@ -304,8 +277,7 @@ function addForeignKey($sourceTable, $sourceField, $targetTable, $targetField = 
     $CI->db->query('ALTER TABLE `ps_' . $sourceTable . '` ADD CONSTRAINT `ps_' . $sourceTable . '_' . $sourceField . '` FOREIGN KEY (`' . $sourceField . '`) REFERENCES ' . $dbName . '.`ps_' . $targetTable . '`(`' . $targetField . '`) ON DELETE ' . $onDelete . ' ON UPDATE ' . $onUpdate . '; ');
 }
 
-function dropForeignKey($sourceTable, $sourceField, $targetTable, $targetField = 'id')
-{
+function dropForeignKey($sourceTable, $sourceField, $targetTable, $targetField = 'id') {
     $CI = &get_instance();
     $CI->db->query('ALTER TABLE ps_' . $sourceTable . ' DROP FOREIGN KEY ps_' . $sourceTable . '_' . $sourceField . ';');
     $CI->db->query('ALTER TABLE ps_' . $sourceTable . ' DROP INDEX ps_' . $sourceTable . '_' . $sourceField . ';');
@@ -313,8 +285,7 @@ function dropForeignKey($sourceTable, $sourceField, $targetTable, $targetField =
 
 //ALTER TABLE ps_news DROP FOREIGN KEY ps_news_fk_category;
 
-function convertNumber($number)
-{
+function convertNumber($number) {
     return preg_replace('/[^\\d.]+/', '', $number);
 }
 
@@ -343,8 +314,7 @@ function time_ago_new($datetime) {
     return $timeago;
 }
 
-function age_diff($fromdate, $todate)
-{
+function age_diff($fromdate, $todate) {
     if (trim($fromdate) != '0000-00-00' && trim($todate) != '0000-00-00' && date('Y-m-d', strtotime($fromdate)) <= date('Y-m-d', strtotime($todate))) {
         $datediff = (new DateTime(date('Y-m-d', strtotime($todate))))->diff((new DateTime(date('Y-m-d', strtotime($fromdate)))));
 
@@ -373,8 +343,7 @@ function age_diff($fromdate, $todate)
     return $result;
 }
 
-function time_ago($datetime, $todate, $seconds = FALSE)
-{
+function time_ago($datetime, $todate, $seconds = FALSE) {
     if (is_numeric($datetime)) {
         $timestamp = $datetime;
     } else {
@@ -417,8 +386,7 @@ function time_ago($datetime, $todate, $seconds = FALSE)
     return $timeago;
 }
 
-function dateDifference($date_1, $date_2, $days = FALSE)
-{
+function dateDifference($date_1, $date_2, $days = FALSE) {
     $datetime1 = date_create($date_1);
     $datetime2 = date_create($date_2);
     $differenceFormat = '';
@@ -460,8 +428,7 @@ function dateDifference($date_1, $date_2, $days = FALSE)
     return $interval->format($differenceFormat);
 }
 
-function getPastYears($startFromYear = FALSE, $cnt = 50)
-{
+function getPastYears($startFromYear = FALSE, $cnt = 50) {
     if ($startFromYear) {
         $cur_year = $startFromYear;
     } else {
@@ -473,8 +440,7 @@ function getPastYears($startFromYear = FALSE, $cnt = 50)
     return $years;
 }
 
-function getMonths($full = FALSE)
-{
+function getMonths($full = FALSE) {
 
     $months = array(
         '01' => ($full) ? 'January' : 'Jan',
@@ -493,8 +459,7 @@ function getMonths($full = FALSE)
     return $months;
 }
 
-function sortMultiArray($arr, $k, $sort)
-{
+function sortMultiArray($arr, $k, $sort) {
     $tmp = Array();
     foreach ($arr as &$ma)
         $tmp[] = &$ma[$k];
@@ -503,20 +468,17 @@ function sortMultiArray($arr, $k, $sort)
     return $arr;
 }
 
-
-function convert_date($datetime, $sourceTimeZone, $targetTimezone, $format = 'Y-m-d H:i:s')
-{
+function convert_date($datetime, $sourceTimeZone, $targetTimezone, $format = 'Y-m-d H:i:s') {
 //    echo "$datetime, $sourceTimeZone, $targetTimezone,";exit;
-    if(empty($targetTimezone)){
-        $targetTimezone="UTC";
+    if (empty($targetTimezone)) {
+        $targetTimezone = "UTC";
     }
     $date = new \DateTime($datetime, new \DateTimeZone($sourceTimeZone));
     $date->setTimezone(new \DateTimeZone($targetTimezone));
     return $date->format($format);
 }
 
-function getTimeZoneChoice($selectedzone)
-{
+function getTimeZoneChoice($selectedzone) {
     $all = timezone_identifiers_list();
 
     $html = '';
@@ -565,38 +527,29 @@ function getTimeZoneChoice($selectedzone)
     return $structure;
 }
 
-function getTimeZoneList()
-{
+function getTimeZoneList() {
     return timezone_identifiers_list();
 }
 
-function getExpertTimeZone($id)
-{
+function getExpertTimeZone($id) {
     $CI = &get_instance();
     return $CI->db->get_where('experts', array('id' => $id))->row_array()['var_timezone'];
 }
 
-function getClientTimeZone($id)
-{
+function getClientTimeZone($id) {
     $CI = &get_instance();
     return $CI->db->get_where('client', array('id' => $id))->row_array()['var_timezone'];
 }
 
-function formatNumber($number)
-{
+function formatNumber($number) {
     if ($number != '') {
-        return sprintf("%s %s %s %s",
-            substr($number, 0, 3),
-            substr($number, 3, 3),
-            substr($number, 6, 3),
-            substr($number, 9));
+        return sprintf("%s %s %s %s", substr($number, 0, 3), substr($number, 3, 3), substr($number, 6, 3), substr($number, 9));
     } else {
         return $number;
     }
 }
 
-function isFileExist($url)
-{
+function isFileExist($url) {
     $ch = curl_init($url);
     curl_setopt($ch, CURLOPT_NOBODY, true);
     curl_exec($ch);
@@ -608,14 +561,17 @@ function isFileExist($url)
     } else {
         return false;
     }
-
 }
 
-function getStatus($status){
-    
+function getStatus($status) {
     $sta = json_decode(STATUS);
-   
-    if(array_key_exists($status, $sta)){
+    if (array_key_exists($status, $sta)) {
         return $sta->$status;
     }
+}
+
+function getPaidAmount($invoiceId) {
+    $CI = &get_instance();
+    $total = $CI->db->select('SUM(amount) as paidAmount')->group_by('invoice_id')->where('invoice_id', $invoiceId)->get(TABLE_INVOICE_PAYMENT)->row_array();
+    return $total['paidAmount'];
 }

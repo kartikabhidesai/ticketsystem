@@ -57,6 +57,7 @@ class Tickets_model extends My_model {
         $data['ticket_code'] = $postData['ticket_code'];
         $data['status'] = $postData['status'];
         $data['client_email'] = $postData['client_email'];
+        $data['client_name'] = $postData['client_name'];
         $data['message'] = $this->load->view('email_template/ticket_mail', $data, true);
 
         $data['from_title'] = 'Create Ticket';
