@@ -14,6 +14,7 @@ class Invoice_model extends My_model {
         $data['insert']['default_tax'] = $postData['default_tax'];
         $data['insert']['discount'] = $postData['discount'];
         $data['insert']['currency'] = $postData['currency'];
+        $data['insert']['company_id'] = $postData['companyId'];
         $data['insert']['note'] = $postData['notes'];
         $data['insert']['dt_created'] = DATE_TIME;
         $data['insert']['dt_updated'] = DATE_TIME;
@@ -74,6 +75,7 @@ class Invoice_model extends My_model {
         $data['update']['client_id'] = $postData['client_id'];
         $data['update']['ref_no'] = $postData['ref_no'];
         $data['update']['recur_every'] = $postData['recure_every'];
+        $data['update']['company_id'] = $postData['companyId'];
         $data['update']['due_date'] = date('Y-m-d', strtotime($postData['due_date']));
         $data['update']['start_date'] = ($postData['start_date'] == '01-19-1970') ? '' :  date('Y-m-d', strtotime($postData['start_date']));
         $data['update']['end_date'] = ($postData['end_date'] == '01-19-1970') ? '' :  date('Y-m-d', strtotime($postData['end_date']));

@@ -27,9 +27,9 @@
                         <div class="col-sm-1 displaylable">
                             <a href="javascript:;" style="margin:5px" class="btn btn-sm btn-primary  m-t-n-xs invoicePrint" ><strong><i class="fa fa-print"></i></strong></a>
                         </div>
-                        <div class="col-sm-1 displaylable">
+<!--                        <div class="col-sm-1 displaylable">
                             <a href="javascript:;" style="margin:5px -20px" class="btn btn-sm btn-primary m-t-n-xs "><strong> <i class="fa fa-address-card"></i> Items </strong></a>
-                        </div>
+                        </div>-->
                         <div class="col-sm-2 displaylable">
                             <a  href="<?= admin_url('invoice/pay/') . $this->utility->encode($invoiceData[0]->id); ?>"  style="margin:5px 5px 5px -6px"  data-original-title="Pay Invoice" class="btn btn-primary btn-sm "><strong><i class="fa fa-google-wallet"></i> Pay Invoice</strong></a>
                         </div>

@@ -3,7 +3,7 @@
         <form method="post" class="form-horizontal"  action="<?= admin_url('invoice/edit/').$this->utility->encode($invoiceData[0]->id); ?>" id='invoiceEdit'>
             <div class="form-group headingmain">						
                 <h2 class="title" style="margin:10px"> Invoice Details
-                <a href="<?= admin_url() . 'invoice/view/' . $this->utility->encode($invoiceData[0]->id) ?>" style="margin:10px" class="btn btn-sm btn-primary pull-right m-t-n-xs" ><strong><i class="fa fa-tag"></i> View Tickets </strong></a> 
+                    <a href="<?= admin_url() . 'invoice/view/' . $this->utility->encode($invoiceData[0]->id) ?>" style="margin:10px" class="btn btn-sm btn-primary pull-right m-t-n-xs" ><strong><i class="fa fa-tag"></i> View Tickets </strong></a> 
                 </h2>								
             </div>
             <div class="form-group">
@@ -32,14 +32,18 @@
                     <select name="recure_every" class="recure_every form-control">
                         <option value="">Select Recur every</option>
                         <?php foreach ($priority as $key => $value) { ?>
-                            <option <?php if ($key == $invoiceData[0]->recur_every) {
-                                        echo "selected='selected'";
-                                    }?> value="<?= $key ?>"><?= $value; ?></option>
-                        <?php }
-                        ?>
+                            <option <?php
+                            if ($key == $invoiceData[0]->recur_every) {
+                                echo "selected='selected'";
+                            }
+                            ?> value="<?= $key ?>"><?= $value; ?></option>
+<?php }
+?>
                     </select>
                 </div>
             </div>
+            <input type="hidden" name="companyId" class="form-control compnayId">
+            <input type="hidden" name="companyName" class="form-control compnayName">
             <div class="form-group  showRecurring" style="<?= $startDate; ?>" id="data_1">
                 <label class="col-sm-3 control-label">Start Date</label>
                 <div class="input-group date col-sm-7 ">
@@ -55,16 +59,16 @@
             <div class="form-group">
                 <label class="col-sm-3 control-label">Client *</label>
                 <div class="col-sm-7">
-                    <select class="form-control m-b reporter" id="reporter" name="client_id">
+                    <select class="form-control m-b client_id" id="client_id" name="client_id">
                         <option value="">Select Reporter</option>
                         <?php for ($i = 0; $i < count($client_list); $i++) {
                             ?>
                             <option <?php
-                                    if ($client_list[$i]->id == $invoiceData[0]->client_id) {
-                                        echo "selected='selected'";
-                                    }
-                                    ?> value="<?= $client_list[$i]->id; ?>"><?= $client_list[$i]->first_name; ?></option>
-                        <?php } ?>
+                            if ($client_list[$i]->id == $invoiceData[0]->client_id) {
+                                echo "selected='selected'";
+                            }
+                            ?> value="<?= $client_list[$i]->id; ?>"><?= $client_list[$i]->first_name; ?></option>
+<?php } ?>
 
                     </select>
                 </div>
@@ -105,7 +109,7 @@
             <div class="form-group">
                 <label class="col-sm-3 control-label">Notes *</label>
                 <div class="col-sm-7">
-                     <textarea class="form-control" name="notes" ><?= $invoiceData[0]->note; ?></textarea>
+                    <textarea class="form-control" name="notes" ><?= $invoiceData[0]->note; ?></textarea>
                 </div>
             </div>
 

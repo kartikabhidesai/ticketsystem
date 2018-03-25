@@ -89,6 +89,19 @@ var Invoice = function() {
                 $('#btndelete').attr('data-id', invoiceId);
             }
         });
+
+        $('body').on('change', '#client_id', function() {
+            var reporter = $('#client_id option:selected').val();
+            if (reporter != '') {
+                var url = baseurl + 'admin/tickets/getCompanyName';
+                var data = {reporter: reporter};
+                ajaxcall(url, data, function(output) {
+                    var output = JSON.parse(output);
+                    $('.compnayName').text(output[0]['name']);
+                    $('.compnayId').val(output[0]['id']);
+                });
+            }
+        });
     }
 
     var invoiceAdd = function() {
@@ -107,6 +120,8 @@ var Invoice = function() {
         handleFormValidate(form, rules, function(form) {
             handleAjaxFormSubmit(form);
         });
+
+
 
     };
 
@@ -199,6 +214,9 @@ var Invoice = function() {
             invoiceDetail();
             deleteInvoicePayment();
             general();
+            setTimeout(function() {
+                $('#client_id').trigger('change');
+            }, 2000);
         },
     };
 }();
