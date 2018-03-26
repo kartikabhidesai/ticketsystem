@@ -34,7 +34,7 @@ class Invoice_model extends My_model {
         }
     }
 
-    function getInvoiceList($invoiceId = null) {
+    function getInvoiceList($invoiceId = null,$clientId) {
         $data['select'] = ['inv.*', 'SUM(invDetail.total) as totalPrice',
 //            'SUM(invPayment.amount) as totalPaidAmount',
             'GROUP_CONCAT(invDetail.id) as totalPaidAmount',
@@ -62,6 +62,9 @@ class Invoice_model extends My_model {
         ];
         if ($invoiceId) {
             $data['where'] = ['inv.id' => $invoiceId];
+        }
+        if (!empty($clientId)) {
+            $data['where'] = ['inv.client_id' => $clientId];
         }
         $data['groupBy'] = ['inv.id'];
         $data['table'] = TABLE_INVOICE . ' as inv';

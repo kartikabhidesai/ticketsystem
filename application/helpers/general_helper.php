@@ -575,3 +575,8 @@ function getPaidAmount($invoiceId) {
     $total = $CI->db->select('SUM(amount) as paidAmount')->group_by('invoice_id')->where('invoice_id', $invoiceId)->get(TABLE_INVOICE_PAYMENT)->row_array();
     return $total['paidAmount'];
 }
+function getTotalAmount($invoiceId) {
+    $CI = &get_instance();
+    $total = $CI->db->select('SUM(total) as totalAmount')->group_by('invoice_id')->where('invoice_id', $invoiceId)->get(TABLE_INVOICE_DETAILS)->row_array();
+    return $total['totalAmount'];
+}
