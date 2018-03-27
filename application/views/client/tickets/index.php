@@ -34,17 +34,28 @@
                                         <td><?= $getTicket[$i]->subject; ?></td>
                                         <td><?= $getTicket[$i]->name; ?></td>
                                         <td><?= $getTicket[$i]->priority; ?></td>
-                                        <td><?= str_replace('_',' ',$getTicket[$i]->status); ?></td>
+                                        <td>
+                                             <?php
+                                                if (getStatus($getTicket[$i]->status) == 'New') {
+                                                    $color = 'background-color:#999999;color:white;';
+                                                } else if (getStatus($getTicket[$i]->status) == 'Answered') {
+                                                    $color = 'background-color:#1a7bb9;color:white;';
+                                                } else if (getStatus($getTicket[$i]->status) == 'Closed') {
+                                                    $color = 'background-color:green;color:white;';
+                                                } else if (getStatus($getTicket[$i]->status) == 'Open') {
+                                                    $color = 'background-color:red;color:white;';
+                                                } else if (getStatus($getTicket[$i]->status) == 'In Progress') {
+                                                    $color = 'background-color:#999999;color:white;';
+                                                }
+                                                ?>
+                                                <span class="btn btn-xs" style="<?php echo $color; ?>">  <?php echo getStatus($getTicket[$i]->status); ?> </span>
+                                        </td>
                                         <td>   
-                                          
                                         <a title="Preview Ticket"  href="<?= client_url().'tickets/edit/' .  $this->utility->encode($getTicket[$i]->id); ?>"> <i class="fa fa-edit text-navy"></i> </a>
-
                                         <a title="Edit Ticket"  href="<?= client_url().'tickets/view/'.  $this->utility->encode($getTicket[$i]->id); ?>"> <i class="fa fa-eye text-navy"></i> </a>
-
                                         <a data-toggle="modal" data-target="#myModal_autocomplete" data-href="<?= client_url().'tickets/deleteTicket'?>" data-id="<?php echo $getTicket[$i]->id;?>" class="deletebutton"> <i class="fa fa-close text-navy"></i>
                                       </a>
-                                      
-                                    </div></td>
+                                    </td>
                                 </tr>
                                 <?php } ?>
                             </tbody>
