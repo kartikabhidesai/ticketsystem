@@ -315,6 +315,10 @@ class Invoice extends Admin_Controller {
 
         //Load html view
         $this->html2pdf->html($this->load->view('admin/invoice/pdf', $data, true));
+        if ($this->html2pdf->create('save')) {
+            //PDF was successfully saved or downloaded
+            echo 'PDF saved';
+        }
     }
 
 }
