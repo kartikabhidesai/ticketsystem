@@ -283,19 +283,14 @@ class Invoice extends Admin_Controller {
 
     function pdf($id) {
         $invoiceId = $this->utility->decode($id);
-//        if (!ctype_digit($invoiceId)) {
-//            return(admin_url() . 'invoice');
-//        }
-//
+        if (!ctype_digit($invoiceId)) {
+            return(admin_url() . 'invoice');
+        }
 //        $data['page'] = "admin/invoice/pdf";
-////        $data['page'] = "admin/pdf/pdf";
-//        $data['invoice'] = 'active';
-//        $data['sale'] = 'active';
-
         $data['invoiceData'] = $this->this_model->getInvoiceById($invoiceId);
         $data['invoicePaymentData'] = $this->this_model->getInvoicePaymentDetails($invoiceId);
 //        $this->load->view(ADMIN_LAYOUT, $data);
-//        
+
         //Load the library
         $this->load->library('html2pdf');
 

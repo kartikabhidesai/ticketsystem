@@ -212,11 +212,17 @@
                 <img src="public/asset/images/logo.png">
             </div>
             <div id="company">
+                <h2 class="name"><?= $invoiceData[0]->companyName; ?></h2>
+                <div><?= $invoiceData[0]->companyAddress .', ' .$invoiceData[0]->companyCity .', ' .$invoiceData[0]->countryName ?></div>
+                <div><?= $invoiceData[0]->companyPhone  ?></div>
+                <div><a href="mailto:company@example.com">company@example.com</a></div>
+            </div>
+<!--            <div id="company">
                 <h2 class="name">Company Name</h2>
                 <div>455 Foggy Heights, AZ 85004, US</div>
                 <div>(602) 519-0450</div>
                 <div><a href="mailto:company@example.com">company@example.com</a></div>
-            </div>
+            </div>-->
         </div>
     </header>
 <main>
@@ -228,9 +234,9 @@
             <div class="email"><a href="mailto:john@example.com">john@example.com</a></div>
         </div>
         <div id="invoice">
-            <h1>INVOICE 3-2-1</h1>
-            <div class="date">Date of Invoice: 01/06/2014</div>
-            <div class="date">Due Date: 30/06/2014</div>
+            <h1><?= $invoiceData[0]->ref_no; ?></h1>
+            <div class="date">Date of Invoice: <?= date('d/m/Y', strtotime($invoiceData[0]->dt_created)); ?></div>
+            <div class="date">Due Date: <?= date('d/m/Y', strtotime($invoiceData[0]->due_date)); ?> </div>
         </div>
     </div>
     <table border="0" cellspacing="0" cellpadding="0">
