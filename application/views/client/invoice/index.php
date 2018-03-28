@@ -15,7 +15,7 @@
                                         <th>Status</th>
                                         <th>Invoice</th>
                                         <th>Due Date</th>
-                                        <th>Client Name</th>
+                                        <th>Company Name</th>
                                         <th>Amount</th>
                                         <th>Due Amount</th>
                                         <th>Options</th>
@@ -29,7 +29,7 @@
                                             <td>OPEN</td>
                                             <td><a href="<?= admin_url() . 'invoice/view/' . $this->utility->encode($invoiceId) ; ?>"><?= $getInvoice[$i]->ref_no; ?></a></td>
                                             <td><?= date('d-m-Y',  strtotime($getInvoice[$i]->due_date)); ?></td>
-                                            <td><?= $getInvoice[$i]->first_name . ' ' .$getInvoice[$i]->last_name; ?></td>
+                                            <td><?= $getInvoice[$i]->companyName; ?></td>
                                             <td><?= number_format($getInvoice[$i]->totalPrice,2); ?></td>
                                             <td><?= number_format(getPaidAmount($invoiceId),2); ?></td>
                                             <td>   

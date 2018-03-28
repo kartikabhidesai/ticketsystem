@@ -29,7 +29,7 @@ class Invoice extends Admin_Controller {
         $data['init'] = array(
             'Invoice.invoiceList()',
         );
-        $data['getInvoice'] = $this->this_model->getInvoiceList(null,null);
+        $data['getInvoice'] = $this->this_model->getInvoiceList(null, null);
         $this->load->view(ADMIN_LAYOUT, $data);
     }
 
@@ -121,8 +121,8 @@ class Invoice extends Admin_Controller {
     }
 
     function detail($id) {
-        $companyId = $this->utility->decode($id);
-        if (!ctype_digit($companyId)) {
+        $invoiceId = $this->utility->decode($id);
+        if (!ctype_digit($invoiceId)) {
 //            return(admin_url().'client');
         }
         $data['page'] = "admin/invoice/detail";
@@ -142,13 +142,13 @@ class Invoice extends Admin_Controller {
         $data['init'] = array(
             'Client.clientDetail()',
         );
-        $data['companyId'] = $companyId;
-        $data['companyDeatail'] = $this->this_model->companyDetail($companyId);
-        $data['companyUserDetail'] = $this->this_model->companyUserDetail($companyId);
+        $data['companyId'] = $invoiceId;
+        $data['companyDeatail'] = $this->this_model->companyDetail($invoiceId);
+        $data['companyUserDetail'] = $this->this_model->companyUserDetail($invoiceId);
         $this->load->view(ADMIN_LAYOUT, $data);
     }
 
-    function view($id,$shortBy = null) {
+    function view($id, $shortBy = null) {
         $invoiceId = $this->utility->decode($id);
         if (!ctype_digit($invoiceId)) {
             return(admin_url() . 'invoice');
@@ -277,7 +277,35 @@ class Invoice extends Admin_Controller {
 
         $data['invoiceId'] = $id;
         $data['tranNos'] = $this->this_model->generateTransactionNos();
-        $data['invoicepaymentData'] = $this->this_model->getInvoiceList($invoiceId,null);
+        $data['invoicepaymentData'] = $this->this_model->getInvoiceList($invoiceId, null);
+        $this->load->view(ADMIN_LAYOUT, $data);
+    }
+
+    function pdf($id) {
+        $invoiceId = $this->utility->decode($id);
+        if (!ctype_digit($invoiceId)) {
+            return(admin_url() . 'invoice');
+        }
+
+        $data['page'] = "admin/invoice/pdf";
+//        $data['page'] = "admin/invoice/view";
+        $data['invoice'] = 'active';
+        $data['sale'] = 'active';
+        $data['pagetitle'] = 'Invoice Preview';
+        $data['var_meta_title'] = 'Invoice Preview';
+        $data['breadcrumb'] = array(
+            'dashboard' => 'Home',
+            'client' => 'Invoice Preview',
+        );
+        $data['js'] = array(
+            'admin/invoice.js',
+            'plugins/datapicker/bootstrap-datepicker.js',
+        );
+        $data['init'] = array(
+            'Invoice.initEdit()',
+        );
+        $data['invoiceData'] = $this->this_model->getInvoiceById($invoiceId);
+        $data['invoicePaymentData'] = $this->this_model->getInvoicePaymentDetails($invoiceId);
         $this->load->view(ADMIN_LAYOUT, $data);
     }
 

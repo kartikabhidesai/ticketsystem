@@ -42,6 +42,7 @@ class Invoice_model extends My_model {
             'usr.first_name', 'usr.last_name',
             'invDetail.item_name',
             'invDetail.item_desc',
+            'comp.name as companyName',
 //            'invPayment.payment_date',
 //            'invPayment.notes as paymentNote',
 //            'invPayment.amount as paidAmount',
@@ -53,6 +54,10 @@ class Invoice_model extends My_model {
             ],
             TABLE_INVOICE_DETAILS . ' as invDetail' => [
                 'invDetail.invoice_id = inv.id',
+                'LEFT',
+            ],
+            TABLE_COMPANY . ' as comp' => [
+                'comp.id = usr.company_id',
                 'LEFT',
             ],
 //            TABLE_INVOICE_PAYMENT . ' as invPayment' => [

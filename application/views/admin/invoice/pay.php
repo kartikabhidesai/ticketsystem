@@ -59,8 +59,11 @@
             <div class="hr-line-dashed"></div>
             <div class="form-group">
                 <div class="col-sm-4 col-sm-offset-2">
-                    <button class="btn btn-white" type="button">Cancel</button>
-                    <button class="btn btn-primary submitBtn" type="submit">Add Payment</button>
+                    <a href="<?= admin_url('invoice/view/') . $this->utility->encode($invoicepaymentData[0]->id); ?>" class="btn btn-white" type="button">Cancel</a>
+                    <?php if($total > 0){
+                        echo '<button class="btn btn-primary submitBtn" type="submit">Add Payment</button>';
+                    } ?>
+                    
                 </div>
             </div>
         </form>

@@ -573,10 +573,12 @@ function getStatus($status) {
 function getPaidAmount($invoiceId) {
     $CI = &get_instance();
     $total = $CI->db->select('SUM(amount) as paidAmount')->group_by('invoice_id')->where('invoice_id', $invoiceId)->get(TABLE_INVOICE_PAYMENT)->row_array();
-    return $total['paidAmount'];
+    $result = (!empty($total['paidAmount'])) ? $total['paidAmount'] : '0';
+    return $result;
 }
 function getTotalAmount($invoiceId) {
     $CI = &get_instance();
     $total = $CI->db->select('SUM(total) as totalAmount')->group_by('invoice_id')->where('invoice_id', $invoiceId)->get(TABLE_INVOICE_DETAILS)->row_array();
-    return $total['totalAmount'];
+    $resulr = (!empty($total['totalAmount'])) ? :'0';
+    return ;
 }

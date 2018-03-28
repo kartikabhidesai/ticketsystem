@@ -50,7 +50,7 @@
                             </div>
                         </div>
                         <div class="col-sm-1 displaylable">
-                            <a href="javascript:;" style="margin:5px" class="btn btn-sm btn-primary pull-right m-t-n-xs" ><strong><i class="fa fa-file-pdf-o"> PDF</i></strong></a>
+                            <a href="<?php  echo admin_url('invoice/pdf/') . $this->utility->encode($invoiceData[0]->id); ?>" style="margin:5px" class="btn btn-sm btn-primary pull-right m-t-n-xs" ><strong><i class="fa fa-file-pdf-o" > PDF</i></strong></a>
                         </div>
                     </div>
                 </div>
@@ -65,7 +65,7 @@
                             <div class="row">
                                 <div class="col-sm-6">
                                     <address>
-                                        <img src="<?= IMAGES . 'logo.png'; ?>" style="width: 250px;height: 150px;margin-top: -45px !important;">
+                                        <img src="<?= IMAGES . 'logo.png'; ?>" style="width: auto;height: 120px;margin-top: -45px !important;">
                                     </address>
                                 </div>
 
@@ -77,10 +77,10 @@
                                         <?php 
                                         $totalPaid = getPaidAmount($invoiceData[0]->id);
                                         $totalAmount = getTotalAmount($invoiceData[0]->id);
-                                        if($totalPaid >= $totalAmount){
-                                            echo '<button type="button" class="btn btn-success btn-xs">Fully paid</button>';
-                                        }else if($totalPaid < 0){
+                                        if($totalPaid <= 0){
                                             echo '<button type="button" class="btn btn-danger btn-xs">Not paid</button>';
+                                        }else if($totalPaid >= $totalAmount && $totalPaid > 0){
+                                            echo '<button type="button" class="btn btn-success btn-xs">Fully paid</button>';
                                         }else{
                                             echo '<button style="background-color: black !important;color: white !important;" type="button" class="btn btn-outline black btn-xs"><b>Partially Paid</b></button>';
                                         }
