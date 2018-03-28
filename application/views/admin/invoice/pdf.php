@@ -205,6 +205,7 @@
             }
         </style>
     </head>
+
     <body>
         <header class="clearfix">
             <div id="logo">
@@ -243,50 +244,77 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td class="no">01</td>
-                <td class="desc"><h3>Website Design</h3>Creating a recognizable design solution based on the company's existing visual identity</td>
-                <td class="unit">$40.00</td>
-                <td class="qty">30</td>
-                <td class="total">$1,200.00</td>
-            </tr>
-            <tr>
-                <td class="no">02</td>
-                <td class="desc"><h3>Website Development</h3>Developing a Content Management System-based Website</td>
-                <td class="unit">$40.00</td>
-                <td class="qty">80</td>
-                <td class="total">$3,200.00</td>
-            </tr>
-            <tr>
-                <td class="no">03</td>
-                <td class="desc"><h3>Search Engines Optimization</h3>Optimize the site for search engines (SEO)</td>
-                <td class="unit">$40.00</td>
-                <td class="qty">20</td>
-                <td class="total">$800.00</td>
-            </tr>
+            <?php
+            $subTotal = 0;
+            $cnt = 1;
+            for ($i = 0; $i < count($invoicePaymentData); $i++) {
+//                echo '<pre/>';
+//                print_r($invoicePaymentData[$i]->price);exit;
+                if (!empty($invoicePaymentData[$i]->price)) {
+                    $itemTotal = $invoicePaymentData[$i]->quentity * $invoicePaymentData[$i]->price;
+                    $subTotal += $itemTotal;
+                    ?>
+                    <tr>
+                        <td class="no"><?php echo $cnt; ?></td>
+                        <td class="desc"><?= $invoicePaymentData[$i]->item_desc ?></td>
+                        <td class="unit"><?= $invoicePaymentData[$i]->price ?></td>
+                        <td class="unit"><?= $invoicePaymentData[$i]->quentity ?></td>
+                        <td class="total"><?= $invoiceData[0]->currency . $itemTotal; ?></td>
+                    </tr>
+                    <?php
+                }
+                $cnt++;
+            }
+            ?>
         </tbody>
-        <tfoot>
-            <tr>
-                <td colspan="2"></td>
-                <td colspan="2">SUBTOTAL</td>
-                <td>$5,200.00</td>
-            </tr>
-            <tr>
-                <td colspan="2"></td>
-                <td colspan="2">TAX 25%</td>
-                <td>$1,300.00</td>
-            </tr>
-            <tr>
-                <td colspan="2"></td>
-                <td colspan="2">GRAND TOTAL</td>
-                <td>$6,500.00</td>
-            </tr>
-        </tfoot>
+
+        <?php
+        if (count($invoicePaymentData) > 0) {
+            $defaultTax = ($subTotal * $invoiceData[0]->default_tax) / 100;
+            $discount = ($subTotal * $invoiceData[0]->discount) / 100;
+            $totalPaid = getPaidAmount($invoiceData[0]->id);
+            $total2 = $subTotal + $defaultTax;
+            $total1 = ($totalPaid + $discount);
+            $finalTotal = $total2 - $total1;
+            $finalTotal = ($finalTotal > 0) ? $finalTotal : '0.00';
+            ?>
+            <tfoot>
+                <tr>
+                    <td colspan="2"></td>
+                    <td colspan="2">SUBTOTAL</td>
+                    <td><?= $invoiceData[0]->currency . number_format($subTotal, 2); ?></td>
+                </tr>
+                <tr>
+                    <td colspan="2"></td>
+                    <td colspan="2">TAX 25%</td>
+                    <td><?php echo $invoiceData[0]->currency . number_format($defaultTax, 2); ?></td>
+                </tr>
+                <?php
+                if ($invoiceData[0]->discount > 0) {
+                    ?>
+                    <tr>
+                        <td colspan="2"></td>
+                        <td colspan="2">Discount - <?= $invoiceData[0]->discount ?>%:</td>
+                        <td><?= $invoiceData[0]->currency . number_format($discount, 2) ?></td>
+                    </tr>
+                <?php } ?>
+                <tr>
+                    <td colspan="2"></td>
+                    <td colspan="2"><strong>Payment Made:</strong></td>
+                    <td colspan=""><?php echo $invoiceData[0]->currency . number_format($totalPaid, 2); ?></td>
+                </tr>
+                <tr>
+                    <td colspan="2"></td>
+                    <td colspan="2">GRAND TOTAL</td>
+                    <td><?= $invoiceData[0]->currency . number_format($finalTotal, 2) ?></td>
+                </tr>
+            </tfoot>
+        <?php } ?>
     </table>
     <div id="thanks">Thank you!</div>
     <div id="notices">
         <div>NOTICE:</div>
-        <div class="notice">A finance charge of 1.5% will be made on unpaid balances after 30 days.</div>
+        <div class="notice"><?= $invoiceData[0]->note; ?></div>
     </div>
 </main>
 <footer>

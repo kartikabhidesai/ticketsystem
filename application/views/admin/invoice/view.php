@@ -14,7 +14,7 @@
                             ?>
                             </select>-->
                             <div class="btn-group" style="margin-top: 5px;">
-                                <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle">Short Invoice <span class="caret"></span></button>
+                                <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle">Sort Invoice <span class="caret"></span></button>
                                 <ul class="dropdown-menu">
                                     <?php foreach ($priority as $key => $value) { ?>
                                     <li><a href="<?php echo admin_url('invoice/view/').$this->utility->encode($invoiceData[0]->id)."/$key"; ?>" value="<?= $key ?>" class="font-bold"><?= $value; ?></a></li>

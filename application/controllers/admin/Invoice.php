@@ -283,30 +283,38 @@ class Invoice extends Admin_Controller {
 
     function pdf($id) {
         $invoiceId = $this->utility->decode($id);
-        if (!ctype_digit($invoiceId)) {
-            return(admin_url() . 'invoice');
-        }
+//        if (!ctype_digit($invoiceId)) {
+//            return(admin_url() . 'invoice');
+//        }
+//
+//        $data['page'] = "admin/invoice/pdf";
+////        $data['page'] = "admin/pdf/pdf";
+//        $data['invoice'] = 'active';
+//        $data['sale'] = 'active';
 
-        $data['page'] = "admin/invoice/pdf";
-//        $data['page'] = "admin/invoice/view";
-        $data['invoice'] = 'active';
-        $data['sale'] = 'active';
-        $data['pagetitle'] = 'Invoice Preview';
-        $data['var_meta_title'] = 'Invoice Preview';
-        $data['breadcrumb'] = array(
-            'dashboard' => 'Home',
-            'client' => 'Invoice Preview',
-        );
-        $data['js'] = array(
-            'admin/invoice.js',
-            'plugins/datapicker/bootstrap-datepicker.js',
-        );
-        $data['init'] = array(
-            'Invoice.initEdit()',
-        );
         $data['invoiceData'] = $this->this_model->getInvoiceById($invoiceId);
         $data['invoicePaymentData'] = $this->this_model->getInvoicePaymentDetails($invoiceId);
-        $this->load->view(ADMIN_LAYOUT, $data);
+//        $this->load->view(ADMIN_LAYOUT, $data);
+//        
+        //Load the library
+        $this->load->library('html2pdf');
+
+        //Set folder to save PDF to
+        $this->html2pdf->folder('./public/asset/pdfs/');
+
+        //Set the filename to save/download as
+        $this->html2pdf->filename('test_' . $invoiceId . '.pdf');
+
+        //Set the paper defaults
+        $this->html2pdf->paper('a4', 'portrait');
+
+        $data = array(
+            'title' => 'PDF Created',
+            'message' => 'Create Invoice Pdf!'
+        );
+
+        //Load html view
+        $this->html2pdf->html($this->load->view('admin/invoice/pdf', $data, true));
     }
 
 }
