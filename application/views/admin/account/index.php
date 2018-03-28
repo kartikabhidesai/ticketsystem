@@ -39,11 +39,11 @@
                                                 } else if (getStatus($getTicket[$i]->status) == 'Answered') {
                                                     $color = 'background-color:#1a7bb9;color:white;';
                                                 } else if (getStatus($getTicket[$i]->status) == 'Closed') {
-                                                    $color = 'background-color:green;color:white;';
+                                                    $color = 'background-color:#999999;color:white;';
                                                 } else if (getStatus($getTicket[$i]->status) == 'Open') {
                                                     $color = 'background-color:red;color:white;';
                                                 } else if (getStatus($getTicket[$i]->status) == 'In Progress') {
-                                                    $color = 'background-color:#999999;color:white;';
+                                                    $color = 'background-color:green;color:white;';
                                                 }
                                                 ?>
                                                 <span class="btn btn-xs" style="<?php echo $color; ?>">  <?php echo getStatus($getTicket[$i]->status); ?> </span>
