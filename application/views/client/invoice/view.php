@@ -106,6 +106,7 @@
                                 $total2 = $subTotal + $defaultTax;
                                 $total1 = ($totalPaid + $discount);
                                 $finalTotal = $total2 - $total1;
+                                $finalTotal = ($finalTotal > 0) ?$finalTotal : '0.00';
                                 ?>
                                 <table class="table invoice-total">
                                     <tbody>
