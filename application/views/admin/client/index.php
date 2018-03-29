@@ -31,14 +31,14 @@
                                         <td><?= $getComany[$i]->companyEmail; ?></td>
                                         <td><?= $getComany[$i]->companyPhone; ?></td>
                                         <td><?= $getComany[$i]->countryName; ?></td>
-                                        <td>
-                                            <a href="<?= admin_url(); ?>client/edit/<?php echo $this->utility->encode($getComany[$i]->companyId);?>">
+                                        <td class="tooltip-demo">
+                                            <a data-toggle="tooltip" title="Edit Client" data-placement="top" href="<?= admin_url(); ?>client/edit/<?php echo $this->utility->encode($getComany[$i]->companyId);?>">
                                                 <i class="fa fa-edit text-navy"></i>
                                             </a>
-                                            <a data-toggle="modal" data-target="#myModal_autocomplete" data-href="<?= admin_url().'client/clientDelete'?>" data-id="<?php echo $getComany[$i]->companyId;?>" class="deletebutton">
+                                            <a data-toggle="tooltip" title="Delete Client" data-placement="top" data-toggle="modal" data-target="#myModal_autocomplete" data-href="<?= admin_url().'client/clientDelete'?>" data-id="<?php echo $getComany[$i]->companyId;?>" class="deletebutton">
                                                 <i class="fa fa-close text-navy"></i>
                                             </a>
-                                            <a href="<?= admin_url(); ?>client/detail/<?php echo $this->utility->encode($getComany[$i]->companyId);?>"><i class="fa fa-user text-navy"></i></a>
+                                            <a data-toggle="tooltip" title="View Details" data-placement="top" href="<?= admin_url(); ?>client/detail/<?php echo $this->utility->encode($getComany[$i]->companyId);?>"><i class="fa fa-user text-navy"></i></a>
                                         </td>
                                     </tr>
                                     <?php } ?>

@@ -25,7 +25,7 @@
                                     <?php for ($i = 0; $i < count($getInvoice); $i++) {
                                         $invoiceId = $getInvoice[$i]->id;
                                         ?>
-                                        <tr>
+                                        <tr class="tooltip-demo">
                                             <td>OPEN</td>
                                             <td><a href="<?= admin_url() . 'invoice/view/' . $this->utility->encode($invoiceId) ; ?>"><?= $getInvoice[$i]->ref_no; ?></a></td>
                                             <td><?= date('d-m-Y',  strtotime($getInvoice[$i]->due_date)); ?></td>
@@ -33,7 +33,7 @@
                                             <td><?= number_format($getInvoice[$i]->totalPrice,2); ?></td>
                                             <td><?= number_format(getPaidAmount($invoiceId),2); ?></td>
                                             <td>   
-                                                <a title="Preview Ticket"  href="<?= client_url() . 'invoice/view/' . $this->utility->encode($invoiceId) ; ?>"> <i class="fa fa-eye text-navy"></i> </a>
+                                                <a title="Preview Ticket" data-toggle="tooltip" data-placement="top" href="<?= client_url() . 'invoice/view/' . $this->utility->encode($invoiceId) ; ?>"> <i class="fa fa-eye text-navy"></i> </a>
                                             </td> 
                                         </tr>
 <?php } ?>
