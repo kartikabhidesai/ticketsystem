@@ -196,7 +196,15 @@ class Invoice_model extends My_model {
 //        print_r($result);exit;
         return $result;
     }
-
+    
+    function getClientDetail($companyId,$clientId){
+        $data['select'] = ['first_name','last_name','email'];
+        $data['where'] = ['id' => $clientId, 'company_id' => $companyId];
+        $data['table'] = TABLE_USER;
+        $result = $this->selectRecords($data);
+        return $result;
+    }
+    
     function deletePaymentInvoice($data) {
         $this->db->where('id', $data['id']);
         $result = $this->db->delete(TABLE_INVOICE_DETAILS);

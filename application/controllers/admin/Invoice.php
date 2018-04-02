@@ -289,8 +289,9 @@ class Invoice extends Admin_Controller {
 //        $data['page'] = "admin/invoice/pdf";
         $data['invoiceData'] = $this->this_model->getInvoiceById($invoiceId);
         $data['invoicePaymentData'] = $this->this_model->getInvoicePaymentDetails($invoiceId);
-//        $this->load->view(ADMIN_LAYOUT, $data);
-
+        
+        $getClientDetail = $this->this_model->getClientDetail($data['invoicePaymentData'][0]->company_id,$data['invoicePaymentData'][0]->client_id);
+        
         //Load the library
         $this->load->library('html2pdf');
 
@@ -311,8 +312,14 @@ class Invoice extends Admin_Controller {
         //Load html view
         $this->html2pdf->html($this->load->view('admin/invoice/pdf', $data, true));
         if ($this->html2pdf->create('save')) {
-            //PDF was successfully saved or downloaded
-            echo 'PDF saved';
+            
+            $data ['message'] = 'Hello '.$getClientDetail[0]->first_name.' '.$getClientDetail[0]->last_name.' Created Invoice!';
+            $data ['from_title'] = 'Helpdesk Invoice';
+            $data ['subject'] = 'Helpdesk Invoice';
+            $data ['to'] = $getClientDetail[0]->email;
+            $data ['replyto'] = REPLAY_EMAIL;
+            $data ['attech'] = 'public/asset/pdfs/test_' . $invoiceId . '.pdf';
+            $mailSend = $this->utility->sendMailSMTP($data);
         }
     }
 
