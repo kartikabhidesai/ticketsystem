@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en"><head>
 	<meta charset="utf-8">
 	<title>PDF Created</title>
 
@@ -42,8 +41,7 @@ code {
 }
 
 </style>
-</head>
-<body>
+</head><body>
 
 <h1><?= $title ?></h1>
 
@@ -51,5 +49,4 @@ code {
 
 <code><?= $message; ?></code>
 
-</body>
-</html>
+</body></html>
