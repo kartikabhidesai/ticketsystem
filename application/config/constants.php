@@ -104,7 +104,7 @@ define('REPLAY_EMAIL', 'helpdesk@experttech.ca');
 
 //define ticket status
 
-define('STATUS', json_encode(['NEW' => 'New','ANSWERED' => 'Answered', 'CLOSED' => 'Closed', 'OPEN' => 'Open','IN_fPROGRESS' => 'In Progress']));
+define('STATUS', json_encode(['NEW' => 'New','ANSWERED' => 'Answered', 'CLOSED' => 'Closed', 'OPEN' => 'Open','IN_PROGRESS' => 'In Progress']));
 
 //define ticket priority
 
@@ -117,3 +117,5 @@ define('SHORTINVOICE', json_encode(['REF_NO' => 'Ref No', 'DUEDATE' => 'Due Date
 define('TICKETMOREACTIONS', json_encode(['EMAIL_INVOICE' => 'Email Invoice', 'SEND_REMAINDER' => 'Send Reminder', 'INVOICE_HISTORY' => 'Invoice History', 'EDIT_INVOICE' => 'Edit Invoice','DELETE_INVOICE' => 'Delete Invoice']));
 //define ticket More Actions
 define('RECURRING', json_encode(['NONE' => 'None', 'WEEK' => 'Week', 'MONTH' => 'Month', 'QUARTER' => 'Quarter','SIX_MONTH' => 'Six Month','YEAR' => 'Year']));
+//define ticket More Actions
+define('PAYMENT_METOHD', json_encode(['ONLINE' => 'Online', 'CASH' => 'Cash', 'BANK_DEPOSITE' => 'Bank Deposit', 'CHEQUE' => 'Cheque']));

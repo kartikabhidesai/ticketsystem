@@ -56,12 +56,14 @@ var Invoice = function() {
 //       
 //    };
 //    
-    var genral = function() {
+    var general = function() {
         $('#data_1 .input-group.date').datepicker({
             todayBtn: "linked",
             keyboardNavigation: false,
             forceParse: false,
             calendarWeeks: true,
+            todayHighlight: true,
+            format: 'dd-mm-yyyy',
             autoclose: true
         });
         $(".showDicount").click(function() {
@@ -69,6 +71,36 @@ var Invoice = function() {
         });
         $(".recurring").click(function() {
             $(".showRecurring").toggle();
+        });
+        $('body').on('click', '.invoicePrint', function() {
+            window.print();
+        });
+        $('.moreAction  li a').click(function(e) {
+            e.stopPropagation();
+            var encodeUrl = $('.encodeUrl').val();
+            var invoiceId = $('#invoiceId').val();
+            if ($(this).attr('data-value') == 'EDIT_INVOICE') {
+                window.location.href = baseurl + 'admin/invoice/edit/' + encodeUrl;
+            } else if ($(this).attr('data-value') == 'INVOICE_HISTORY') {
+                window.location.href = baseurl + 'admin/invoice/history/' + encodeUrl;
+            } else if ($(this).attr('data-value') == 'DELETE_INVOICE') {
+                $('#myModal_autocomplete').modal('show');
+                $('#btndelete').attr('data-url', baseurl + 'admin/invoice/deleteInvoice');
+                $('#btndelete').attr('data-id', invoiceId);
+            }
+        });
+
+        $('body').on('change', '#client_id', function() {
+            var reporter = $('#client_id option:selected').val();
+            if (reporter != '') {
+                var url = baseurl + 'admin/tickets/getCompanyName';
+                var data = {reporter: reporter};
+                ajaxcall(url, data, function(output) {
+                    var output = JSON.parse(output);
+                    $('.compnayName').text(output[0]['name']);
+                    $('.compnayId').val(output[0]['id']);
+                });
+            }
         });
     }
 
@@ -88,6 +120,8 @@ var Invoice = function() {
         handleFormValidate(form, rules, function(form) {
             handleAjaxFormSubmit(form);
         });
+
+
 
     };
 
@@ -119,6 +153,37 @@ var Invoice = function() {
             handleAjaxFormSubmit(form);
         });
     };
+
+    var invoicePay = function() {
+        var elem = document.querySelector('.js-switch');
+        var switchery = new Switchery(elem, {color: '#CB080D'});
+
+        $('body').on('blur', '.amount', function() {
+            var amount = parseInt($(".amount").val());
+            var totalAmount = parseInt($(".totalAmount").val());
+            if (amount > totalAmount) {
+                showToster('error', 'Amount no more then total amount');
+                $('.submitBtn').attr('disabled', true);
+            } else {
+                $('.submitBtn').attr('disabled', false);
+            }
+        });
+    };
+    var invoicePayment = function() {
+
+        var form = $('#invoicePayment');
+        var rules = {
+            item_name: {required: true},
+            item_desc: {required: true},
+            price: {required: true, number: true},
+            quentiry: {required: true, number: true},
+        };
+        handleFormValidate(form, rules, function(form) {
+            handleAjaxFormSubmit(form);
+        });
+    };
+
+
     var deleteInvoicePayment = function() {
         $('body').on('click', '.deletePayment', function() {
             var personId = $(this).attr('data-id');
@@ -136,14 +201,22 @@ var Invoice = function() {
             invoiceList();
         },
         invoiceAdd: function() {
-            genral();
+            general();
             invoiceAdd();
+        },
+        payInit: function() {
+            invoicePay();
+            general();
+            invoicePayment();
         },
         initEdit: function() {
             invoiceEdit();
             invoiceDetail();
             deleteInvoicePayment();
-            genral();
+            general();
+            setTimeout(function() {
+                $('#client_id').trigger('change');
+            }, 2000);
         },
     };
 }();

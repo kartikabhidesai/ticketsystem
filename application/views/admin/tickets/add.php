@@ -26,7 +26,7 @@
                            <option value="">Select Reporter</option>
                         <?php for($i=0; $i<count($reporter_detail); $i++){
                         ?>
-                            <option data-email="<?= $reporter_detail[$i]->email;?>" value="<?= $reporter_detail[$i]->id;?>"><?= $reporter_detail[$i]->first_name;?></option>
+                            <option data-name="<?= $reporter_detail[$i]->first_name . ' ' . $reporter_detail[$i]->last_name;?>" data-email="<?= $reporter_detail[$i]->email;?>" value="<?= $reporter_detail[$i]->id;?>"><?= $reporter_detail[$i]->first_name;?></option>
                         <?php } ?>
 
                     </select>
@@ -47,6 +47,7 @@
                     <input type="text" placeholder="Enter Ticket Code" name="ticket_code" class="form-control ticketCode">
                     <input type="hidden" value="NEW" placeholder="" name="status" class="form-control">      
                     <input type="hidden" value=""  name="client_email" class="form-control client_email">
+                    <input type="hidden" value=""  name="client_name" class="form-control client_name">
                 </div>
             </div>
             <div class="form-group">

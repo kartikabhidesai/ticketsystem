@@ -5,11 +5,6 @@
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
                         <h5>Invoice List</h5>
-                        <div class="ibox-tools">
-                            <a href="<?= admin_url(); ?>invoice/add" class="btn btn-primary">
-                                <i class="fa fa-plus"></i>Add New
-                            </a>
-                        </div>
                     </div>
                     <div class="ibox-content">
 
@@ -30,20 +25,15 @@
                                     <?php for ($i = 0; $i < count($getInvoice); $i++) {
                                         $invoiceId = $getInvoice[$i]->id;
                                         ?>
-                                        <tr>
+                                        <tr class="tooltip-demo">
                                             <td>OPEN</td>
                                             <td><a href="<?= admin_url() . 'invoice/view/' . $this->utility->encode($invoiceId) ; ?>"><?= $getInvoice[$i]->ref_no; ?></a></td>
                                             <td><?= date('d-m-Y',  strtotime($getInvoice[$i]->due_date)); ?></td>
                                             <td><?= $getInvoice[$i]->companyName; ?></td>
                                             <td><?= number_format($getInvoice[$i]->totalPrice,2); ?></td>
                                             <td><?= number_format(getPaidAmount($invoiceId),2); ?></td>
-                                            <td class="tooltip-demo">  
-                                                <a title="Preview Ticket" data-toggle="tooltip" data-placement="top"  href="<?= admin_url() . 'invoice/view/' . $this->utility->encode($invoiceId) ; ?>"> <i class="fa fa-eye text-navy"></i> </a>
-                                                <a title="Edit Ticket" data-toggle="tooltip" data-placement="top"  href="<?= admin_url() . 'invoice/edit/' . $this->utility->encode($invoiceId); ?>"> <i class="fa fa-edit text-navy"></i> </a>
-                                                <a title="Invoice History" data-toggle="tooltip" data-placement="top"  href="<?= admin_url() . 'invoice/history/' . $this->utility->encode($invoiceId); ?>"> <i class="fa fa-book text-navy"></i> </a>
-                                                <a title="Email Invoice " data-toggle="tooltip" data-placement="top"  href="javascript:;"> <i class="fa fa-male text-navy"></i> </a>
-                                                <a title="Send Remainder" data-toggle="tooltip" data-placement="top"  href="javascript:;"> <i class="fa fa-refresh text-navy"></i> </a>
-                                                <a title="Pdf" data-toggle="tooltip" data-placement="top"   href="javascript:;"> <i class="fa fa-file-pdf-o text-navy"></i> </a>
+                                            <td>   
+                                                <a title="Preview Ticket" data-toggle="tooltip" data-placement="top" href="<?= client_url() . 'invoice/view/' . $this->utility->encode($invoiceId) ; ?>"> <i class="fa fa-eye text-navy"></i> </a>
                                             </td> 
                                         </tr>
 <?php } ?>

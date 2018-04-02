@@ -4,7 +4,7 @@ error_reporting(E_ALL);
 class Demo_pdf extends CI_Controller {
 
     public function index() {
-       
+      
         //Load the library
         $this->load->library('html2pdf');
 

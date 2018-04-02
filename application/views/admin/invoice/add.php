@@ -55,6 +55,8 @@
                 <label class="col-sm-3 control-label">Currency</label>
                 <div class="col-sm-7">
                     <input type="text" name="currency" placeholder="Enter Currency" class="form-control">
+                    <input type="hidden" name="companyId" class="form-control compnayId">
+                    <input type="hidden" name="companyName" class="form-control compnayName">
                 </div>
             </div>
             <div class="form-group">

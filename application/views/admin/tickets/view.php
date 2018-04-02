@@ -19,9 +19,11 @@
                             <select class="changeStatus form-control">
                                 <option value="">Select Status</option>
                                 <?php foreach ($priority as $key => $value) { ?>
-                                    <option value="<?= $key ?>" <?php if($getTicket[0]->status == $key) { echo "selected='selected'"; }?>><?= $value; ?></option>
-                                <?php }
-                                ?>
+                                    <option value="<?= $key ?>" <?php if ($getTicket[0]->status == $key) {
+                                    echo "selected='selected'";
+                                } ?>><?= $value; ?></option>
+<?php }
+?>
                             </select>
                         </div>
                     </div>
@@ -56,7 +58,20 @@
                     <div class="form-group">
                         <label class="col-sm-5 displaylable">Status</label>
                         <div class="col-sm-7">
-                            <span class="btn btn-primary btn-xs">  <?= getStatus($getTicket[0]->status) ?> </span>
+                            <?php
+                            if (getStatus($getTicket[0]->status) == 'New') {
+                                $color = 'background-color:#999999;color:white;';
+                            } else if (getStatus($getTicket[0]->status) == 'Answered') {
+                                $color = 'background-color:#1a7bb9;color:white;';
+                            } else if (getStatus($getTicket[0]->status) == 'Closed') {
+                                $color = 'background-color:#999999;color:white;';
+                            } else if (getStatus($getTicket[0]->status) == 'Open') {
+                                $color = 'background-color:red;color:white;';
+                            } else if (getStatus($getTicket[0]->status) == 'In Progress') {
+                                $color = 'background-color:green;color:white;';
+                            }
+                            ?>
+                            <span class="btn btn-xs" style="<?php echo $color; ?>">  <?php echo getStatus($getTicket[0]->status); ?> </span>
                         </div>
                     </div>
                     <div class="form-group">
@@ -68,7 +83,7 @@
                     <div class="form-group">
                         <label class="col-sm-5 displaylable"> Created</label>
                         <div class="col-sm-7">
-                           <?= date('Y-m-d h:i:s', strtotime($getTicket[0]->dt_created)) ?>
+                            <?= date('Y-m-d h:i:s', strtotime($getTicket[0]->dt_created)) ?>
                         </div>
                     </div>
                 </div>
@@ -79,7 +94,7 @@
             </div>
             <div class=" headingmain" style="padding: 10px;font-size: 18px;">                        
                 <!-- Would like to have new printer installed. -->
-              <?php echo 'Description : ' . $getTicket[0]->ticket_message; ?>
+<?php echo 'Description : ' . $getTicket[0]->ticket_message; ?>
             </div>
         </form>
     </div>
@@ -121,14 +136,14 @@
                                                     <?= time_ago_new($value->dt_created) ?> ago</small>
                                                 <strong><?php echo $value->first_name . ' ' . $value->last_name; ?></strong> <strong class="btn btn-primary btn-xs btn-danger"><?= ($value->replay_by == 'A' ? 'Admin' : 'Client'); ?></strong> 
                                                 <div class="" style="border-top: 1px solid #e7eaec;margin: 15px; padding-top: 15px; ">
-                                                    <?php echo $value->description; ?>
+    <?php echo $value->description; ?>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        <?php } ?>
+<?php } ?>
                     </div>
                 </div>
             </div>

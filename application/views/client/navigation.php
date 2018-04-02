@@ -28,6 +28,13 @@
             <li class="<?= $ticket; ?>">
                 <a href="<?= client_url(); ?>tickets"><i class="fa fa-ticket"></i> <span class="nav-label">Tickets</span></a>
             </li>
+              <li class="<?= $sale; ?>"  class="<?= $invoice,$add,$pay; ?>">
+                <a href="<?php echo client_url('invoice'); ?>"><i class="fa fa-gear"></i><span class="nav-label">Invoice</span></a>
+                <!--<a href=""><i class="fa fa-gear"></i> <span class="nav-label">Sale</span> <span class="fa arrow"></span></a>-->
+<!--                <ul class="nav nav-second-level">
+                    <li class="<?= $invoice,$add,$pay; ?>"></li>
+                </ul>-->
+            </li>
             <li class="<?= $resetPassword; ?>">
                 <a href="<?= client_url() . 'reset_password'; ?>"><i class="fa fa-ticket"></i> <span class="nav-label">Reset Password</span></a>
             </li>

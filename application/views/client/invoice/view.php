@@ -1,71 +1,17 @@
 <div class="wrapper wrapper-content white-bg m-t">
     <div class=" animated fadeInRightBig">
+        <?php
+        ?>
+        <input type="hidden" name="encodeUrl" value="<?= $this->utility->encode($invoiceData[0]->id); ?>" class="encodeUrl">
         <div class="row">
             <div class="col-lg-12">
-                <div class="ibox float-e-margins">
-                    <div class="ibox-title">
-                        <div class="col-md-2">
-                            <?php $priority = json_decode(SHORTINVOICE); ?>
-<!--                            <select class="changeStatus form-control">
-                                <option value="">Short Invoice</option>
-                            <?php foreach ($priority as $key => $value) { ?>
-                                                        <option value="<?= $key ?>"><?= $value; ?></option>
-                            <?php }
-                            ?>
-                            </select>-->
-                            <div class="btn-group" style="margin-top: 5px;">
-                                <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle">Sort Invoice <span class="caret"></span></button>
-                                <ul class="dropdown-menu">
-                                    <?php foreach ($priority as $key => $value) { ?>
-                                    <li><a href="<?php echo admin_url('invoice/view/').$this->utility->encode($invoiceData[0]->id)."/$key"; ?>" value="<?= $key ?>" class="font-bold"><?= $value; ?></a></li>
-                                    <?php }
-                                    ?>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-1 displaylable">
-                            <a href="javascript:;" style="margin:5px" class="btn btn-sm btn-primary  m-t-n-xs invoicePrint" ><strong><i class="fa fa-print"></i></strong></a>
-                        </div>
-                        <div class="col-sm-2 displaylable">
-                            <a  href="<?= admin_url('invoice/pay/') . $this->utility->encode($invoiceData[0]->id); ?>"  style="margin:5px 5px 5px -6px"  data-original-title="Pay Invoice" class="btn btn-primary btn-sm "><strong><i class="fa fa-google-wallet"></i> Pay Invoice</strong></a>
-                        </div>
-                        <div class="col-sm-5 displaylable" style="margin: 5px -25px;">
-                            <?php $ticketMoreAction = json_decode(TICKETMOREACTIONS); ?>
-<!--                            <select class="changeStatus form-control">
-                                <option value="">More Action</option>
-                            <?php foreach ($ticketMoreAction as $key => $value) { ?>
-                                                    <option value="<?= $key ?>"><?= $value; ?></option>
-                            <?php }
-                            ?>
-                            </select>-->
-                            <div class="btn-group">
-                                <button data-toggle="dropdown" id="moreAction" class="btn btn-primary dropdown-toggle">More Action <span class="caret"></span></button>
-                                <ul class="dropdown-menu moreAction">
-                                    <?php foreach ($ticketMoreAction as $key => $value) { ?>
-                                        <li><a href="#" data-value="<?= $key ?>" class="font-bold"><?= $value; ?></a></li>
-                                    <?php }
-                                    ?>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-sm-1 displaylable">
-                            <a href="<?php  echo admin_url('invoice/pdf/') . $this->utility->encode($invoiceData[0]->id); ?>" style="margin:5px" class="btn btn-sm btn-primary pull-right m-t-n-xs" ><strong><i class="fa fa-file-pdf-o" > PDF</i></strong></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-<input type="hidden" name="encodeUrl" value="<?= $this->utility->encode($invoiceData[0]->id); ?>" class="encodeUrl">
-        <div class="row">
-            <div class="col-lg-12">
-                <form method="post" class="form-horizontal" action="<?= admin_url('invoice/view/') . $this->utility->encode($invoiceData[0]->id); ?>" id='invoiceDetail'>
+                <form method="post" class="form-horizontal" action="<?= client_url('invoice/view/') . $this->utility->encode($invoiceData[0]->id); ?>" id='invoiceDetail'>
                     <div class="wrapper wrapper-content animated fadeInRight">
                         <div class="ibox-content p-xl">
                             <div class="row">
                                 <div class="col-sm-6">
                                     <address>
-                                        <img src="<?= IMAGES . 'logo.png'; ?>" style="width: auto;height: 120px;margin-top: -45px !important;">
+                                        <img src="<?= IMAGES . 'logo.png'; ?>" style="width: auto;height: 150px;margin-top: -45px !important;">
                                     </address>
                                 </div>
 
@@ -130,9 +76,6 @@
                                                     <td> <?= $invoiceData[0]->currency . $invoicepaymentData[$i]->price ?></td>
                                                     <td>
                                                         <?= $invoiceData[0]->currency . $itemTotal; ?> 
-                                                        <a data-toggle="modal" data-target="#myModal_autocomplete" data-href="<?= admin_url() . 'invoice/paymentDelete' ?>" data-id="<?php echo $invoicepaymentData[$i]->paymentId; ?>" class="deletePayment">
-                                                            <i class="fa fa-trash-o"></i>
-                                                        </a>
                                                     </td>
                                                 </tr>
                                                 <?php
@@ -140,7 +83,7 @@
                                         }
                                         ?>
                                         <tr>
-                                            <td><input type="text" placeholder="Item Name" name="item_name" class="form-control"></td>
+<!--                                            <td><input type="text" placeholder="Item Name" name="item_name" class="form-control"></td>
                                             <td><input type="text" placeholder="Item Description" name="item_desc" class="form-control"></td>
                                             <td><input type="text" placeholder="1" name="quentity" class="form-control"></td>
                                             <td><input type="text" placeholder="56.12" name="price" class="form-control"></td>
@@ -149,9 +92,9 @@
                                         <div class="text-right">
                                             <button  class="btn btn-success "><i class="fa fa-check"></i> Save</button>
                                         </div>
-                                    </td>
+                                    </td>-->
 
-                                    </tr>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div><!-- /table-responsive -->
@@ -160,8 +103,8 @@
                                 $defaultTax = ($subTotal * $invoiceData[0]->default_tax) / 100;
                                 $discount = ($subTotal * $invoiceData[0]->discount) / 100;
                                 $totalPaid = getPaidAmount($invoiceData[0]->id);
-                                $total2 =  $subTotal + $defaultTax;
-                                $total1 =  ($totalPaid + $discount);
+                                $total2 = $subTotal + $defaultTax;
+                                $total1 = ($totalPaid + $discount);
                                 $finalTotal = $total2 - $total1;
                                 $finalTotal = ($finalTotal > 0) ?$finalTotal : '0.00';
                                 ?>
@@ -183,12 +126,10 @@
                                                 <td><?= $invoiceData[0]->currency . number_format($discount, 2) ?></td>
                                             </tr>
                                         <?php } ?>
-
                                         <tr>
                                             <td><strong>Payment Made:</strong></td>
-                                            <td><?php echo $invoiceData[0]->currency . number_format($totalPaid,2); ?></td>
+                                            <td><?php echo $invoiceData[0]->currency . number_format($totalPaid, 2); ?></td>
                                         </tr>
-
                                         <tr>
                                             <td><strong>TOTAL :</strong></td>
                                             <td><?= $invoiceData[0]->currency . number_format($finalTotal, 2) ?></td>

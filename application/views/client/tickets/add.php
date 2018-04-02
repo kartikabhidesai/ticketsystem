@@ -7,12 +7,14 @@
             <div class="form-group headingmain">						
                 <h2 class="title" style="margin:10px">Ticket Details</h2>								
             </div>
+           
             <div class="form-group">
                 <label class="col-sm-3 control-label">Company Name</label>
                 <div class="col-sm-7">
                      <label class="control-label"><?=  $company_details[0]->name; ?></label>
                      <input type="hidden" value="<?= $this->session->userdata['client_login']['companyId']; ?>"  name="company_id" class="form-control compnayId">
                      <input type="hidden" value="<?= $this->session->userdata['client_login']['email']; ?>"  name="client_email" class="form-control client_email">
+                     <input type="hidden" value="<?= $this->session->userdata['client_login']['firstname'] . ' ' . $this->session->userdata['client_login']['lastname']; ?>"  name="client_name" class="form-control client_email">
                 </div>
             </div>
             <div class="form-group">

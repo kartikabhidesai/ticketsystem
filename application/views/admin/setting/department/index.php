@@ -24,14 +24,14 @@
                                 </thead>
                                 <tbody>
                                     <?php for($i=0; $i<count($department_detail); $i++) { ?>
-                                    <tr>
+                                    <tr class="tooltip-demo">
                                         <td><?= $department_detail[$i]->id; ?></td>
                                         <td><?= $department_detail[$i]->name; ?></td>
                                         <td>
-                                            <a href="<?= admin_url(); ?>setting/department_edit/<?php echo $this->utility->encode($department_detail[$i]->id);?>">
+                                            <a data-toggle="tooltip" title="Edit" data-placement="top" href="<?= admin_url(); ?>setting/department_edit/<?php echo $this->utility->encode($department_detail[$i]->id);?>">
                                                 <i class="fa fa-edit text-navy"></i>
                                             </a>
-                                            <a data-toggle="modal" data-target="#myModal_autocomplete" data-href="<?= admin_url().'setting/deleteDepartment'?>" data-id="<?php echo $department_detail[$i]->id;?>" class="deletebutton">
+                                            <a data-toggle="tooltip" title="Delete" data-placement="top" data-toggle="modal" data-target="#myModal_autocomplete" data-href="<?= admin_url().'setting/deleteDepartment'?>" data-id="<?php echo $department_detail[$i]->id;?>" class="deletebutton">
                                                 <i class="fa fa-close text-navy"></i>
                                             </a>
                                         </td>
