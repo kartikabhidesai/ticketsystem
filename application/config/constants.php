@@ -92,7 +92,8 @@ define('CLIENT_LAYOUT', 'client/app');
 define("SMTP_HOST", "smtpout.secureserver.net");
 define("SMTP_PORT", '80');
 define("SMTP_USER", 'admin@helpdesk.experttech.ca');
-define("SMTP_PASS", '7688328jg');
+define("SMTP_PASS", 'J7688328jg!');
+//define("SMTP_PASS", '7688328jg');
 if($_SERVER['HTTP_HOST'] == "localhost"){
 define("IMAGES", 'http://' . $_SERVER['HTTP_HOST'] . '/ticketsystem/public/asset/images/');
 }else{

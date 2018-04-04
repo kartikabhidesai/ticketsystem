@@ -336,8 +336,8 @@ class Invoice_model extends My_model {
             $data['subject'] = 'Invoice ' . $invoiceArray[0]->ref_no . ' Reminder';
         }
 
-      $data['to'] = 'shaileshvanaliya91@gmail.com';
-//        $data["to"] = $invoiceArray[0]->email;
+//      $data['to'] = 'shaileshvanaliya91@gmail.com';
+        $data["to"] = $invoiceArray[0]->email;
         $data["replyto"] = REPLAY_EMAIL;
         $data["bcc"] = REPLAY_EMAIL;
         $mailSend = $this->utility->sendMailSMTP($data);
