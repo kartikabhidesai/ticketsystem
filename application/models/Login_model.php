@@ -201,6 +201,7 @@ class Login_model extends MY_Model {
     function sendForgotEmail($data) {
 
         $this->db->where('email', $data['email']);
+        $this->db->where('type', 'C');
         $row = $this->db->get('user')->row_array();
 //        print_r($row['id']);
 //        exit;
