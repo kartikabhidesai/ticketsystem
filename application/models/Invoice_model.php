@@ -34,12 +34,12 @@ class Invoice_model extends My_model {
         }
     }
 
-    function getInvoiceList($invoiceId = null,$clientId) {
+    function getInvoiceList($invoiceId = null, $clientId) {
         $data['select'] = ['inv.*', 'SUM(invDetail.total) as totalPrice',
 //            'SUM(invPayment.amount) as totalPaidAmount',
             'GROUP_CONCAT(invDetail.id) as totalPaidAmount',
 //            'GROUP_CONCAT(DISTINCT invDetail.id) as totalPaidAmount',
-            'usr.first_name', 'usr.last_name',
+            'usr.first_name', 'usr.last_name', 'usr.email',
             'invDetail.item_name',
             'invDetail.item_desc',
             'comp.name as companyName',
@@ -85,8 +85,8 @@ class Invoice_model extends My_model {
         $data['update']['recur_every'] = $postData['recure_every'];
         $data['update']['company_id'] = $postData['companyId'];
         $data['update']['due_date'] = date('Y-m-d', strtotime($postData['due_date']));
-        $data['update']['start_date'] = ($postData['start_date'] == '01-19-1970') ? '' :  date('Y-m-d', strtotime($postData['start_date']));
-        $data['update']['end_date'] = ($postData['end_date'] == '01-19-1970') ? '' :  date('Y-m-d', strtotime($postData['end_date']));
+        $data['update']['start_date'] = ($postData['start_date'] == '01-19-1970') ? '' : date('Y-m-d', strtotime($postData['start_date']));
+        $data['update']['end_date'] = ($postData['end_date'] == '01-19-1970') ? '' : date('Y-m-d', strtotime($postData['end_date']));
         $data['update']['default_tax'] = $postData['default_tax'];
         $data['update']['discount'] = $postData['discount'];
         $data['update']['currency'] = $postData['currency'];
@@ -196,15 +196,15 @@ class Invoice_model extends My_model {
 //        print_r($result);exit;
         return $result;
     }
-    
-    function getClientDetail($companyId,$clientId){
-        $data['select'] = ['first_name','last_name','email'];
+
+    function getClientDetail($companyId, $clientId) {
+        $data['select'] = ['first_name', 'last_name', 'email'];
         $data['where'] = ['id' => $clientId, 'company_id' => $companyId];
         $data['table'] = TABLE_USER;
         $result = $this->selectRecords($data);
         return $result;
     }
-    
+
     function deletePaymentInvoice($data) {
         $this->db->where('id', $data['id']);
         $result = $this->db->delete(TABLE_INVOICE_DETAILS);
@@ -314,6 +314,35 @@ class Invoice_model extends My_model {
             $json_response['message'] = 'Something went wrong';
         }
         return $json_response;
+    }
+
+    public function sendInvoiceEmail($postData) {
+        $invoiceArray = $this->getInvoiceList($postData['invoiceId'], '');
+//        print_r($invoiceArray);exit;
+
+//        $data['link'] = base_url_index() . 'admin/invoice/view/';
+        $data['link'] = base_url_index() . 'admin/invoice/view/' . $this->utility->encode($postData['invoiceId']);
+        $data['ref_no'] = $invoiceArray[0]->ref_no;
+        $data['totalPrice'] = $invoiceArray[0]->currency . ' ' . $invoiceArray[0]->totalPrice;
+        $data['client_email'] = $invoiceArray[0]->email;
+        $data['client_name'] = $invoiceArray[0]->first_name . ' ' . $invoiceArray[0]->last_name;
+        if ($postData['type'] == 'invoice') {
+            $data['message'] = $this->load->view('email_template/invoice_mail', $data, true);
+            $data['from_title'] = 'Email Invoice';
+            $data['subject'] = 'Invoice ' . $invoiceArray[0]->ref_no;
+        } else {
+            $data['message'] = $this->load->view('email_template/reminder_mail', $data, true);
+            $data['from_title'] = 'Email Reminder';
+            $data['subject'] = 'Invoice ' . $invoiceArray[0]->ref_no . ' Reminder';
+        }
+
+      $data['to'] = 'shaileshvanaliya91@gmail.com';
+//        $data["to"] = $invoiceArray[0]->email;
+        $data["replyto"] = REPLAY_EMAIL;
+        $data["bcc"] = REPLAY_EMAIL;
+        $mailSend = $this->utility->sendMailSMTP($data);
+        return true;
+//        return $mailSend;
     }
 
 }

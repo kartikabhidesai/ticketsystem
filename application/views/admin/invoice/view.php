@@ -9,7 +9,7 @@
 <!--                            <select class="changeStatus form-control">
                                 <option value="">Short Invoice</option>
                             <?php foreach ($priority as $key => $value) { ?>
-                                                        <option value="<?= $key ?>"><?= $value; ?></option>
+                                                            <option value="<?= $key ?>"><?= $value; ?></option>
                             <?php }
                             ?>
                             </select>-->
@@ -17,7 +17,7 @@
                                 <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle">Sort Invoice <span class="caret"></span></button>
                                 <ul class="dropdown-menu">
                                     <?php foreach ($priority as $key => $value) { ?>
-                                    <li><a href="<?php echo admin_url('invoice/view/').$this->utility->encode($invoiceData[0]->id)."/$key"; ?>" value="<?= $key ?>" class="font-bold"><?= $value; ?></a></li>
+                                        <li><a href="<?php echo admin_url('invoice/view/') . $this->utility->encode($invoiceData[0]->id) . "/$key"; ?>" value="<?= $key ?>" class="font-bold"><?= $value; ?></a></li>
                                     <?php }
                                     ?>
                                 </ul>
@@ -35,7 +35,7 @@
 <!--                            <select class="changeStatus form-control">
                                 <option value="">More Action</option>
                             <?php foreach ($ticketMoreAction as $key => $value) { ?>
-                                                    <option value="<?= $key ?>"><?= $value; ?></option>
+                                                        <option value="<?= $key ?>"><?= $value; ?></option>
                             <?php }
                             ?>
                             </select>-->
@@ -50,13 +50,13 @@
                             </div>
                         </div>
                         <div class="col-sm-1 displaylable">
-                            <a href="<?php  echo admin_url('invoice/pdf/') . $this->utility->encode($invoiceData[0]->id); ?>" style="margin:5px" class="btn btn-sm btn-primary pull-right m-t-n-xs" ><strong><i class="fa fa-file-pdf-o" > PDF</i></strong></a>
+                            <a href="<?php echo admin_url('invoice/pdf/') . $this->utility->encode($invoiceData[0]->id); ?>" style="margin:5px" class="btn btn-sm btn-primary pull-right m-t-n-xs" ><strong><i class="fa fa-file-pdf-o" > PDF</i></strong></a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-<input type="hidden" name="encodeUrl" value="<?= $this->utility->encode($invoiceData[0]->id); ?>" class="encodeUrl">
+        <input type="hidden" name="encodeUrl" value="<?= $this->utility->encode($invoiceData[0]->id); ?>" class="encodeUrl">
         <div class="row">
             <div class="col-lg-12">
                 <form method="post" class="form-horizontal" action="<?= admin_url('invoice/view/') . $this->utility->encode($invoiceData[0]->id); ?>" id='invoiceDetail'>
@@ -74,14 +74,14 @@
                                     <h4>Invoice Date: <?= date('M d, Y', strtotime($invoiceData[0]->dt_created)); ?>    </h4>
                                     <h4>Due Date: <?= date('M d, Y', strtotime($invoiceData[0]->due_date)); ?> </h4>
                                     <h4>Payment Status: 
-                                        <?php 
+                                        <?php
                                         $totalPaid = getPaidAmount($invoiceData[0]->id);
                                         $totalAmount = getTotalAmount($invoiceData[0]->id);
-                                        if($totalPaid <= 0){
+                                        if ($totalPaid <= 0) {
                                             echo '<button type="button" class="btn btn-danger btn-xs">Not paid</button>';
-                                        }else if($totalPaid >= $totalAmount && $totalPaid > 0){
+                                        } else if ($totalPaid >= $totalAmount && $totalPaid > 0) {
                                             echo '<button type="button" class="btn btn-success btn-xs">Fully paid</button>';
-                                        }else{
+                                        } else {
                                             echo '<button style="background-color: black !important;color: white !important;" type="button" class="btn btn-outline black btn-xs"><b>Partially Paid</b></button>';
                                         }
                                         ?>
@@ -160,10 +160,10 @@
                                 $defaultTax = ($subTotal * $invoiceData[0]->default_tax) / 100;
                                 $discount = ($subTotal * $invoiceData[0]->discount) / 100;
                                 $totalPaid = getPaidAmount($invoiceData[0]->id);
-                                $total2 =  $subTotal + $defaultTax;
-                                $total1 =  ($totalPaid + $discount);
+                                $total2 = $subTotal + $defaultTax;
+                                $total1 = ($totalPaid + $discount);
                                 $finalTotal = $total2 - $total1;
-                                $finalTotal = ($finalTotal > 0) ?$finalTotal : '0.00';
+                                $finalTotal = ($finalTotal > 0) ? $finalTotal : '0.00';
                                 ?>
                                 <table class="table invoice-total">
                                     <tbody>
@@ -186,7 +186,7 @@
 
                                         <tr>
                                             <td><strong>Payment Made:</strong></td>
-                                            <td><?php echo $invoiceData[0]->currency . number_format($totalPaid,2); ?></td>
+                                            <td><?php echo $invoiceData[0]->currency . number_format($totalPaid, 2); ?></td>
                                         </tr>
 
                                         <tr>
@@ -215,6 +215,62 @@
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
                                         <button  id='btndelete' data-url="" data-id="" type="button" class="btn btn-primary">Delete</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal inmodal" id="myModal_Invoice_email" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content animated bounceInRight">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                        <h4 class="modal-title">Email Invoice</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">Subject: </label>
+                                            <div class="col-sm-9">
+                                                <input type="text" value="Invoice <?= $invoiceData[0]->ref_no; ?>"  name="subject" readonly="" class="form-control email_invoice">
+                                                <input type="hidden" value="<?= $invoiceData[0]->id ?>"  name="invoiceId" class="form-control invoiceId">
+                                            </div>
+                                        </div><br/><br/><br/>
+                                        <div style="height: 7px; background-color: #535353;"></div>
+                                        <div style="background-color:#E8E8E8; margin:0px; padding:55px 20px 40px 20px; font-family:Open Sans, Helvetica, sans-serif; font-size:12px; color:#535353;"><div style="text-align:center; font-size:24px; font-weight:bold; color:#535353;">INVOICE {REF}</div>
+                                            <div style="border-radius: 5px 5px 5px 5px; padding:20px; margin-top:45px; background-color:#FFFFFF; font-family:Open Sans, Helvetica, sans-serif; font-size:13px;"><span class="style1"><span style="font-weight:bold;">Hello {CLIENT}</span></span><br><br>Here is the invoice of {CURRENCY} {AMOUNT}.<br><br>You can view the invoice online at:<br><span style="font-size:14px;"><a href="{INVOICE_LINK}">{INVOICE_LINK}</a></span><br><br>Regards,<br><br>The {SITE_NAME} Team</div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+                                        <button class="btn btn-primary send_invoice "  type="submit">Send Invoice</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal inmodal" id="myModal_reminder" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content animated bounceInRight">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                        <h4 class="modal-title">Invoice Reminder</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">Subject: </label>
+                                            <div class="col-sm-9">
+                                                <input type="text" value="Invoice <?= $invoiceData[0]->ref_no; ?> Reminder" readonly="" name="subject" class="form-control reminser_invoice">
+                                                <input type="hidden" value="<?= $invoiceData[0]->id ?>"  name="invoiceId" class="form-control reminderInvoiceId">
+                                            </div>
+                                        </div><br/><br/><br/>
+                                        <div style="height: 7px; background-color: #535353;"></div>
+                                        <div style="background-color:#E8E8E8; margin:0px; padding:55px 20px 40px 20px; font-family:Open Sans, Helvetica, sans-serif; font-size:12px; color:#535353;"><div style="text-align:center; font-size:24px; font-weight:bold; color:#535353;">Invoice Reminder</div>
+                                            <div style="border-radius: 5px 5px 5px 5px; padding:20px; margin-top:45px; background-color:#FFFFFF; font-family:Open Sans, Helvetica, sans-serif; font-size:13px;"><p>Hello {CLIENT}</p>
+                                                <br><p>This is a friendly reminder to pay your invoice of {CURRENCY} {AMOUNT}<br>You can view the invoice online at:<br><big><b><a href="{INVOICE_LINK}">View Invoice</a></b></big><br><br>Regards,<br>The {SITE_NAME} Team</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+                                        <button class="btn btn-primary send_reminder" type="submit">Send Reminder</button>
                                     </div>
                                 </div>
                             </div>

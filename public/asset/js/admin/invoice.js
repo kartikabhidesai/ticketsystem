@@ -36,7 +36,47 @@ var Invoice = function() {
 //                });
 //            }
 //        });
+
     };
+
+    var handleMail = function() {
+        $('body').on('click', '.sendInvoice', function() {
+            var invoiceId = $(this).attr('data-id');
+            $('.invoiceId').val(invoiceId);
+            $('.email_invoice').val($(this).attr('data-invoice'));
+        });
+        $('body').on('click', '.sendReminder', function() {
+            var invoiceId = $(this).attr('data-id');
+            $('.reminderInvoiceId').val(invoiceId);
+            $('.reminser_invoice').val($(this).attr('data-invoice'));
+        });
+
+        $('body').on('click', '.send_invoice', function() {
+            var invoiceId = $('.invoiceId').val();
+            if (invoiceId != '') {
+                var url = baseurl + 'admin/invoice/sendInvoiceMail';
+                var data = {invoiceId: invoiceId, 'type': 'invoice'};
+                ajaxcall(url, data, function(output) {
+                    var output = JSON.parse(output);
+                    $('#myModal_Invoice_email').modal('hide');
+                    showToster(output.status, output.message);
+                });
+            }
+        });
+
+        $('body').on('click', '.send_reminder', function() {
+            var invoiceId = $('.reminderInvoiceId').val();
+            if (invoiceId != '') {
+                var url = baseurl + 'admin/invoice/sendInvoiceMail';
+                var data = {invoiceId: invoiceId, 'type': 'reminder'};
+                ajaxcall(url, data, function(output) {
+                    var output = JSON.parse(output);
+                    $('#myModal_reminder').modal('hide');
+                    showToster(output.status, output.message);
+                });
+            }
+        });
+    }
 //    
 //    var ticketAdd = function() {
 //       
@@ -87,6 +127,12 @@ var Invoice = function() {
                 $('#myModal_autocomplete').modal('show');
                 $('#btndelete').attr('data-url', baseurl + 'admin/invoice/deleteInvoice');
                 $('#btndelete').attr('data-id', invoiceId);
+            } else if ($(this).attr('data-value') == 'SEND_REMAINDER') {
+                $('#myModal_reminder').modal('show');
+                $('#btndelete').attr('data-id', invoiceId);
+            } else if ($(this).attr('data-value') == 'EMAIL_INVOICE') {
+                $('#myModal_Invoice_email').modal('show');
+                $('#btndelete').attr('data-id', invoiceId);
             }
         });
 
@@ -102,6 +148,8 @@ var Invoice = function() {
                 });
             }
         });
+
+
     }
 
     var invoiceAdd = function() {
@@ -199,6 +247,7 @@ var Invoice = function() {
         //main function to initiate the module
         invoiceList: function() {
             invoiceList();
+            handleMail();
         },
         invoiceAdd: function() {
             general();
@@ -214,6 +263,7 @@ var Invoice = function() {
             invoiceDetail();
             deleteInvoicePayment();
             general();
+            handleMail();
             setTimeout(function() {
                 $('#client_id').trigger('change');
             }, 2000);

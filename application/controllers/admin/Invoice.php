@@ -322,6 +322,21 @@ class Invoice extends Admin_Controller {
             $mailSend = $this->utility->sendMailSMTP($data);
         }
     }
+    
+    public function sendInvoiceMail(){
+//        print_r($this->input->post());exit;
+            $res = $this->this_model->sendInvoiceEmail($this->input->post());
+            if ($res) {
+                $json_response['status'] = 'success';
+                $json_response['message'] = $this->input->post('type') .' mail Send successfully.';
+//                $json_response['redirect'] = admin_url() . 'invoice/view/' . $id;
+            } else {
+                $json_response['status'] = 'error';
+                $json_response['message'] = 'Something went wrong.';
+            }
+            echo json_encode($json_response);
+            exit();
+    }
 
 }
 
