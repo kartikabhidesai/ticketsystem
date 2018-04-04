@@ -19,7 +19,7 @@
             </div>
             <button type="submit" class="btn btn-primary block full-width m-b">Login</button>
 
-            <a href="#"><small>Forgot password?</small></a>
+            <a href="<?php echo base_url().'account/forgot_password'; ?>"><small>Forgot password?</small></a>
             <p class="text-muted text-center"><small> Contact: <a href="mailto:helpdesk@experttech.ca">helpdesk@experttech.ca</a></small></p>
             <!--<a class="btn btn-sm btn-white btn-block" href="register">Create an account</a>-->
         </form>
