@@ -26,7 +26,7 @@
             </div>
             <div class="form-group" id="data_1">
                 <label class="col-sm-3 control-label">Due Date</label>
-                <div class="input-group date col-sm-7">
+                <div class="input-group date col-sm-7" style="float: left;padding-right: 14px;padding-left: 14px;">
                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" class="form-control" name="due_date" value="03/04/2014">
                 </div>
             </div>

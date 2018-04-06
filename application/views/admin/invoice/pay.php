@@ -26,13 +26,20 @@
             </div>
             <div class="form-group" id="data_1">
                 <label class="col-sm-3 control-label">Payment Date</label>
-                <div class="input-group date col-sm-7">
+                <div class="input-group date col-sm-7"  style="float: left;padding-right: 14px;padding-left: 14px;">
                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" class="form-control" name="payment_date" value="">
                 </div>
             </div>
             <?php
             $paidAmount = getPaidAmount($invoicepaymentData[0]->id);
-            $total = $invoicepaymentData[0]->totalPrice - $paidAmount;
+            $subTotal = $invoicepaymentData[0]->totalPrice;
+            $defaultTax = ($subTotal * $invoicepaymentData[0]->default_tax) / 100;
+            $discount = ($subTotal * $invoicepaymentData[0]->discount) / 100;
+            $total2 = $subTotal + $defaultTax;
+            $total1 = ($paidAmount + $discount);
+            $total = $total2 - $total1;
+                                
+//            $total = $invoicepaymentData[0]->totalPrice - $paidAmount;
             ?>
             <div class="form-group">
                 <label class="col-sm-3 control-label">Amount (CAD) *</label>

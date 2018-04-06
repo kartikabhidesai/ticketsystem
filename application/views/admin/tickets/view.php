@@ -109,13 +109,13 @@
                             <form method="post" class="form-horizontal" action="<?= admin_url(); ?>tickets/preview" id='addCommentForm'>
                               <!--  <form method="post" class="form-horizontal"  enctype="multipart/form-data"  action="<?= admin_url(); ?>tickets/add" id='ticketsAddForm'> -->
                                 <div class="form-group">
-                                    <textarea class="form-control" name="message_reply" placeholder="Ticket #<?= $getTicket[0]->ticket_code ?> replay"></textarea>
+                                    <textarea class="form-control" name="message_reply" placeholder="Ticket #<?= $getTicket[0]->ticket_code ?> Reply"></textarea>
                                 </div>
                                 <input type="hidden" class="ticket_id" id="ticket_id" name="ticket_id" value="<?php echo $getTicket[0]->id; ?>">
                                 <input type="hidden" name="replay_by" value="A">
                                 <input type="hidden" name="replay_id" value="0">
                                 <div class="text-right">
-                                    <button type="submit" class="btn btn-sm btn-primary m-t-n-xs"><strong>Replay Ticket</strong></button>
+                                    <button type="submit" class="btn btn-sm btn-primary m-t-n-xs"><strong>Reply Ticket</strong></button>
                                 </div>
                             </form>
                         </div>
@@ -133,7 +133,7 @@
                                         <div class="">
                                             <div class="media-body">
                                                 <small class="pull-right"> <i class="fa fa-clock-o"></i> 
-                                                    <?= time_ago_new($value->dt_created) ?> ago</small>
+                                                    <?= date('d M Y',strtotime($value->dt_created)) ?> </small>
                                                 <strong><?php echo $value->first_name . ' ' . $value->last_name; ?></strong> <strong class="btn btn-primary btn-xs btn-danger"><?= ($value->replay_by == 'A' ? 'Admin' : 'Client'); ?></strong> 
                                                 <div class="" style="border-top: 1px solid #e7eaec;margin: 15px; padding-top: 15px; ">
     <?php echo $value->description; ?>

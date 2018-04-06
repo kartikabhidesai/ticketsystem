@@ -110,13 +110,13 @@
                         <div class="" style="border: 1px solid #e7eaec;padding:10px;">
                             <form method="post" class="form-horizontal" action="<?= client_url(); ?>tickets/preview" id='addCommentForm'>
                                 <div class="form-group">
-                                    <textarea class="form-control" name="message_reply" placeholder="Ticket #<?= $getTicket[0]->ticket_code ?> replay"></textarea>
+                                    <textarea class="form-control" name="message_reply" placeholder="Ticket #<?= $getTicket[0]->ticket_code ?> Reply"></textarea>
                                 </div>
                                 <input type="hidden" id="ticket_id" name="ticket_id" value="<?php echo $getTicket[0]->id; ?>">
                                 <input type="hidden" name="replay_by" value="C">
                                 <input type="hidden" name="replay_id" value="0">
                                 <div class="text-right">
-                                    <button type="submit" class="btn btn-sm btn-primary m-t-n-xs"><strong>Replay Ticket</strong></button>
+                                    <button type="submit" class="btn btn-sm btn-primary m-t-n-xs"><strong>Reply Ticket</strong></button>
                                 </div>
                             </form>
                         </div>

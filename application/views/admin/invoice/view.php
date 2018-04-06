@@ -77,6 +77,7 @@
                                         <?php
                                         $totalPaid = getPaidAmount($invoiceData[0]->id);
                                         $totalAmount = getTotalAmount($invoiceData[0]->id);
+                                        
                                         if ($totalPaid <= 0) {
                                             echo '<button type="button" class="btn btn-danger btn-xs">Not paid</button>';
                                         } else if ($totalPaid >= $totalAmount && $totalPaid > 0) {
@@ -109,7 +110,7 @@
                                     <thead>
                                         <tr>
                                             <th>Item Name </th>
-                                            <th>Description</th>
+                                            <th style='text-align: left;'>Description</th>
                                             <th>Quantity</th>
                                             <th>Unit Price</th>
                                             <th>Total</th>
@@ -125,7 +126,7 @@
                                                 ?>
                                                 <tr>
                                                     <td><?= date('M d', strtotime($invoiceData[0]->dt_created)); ?> | <?= $invoicepaymentData[$i]->item_name ?> </td>
-                                                    <td> <?= $invoicepaymentData[$i]->item_desc ?></td>
+                                                    <td style='text-align: left;'> <?= $invoicepaymentData[$i]->item_desc ?></td>
                                                     <td> <?= $invoicepaymentData[$i]->quentity ?></td>
                                                     <td> <?= $invoiceData[0]->currency . $invoicepaymentData[$i]->price ?></td>
                                                     <td>

@@ -291,6 +291,7 @@ function convertNumber($number) {
 
 function time_ago_new($datetime) {
 
+    
     $date2 = date("Y-m-d h:i:s");
     $date1 = $datetime;
     $diff = abs(strtotime($date2) - strtotime($date1));
@@ -579,6 +580,6 @@ function getPaidAmount($invoiceId) {
 function getTotalAmount($invoiceId) {
     $CI = &get_instance();
     $total = $CI->db->select('SUM(total) as totalAmount')->group_by('invoice_id')->where('invoice_id', $invoiceId)->get(TABLE_INVOICE_DETAILS)->row_array();
-    $resulr = (!empty($total['totalAmount'])) ? :'0';
-    return ;
+    $result = (!empty($total['totalAmount'])) ? $total['totalAmount']:'0';
+    return $result;
 }

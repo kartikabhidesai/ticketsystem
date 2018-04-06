@@ -46,13 +46,13 @@
             <input type="hidden" name="companyName" class="form-control compnayName">
             <div class="form-group  showRecurring" style="<?= $startDate; ?>" id="data_1">
                 <label class="col-sm-3 control-label">Start Date</label>
-                <div class="input-group date col-sm-7 ">
+                <div class="input-group date col-sm-7 "  style="float: left;padding-right: 14px;padding-left: 14px;">
                     <span class="input-group-addon customDate"><i class="fa fa-calendar"></i></span><input type="text" name="start_date" class="form-control" value="<?= (!empty($invoiceData[0]->start_date)) ?  date('m-d-Y',  strtotime($invoiceData[0]->start_date)) : ''; ?>">
                 </div>
             </div>
             <div class="form-group  showRecurring" style="<?= $endDate; ?>" id="data_1">
                 <label class="col-sm-3 control-label">End Date</label>
-                <div class="input-group date col-sm-7 ">
+                <div class="input-group date col-sm-7 "  style="float: left;padding-right: 14px;padding-left: 14px;">
                     <span class="input-group-addon customDate"><i class="fa fa-calendar"></i></span><input type="text" name="end_date" class="form-control" value="<?= (!empty($invoiceData[0]->end_date)) ?  date('m-d-Y',  strtotime($invoiceData[0]->end_date)) : ''; ?>">
                 </div>
             </div>
@@ -75,7 +75,7 @@
             </div>
             <div class="form-group" id="data_1">
                 <label class="col-sm-3 control-label">Due Date</label>
-                <div class="input-group date col-sm-7 ">
+                <div class="input-group date col-sm-7"  style="float: left;padding-right: 14px;padding-left: 14px;">
                     <span class="input-group-addon customDate"><i class="fa fa-calendar"></i></span><input type="text" class="form-control" name="due_date" value="<?= date('d-m-Y',  strtotime($invoiceData[0]->due_date)); ?>">
                 </div>
             </div>
