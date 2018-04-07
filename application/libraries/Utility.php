@@ -151,7 +151,7 @@ class Utility
         $CI->email->subject($data ["subject"]);
         $CI->email->message($message);
         if(isset($data ["attech"])){
-           $CI->email->message($data["attech"]);
+           $CI->email->attach($data["attech"]);
         }
         $response = $CI->email->send();
         return true;

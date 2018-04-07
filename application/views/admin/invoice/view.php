@@ -4,41 +4,10 @@
             <div class="col-lg-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <div class="col-md-2">
-                            <?php $priority = json_decode(SHORTINVOICE); ?>
-<!--                            <select class="changeStatus form-control">
-                                <option value="">Short Invoice</option>
-                            <?php foreach ($priority as $key => $value) { ?>
-                                                            <option value="<?= $key ?>"><?= $value; ?></option>
-                            <?php }
-                            ?>
-                            </select>-->
-                            <div class="btn-group" style="margin-top: 5px;">
-                                <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle">Sort Invoice <span class="caret"></span></button>
-                                <ul class="dropdown-menu">
-                                    <?php foreach ($priority as $key => $value) { ?>
-                                        <li><a href="<?php echo admin_url('invoice/view/') . $this->utility->encode($invoiceData[0]->id) . "/$key"; ?>" value="<?= $key ?>" class="font-bold"><?= $value; ?></a></li>
-                                    <?php }
-                                    ?>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-1 displaylable">
-                            <a href="javascript:;" style="margin:5px" class="btn btn-sm btn-primary  m-t-n-xs invoicePrint" ><strong><i class="fa fa-print"></i></strong></a>
-                        </div>
-                        <div class="col-sm-2 displaylable">
+                        <div class="col-sm-5 displaylable">
                             <a  href="<?= admin_url('invoice/pay/') . $this->utility->encode($invoiceData[0]->id); ?>"  style="margin:5px 5px 5px -6px"  data-original-title="Pay Invoice" class="btn btn-primary btn-sm "><strong><i class="fa fa-google-wallet"></i> Pay Invoice</strong></a>
-                        </div>
-                        <div class="col-sm-5 displaylable" style="margin: 5px -25px;">
+                            <a href="javascript:;" data-href="<?php echo admin_url('invoice/pdf/') . $this->utility->encode($invoiceData[0]->id); ?>" style="margin:5px" class="btn btn-sm btn-primary  pdfmail m-t-n-xs" ><strong><i class="fa fa-file-pdf-o" > PDF</i></strong></a>
                             <?php $ticketMoreAction = json_decode(TICKETMOREACTIONS); ?>
-<!--                            <select class="changeStatus form-control">
-                                <option value="">More Action</option>
-                            <?php foreach ($ticketMoreAction as $key => $value) { ?>
-                                                        <option value="<?= $key ?>"><?= $value; ?></option>
-                            <?php }
-                            ?>
-                            </select>-->
                             <div class="btn-group">
                                 <button data-toggle="dropdown" id="moreAction" class="btn btn-primary dropdown-toggle">More Action <span class="caret"></span></button>
                                 <ul class="dropdown-menu moreAction">
@@ -49,9 +18,7 @@
                                 </ul>
                             </div>
                         </div>
-                        <div class="col-sm-1 displaylable">
-                            <a href="<?php echo admin_url('invoice/pdf/') . $this->utility->encode($invoiceData[0]->id); ?>" style="margin:5px" class="btn btn-sm btn-primary pull-right m-t-n-xs" ><strong><i class="fa fa-file-pdf-o" > PDF</i></strong></a>
-                        </div>
+                        
                     </div>
                 </div>
             </div>

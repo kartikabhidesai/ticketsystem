@@ -287,10 +287,11 @@ class Invoice extends Admin_Controller {
             return(admin_url() . 'invoice');
         }
 //        $data['page'] = "admin/invoice/pdf";
-        $data['invoiceData'] = $this->this_model->getInvoiceById($invoiceId);
-        $data['invoicePaymentData'] = $this->this_model->getInvoicePaymentDetails($invoiceId);
         
-        $getClientDetail = $this->this_model->getClientDetail($data['invoicePaymentData'][0]->company_id,$data['invoicePaymentData'][0]->client_id);
+        $data['invoiceData'] = $invoiceData = $this->this_model->getInvoiceById($invoiceId);
+        $data['invoicepaymentData'] = $this->this_model->getInvoicePaymentDetails($invoiceId);
+      
+        $invoiceNumber = trim($invoiceData[0]->ref_no);
         
         //Load the library
         $this->load->library('html2pdf');
@@ -299,30 +300,94 @@ class Invoice extends Admin_Controller {
         $this->html2pdf->folder('./public/asset/pdfs/');
 
         //Set the filename to save/download as
-        $this->html2pdf->filename('test_' . $invoiceId . '.pdf');
+        $this->html2pdf->filename($invoiceNumber.'.pdf');
 
         //Set the paper defaults
         $this->html2pdf->paper('a4', 'portrait');
 
-        $data = array(
-            'title' => 'PDF Created',
-            'message' => 'Create Invoice Pdf!'
-        );
+//        $data = array(
+//            'title' => 'PDF Created',
+//            'message' => 'Create Invoice Pdf!'
+//        );
 
         //Load html view
+       
+        
         $this->html2pdf->html($this->load->view('admin/invoice/pdf', $data, true));
+        unlink('public/asset/pdfs/'.$invoiceNumber.'.pdf');
         if ($this->html2pdf->create('save')) {
-            
-            $data ['message'] = 'Hello '.$getClientDetail[0]->first_name.' '.$getClientDetail[0]->last_name.' Created Invoice!';
+             
+            //$data ['message'] = 'Hello '.$getClientDetail[0]->first_name.' '.$getClientDetail[0]->last_name.' Created Invoice!';
+            $data1['clientname'] = $invoiceData[0]->companyName;
+            $data['message'] = $this->load->view('email_template/invoice_pdf_mail', $data1, true);
             $data ['from_title'] = 'Helpdesk Invoice';
-            $data ['subject'] = 'Helpdesk Invoice';
-            $data ['to'] = $getClientDetail[0]->email;
-            $data ['replyto'] = REPLAY_EMAIL;
-            $data ['attech'] = 'public/asset/pdfs/test_' . $invoiceId . '.pdf';
+            $data ['subject'] = 'Helpdesk Invoice '.$invoiceNumber;
+//            $data ['to'] = $invoiceData[0]->companyEmail;
+            $data ['to'] = 'kartikdesai123@gmail.com';
+//            $data ['replyto'] = REPLAY_EMAIL;
+//            $data ['attech'] = 'public/asset/pdfs/test_' . $invoiceId . '.pdf';
+            $data ['attech'] = 'public/asset/pdfs/'.$invoiceNumber.'.pdf';
+            
             $mailSend = $this->utility->sendMailSMTP($data);
+           if ($mailSend) {
+                $json_response['status'] = 'success';
+                $json_response['message'] = 'Payment Mail successfully send.';
+                $json_response['redirect'] = admin_url() . 'invoice/view/' . $id;
+            } else {
+                $json_response['status'] = 'error';
+                $json_response['message'] = 'Something went wrong.';
+            }
+            echo json_encode($json_response);
+            exit();
         }
     }
     
+    function downloadpdf($id)
+    {
+       
+        $invoiceId = $this->utility->decode($id);
+        if (!ctype_digit($invoiceId)) {
+            return(admin_url() . 'invoice');
+        }
+//        $data['page'] = "admin/invoice/pdf";
+        
+        $data['invoiceData'] = $invoiceData = $this->this_model->getInvoiceById($invoiceId);
+        $data['invoicepaymentData'] = $this->this_model->getInvoicePaymentDetails($invoiceId);
+      
+        $invoiceNumber = trim($invoiceData[0]->ref_no);
+        
+        //Load the library
+        $this->load->library('html2pdf');
+
+        //Set folder to save PDF to
+        $this->html2pdf->folder('./public/asset/pdfs/');
+
+        //Set the filename to save/download as
+        $this->html2pdf->filename($invoiceNumber.'.pdf');
+
+        //Set the paper defaults
+        $this->html2pdf->paper('a4', 'portrait');
+
+//        $data = array(
+//            'title' => 'PDF Created',
+//            'message' => 'Create Invoice Pdf!'
+//        );
+
+        //Load html view
+       
+        
+        $this->html2pdf->html($this->load->view('admin/invoice/pdf', $data, true));
+        unlink('public/asset/pdfs/'.$invoiceNumber.'.pdf');
+        if ($this->html2pdf->create('save')) {
+           $this->load->helper('download');
+            $pth    =   file_get_contents(base_url()."public/asset/pdfs/INV0006.pdf");
+            $nme    =   $invoiceNumber.".pdf";
+            force_download($nme, $pth);  
+           // force_download('http://localhost/ticketsystem/public/asset/pdfs/INV0006.pdf');
+            //force_download('public/asset/pdfs/'.$invoiceNumber.'.pdf');
+            exit;
+        }
+    }
     public function sendInvoiceMail(){
 //        print_r($this->input->post());exit;
             $res = $this->this_model->sendInvoiceEmail($this->input->post());

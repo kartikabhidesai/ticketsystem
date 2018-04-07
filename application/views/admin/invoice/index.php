@@ -45,7 +45,7 @@
                                                 <a title="Invoice History" data-toggle="tooltip" data-placement="top"  href="<?= admin_url() . 'invoice/history/' . $this->utility->encode($invoiceId); ?>"> <i class="fa fa-book text-navy"></i> </a>
                                                 <a data-toggle="modal" title="Email Invoice" data-toggle="tooltip" data-placement="top" data-target="#myModal_Invoice_email" data-invoice="Invoice <?= $getInvoice[$i]->ref_no ?>" data-type="INVOICE" data-id="<?php echo $invoiceId;?>" class="sendInvoice"> <i class="fa fa-envelope text-navy"></i></a> 
                                                 <a data-toggle="modal" title="Email Reminder" data-toggle="tooltip" data-placement="top" data-target="#myModal_reminder" data-id="<?php echo $invoiceId;?>" data-type="REMINDER" data-invoice="Invoice <?= $getInvoice[$i]->ref_no ?> Reminder"  class="sendReminder"> <i class="fa fa-bell-o text-navy"></i></a> 
-                                                <a title="Pdf" data-toggle="tooltip" data-placement="top"   href="javascript:;"> <i class="fa fa-file-pdf-o text-navy"></i> </a>
+                                                <a title="Pdf" data-toggle="tooltip" data-placement="top"   href="<?php echo admin_url('invoice/downloadpdf/') . $this->utility->encode($invoiceId); ?>"> <i class="fa fa-file-pdf-o text-navy"></i> </a>
                                             </td> 
                                         </tr>
                                     <?php } ?>

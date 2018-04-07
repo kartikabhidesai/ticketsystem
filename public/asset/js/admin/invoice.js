@@ -187,6 +187,16 @@ var Invoice = function() {
         handleFormValidate(form, rules, function(form) {
             handleAjaxFormSubmit(form);
         });
+        
+         $('body').on('click', '.pdfmail', function() {
+             var url = $(this).attr('data-href');
+            
+                var data = {reporter: '1'};
+                ajaxcall(url, data, function(output) {
+                    var output = JSON.parse(output);
+                    showToster(output.status, output.message);
+                });
+        });
     };
     var invoiceDetail = function() {
 

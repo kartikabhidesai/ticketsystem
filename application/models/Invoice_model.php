@@ -123,6 +123,7 @@ class Invoice_model extends My_model {
             'usr.first_name',
             'usr.last_name',
             'c.name as companyName',
+            'c.email as companyEmail',
             'c.phone as companyPhone',
             'c.address as companyAddress',
             'c.city as companyCity',
