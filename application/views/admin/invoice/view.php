@@ -76,7 +76,7 @@
                                 <table class="table invoice-table">
                                     <thead>
                                         <tr>
-                                            <th>Item Name </th>
+                                            <th style="width: 16% !important; ">Item Name </th>
                                             <th style='text-align: left;'>Description</th>
                                             <th>Quantity</th>
                                             <th>Unit Price</th>
