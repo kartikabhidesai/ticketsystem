@@ -109,13 +109,20 @@ class Invoice_model extends My_model {
     }
 
     function generateInvoiceNos() {
-        $newInvoice = '';
-        $query = $this->db->from(TABLE_INVOICE)->order_by("id", "desc")->get()->row();
-        $totalLength = (7 - strlen($query->id));
         $invoiceFix = 'INV';
-        $newInvoiceNo = str_pad($invoiceFix, $totalLength, "0");
-        $newInvoice = $newInvoiceNo . ($query->id + 1);
-        return $newInvoice;
+        $query = $this->db->from(TABLE_INVOICE)->order_by("id", "desc")->get()->row();
+        $id = $query->id + 201;
+        $length = strlen($id + 201);
+        $code = ($length == 1) ? '000' . $id : (($length == 2) ? '00' . $id : (($length == 3) ? '0' . $id : $id));
+        return $invoiceFix.$code;
+
+//        $newInvoice = '';
+//        $query = $this->db->from(TABLE_INVOICE)->order_by("id", "desc")->get()->row();
+//        $totalLength = (7 - strlen($query->id));
+//
+//        $newInvoiceNo = str_pad($invoiceFix, $totalLength, "0");
+//        $newInvoice = $newInvoiceNo . ($query->id + 1);
+//        return $newInvoice;
     }
 
     function getInvoiceById($id) {
@@ -320,7 +327,6 @@ class Invoice_model extends My_model {
     public function sendInvoiceEmail($postData) {
         $invoiceArray = $this->getInvoiceList($postData['invoiceId'], '');
 //        print_r($invoiceArray);exit;
-
 //        $data['link'] = base_url_index() . 'admin/invoice/view/';
         $data['link'] = base_url_index() . 'admin/invoice/view/' . $this->utility->encode($postData['invoiceId']);
         $data['ref_no'] = $invoiceArray[0]->ref_no;
