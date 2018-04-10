@@ -167,10 +167,10 @@
                          </tr>
                         <?php }else{?>
                          <tr>
-                            <td style="font-size: 13px;text-align: left;padding-top:10px">Thank you for considering  <span style="color: red;">The Magic Of Justin Govan!</span> </td>
+                            <td style="font-size: 13px;text-align: left;padding-top:10px">Thank you for your business!</td>
                          </tr>
                         <?php }?>
-                         <tr>   <td style="font-size: 13px;text-align: left;padding-top:10px">Please make cheques payable to Justin Govan. All invoices are due at the start of the event, unless both parties have agreed to other arrangements. Any late payment will be subjected to 25% interest calculated daily. Thank you for your business!</td>
+                         <tr>   <td style="font-size: 13px;text-align: left;padding-top:10px">Customers who fall over 90 days behind in payments to Expert Tech. (from any source such as development, consulting, hardware,etc.) will automatically lose all privileges ), and will no longer receive technical support until such time as their accounts are current.</td>
                         </tr>
                     </table>
                 </td>

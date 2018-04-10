@@ -77,6 +77,49 @@ class Invoice_model extends My_model {
 //        print_r($result);exit;
         return $result;
     }
+    function getCompanyInvoiceList($invoiceId = null, $companyId) {
+        $data['select'] = ['inv.*', 'SUM(invDetail.total) as totalPrice',
+//            'SUM(invPayment.amount) as totalPaidAmount',
+            'GROUP_CONCAT(invDetail.id) as totalPaidAmount',
+//            'GROUP_CONCAT(DISTINCT invDetail.id) as totalPaidAmount',
+            'usr.first_name', 'usr.last_name', 'usr.email',
+            'invDetail.item_name',
+            'invDetail.item_desc',
+            'comp.name as companyName',
+//            'invPayment.payment_date',
+//            'invPayment.notes as paymentNote',
+//            'invPayment.amount as paidAmount',
+        ];
+        $data['join'] = [
+            TABLE_USER . ' as usr' => [
+                'usr.id = inv.client_id',
+                'LEFT',
+            ],
+            TABLE_INVOICE_DETAILS . ' as invDetail' => [
+                'invDetail.invoice_id = inv.id',
+                'LEFT',
+            ],
+            TABLE_COMPANY . ' as comp' => [
+                'comp.id = usr.company_id',
+                'LEFT',
+            ],
+//            TABLE_INVOICE_PAYMENT . ' as invPayment' => [
+//                'invPayment.invoice_id = inv.id',
+//                'LEFT',
+//            ],
+        ];
+        if ($invoiceId) {
+            $data['where'] = ['inv.id' => $invoiceId];
+        }
+        if (!empty($companyId)) {
+            $data['where'] = ['inv.company_id' => $companyId];
+        }
+        $data['groupBy'] = ['inv.id'];
+        $data['table'] = TABLE_INVOICE . ' as inv';
+        $result = $this->selectFromJoin($data);
+//        print_r($result);exit;
+        return $result;
+    }
 
     function editInvoice($postData) {
 

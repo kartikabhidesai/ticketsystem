@@ -28,7 +28,8 @@ class Invoice extends Client_Controller {
         $data['init'] = array(
             'Invoice.invoiceList()',
         );
-        $data['getInvoice'] = $this->this_model->getInvoiceList(null,$this->session->userdata['client_login']['id']);
+//        print_r($this->session->userdata['client_login']);exit;
+        $data['getInvoice'] = $this->this_model->getCompanyInvoiceList(null,$this->session->userdata['client_login']['companyId']);
         $this->load->view(CLIENT_LAYOUT, $data);
     }
    function view($id,$shortBy = null) {
