@@ -287,7 +287,7 @@ class Invoice extends Admin_Controller {
             return(admin_url() . 'invoice');
         }
 //        $data['page'] = "admin/invoice/pdf";
-        
+//        print_r($_SERVER['DOCUMENT_ROOT']);exit;
         $data['invoiceData'] = $invoiceData = $this->this_model->getInvoiceById($invoiceId);
         $data['invoicepaymentData'] = $this->this_model->getInvoicePaymentDetails($invoiceId);
       
@@ -322,8 +322,8 @@ class Invoice extends Admin_Controller {
             $data['message'] = $this->load->view('email_template/invoice_pdf_mail', $data1, true);
             $data ['from_title'] = 'Helpdesk Invoice';
             $data ['subject'] = 'Helpdesk Invoice '.$invoiceNumber;
-//            $data ['to'] = $invoiceData[0]->companyEmail;
-            $data ['to'] = 'kartikdesai123@gmail.com';
+            $data ['to'] = $invoiceData[0]->companyEmail;
+//            $data ['to'] = 'kartikdesai123@gmail.com';
 //            $data ['replyto'] = REPLAY_EMAIL;
 //            $data ['attech'] = 'public/asset/pdfs/test_' . $invoiceId . '.pdf';
             $data ['attech'] = 'public/asset/pdfs/'.$invoiceNumber.'.pdf';
@@ -380,7 +380,7 @@ class Invoice extends Admin_Controller {
         unlink('public/asset/pdfs/'.$invoiceNumber.'.pdf');
         if ($this->html2pdf->create('save')) {
            $this->load->helper('download');
-            $pth    =   file_get_contents(base_url()."public/asset/pdfs/INV0006.pdf");
+            $pth    =   file_get_contents(base_url()."public/asset/pdfs/$invoiceNumber.pdf");
             $nme    =   $invoiceNumber.".pdf";
             force_download($nme, $pth);  
            // force_download('http://localhost/ticketsystem/public/asset/pdfs/INV0006.pdf');
