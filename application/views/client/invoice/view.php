@@ -55,7 +55,7 @@
                                     <thead>
                                         <tr>
                                             <th>Item Name </th>
-                                            <th>Description</th>
+                                            <th style='text-align: left;'>Description</th>
                                             <th>Quantity</th>
                                             <th>Unit Price</th>
                                             <th>Total</th>
@@ -71,7 +71,7 @@
                                                 ?>
                                                 <tr>
                                                     <td><?= date('M d', strtotime($invoiceData[0]->dt_created)); ?> | <?= $invoicepaymentData[$i]->item_name ?> </td>
-                                                    <td> <?= $invoicepaymentData[$i]->item_desc ?></td>
+                                                    <td style='text-align: left;'> <?= $invoicepaymentData[$i]->item_desc ?></td>
                                                     <td> <?= $invoicepaymentData[$i]->quentity ?></td>
                                                     <td> <?= $invoiceData[0]->currency . $invoicepaymentData[$i]->price ?></td>
                                                     <td>

@@ -9,8 +9,8 @@
     <body>
         <table border="0" cellspacing="0" cellpadding="0" style="margin: auto; width: 645px; font-family: arial;">
             <tr>
-                <td style="width: 60%;"><img style="width: 150px" src="public/asset/images/logo.png"/></td>
-                <td style="width: 40%;">
+                <td colspan="2" style="width: 60%;"><img style="width: 150px" src="public/asset/images/logo.png"/></td>
+                <td colspan="2" style="width: 40%;">
                     <table border="0" cellspacing="3" cellpadding="0" style="width: 100%">
                         <tr>
                             <td colspan="2" style="text-align: right; font-size: 22px; padding-bottom: 10px"><b>Invoice</b></td>
@@ -33,7 +33,7 @@
             <tr><td>&nbsp;</td></tr>
             <tr><td>&nbsp;</td></tr>
             <tr>
-                <td colspan="2">
+                <td colspan="4">
                     <table border="0" cellspacing="0" cellpadding="0" style="width: 100%">
                         <tr>
                             <td style="width: 46%;">
@@ -74,9 +74,9 @@
             <tr><td>&nbsp;</td></tr>
             <tr><td>&nbsp;</td></tr>
             <tr><td>&nbsp;</td></tr>
-            <tr>
-                <td colspan="2">
-                    <table border="0" cellspacing="0" cellpadding="7" style="width: 100%">
+<!--            <tr>
+                <td colspan="2">-->
+                    <!--<table border="0" cellspacing="0" cellpadding="7" style="width: 100%">-->
                         <tr>
                             <td style="border-bottom: 1px solid #CB080E; color: #000;font-size: 13px;font-weight: 600; padding-bottom: 10px; text-transform: uppercase; text-align: left;">description</td>
                             <td style="border-bottom: 1px solid #CB080E; color: #000;font-size: 13px;font-weight: 600; padding-bottom: 10px; text-transform: uppercase; text-align: center;">quantity</td>
@@ -152,11 +152,11 @@
                             <td style="text-align: center;color: #fff;font-size: 12px;width: 15%;background: #CB080E;font-weight: 600"><?= $invoiceData[0]->currency .' '. number_format($finalTotal, 2) ?></td>
                         </tr>
                         <?php } ?>
-                    </table>
-                </td>
-            </tr>
+                    <!--</table>-->
+<!--                </td>
+            </tr>-->
             <tr>
-                <td colspan="2">
+                <td colspan="4">
                     <table border="0" cellspacing="0" cellpadding="7" style="width: 100%">
                         <tr>
                             <td style="border-bottom: 1px solid #CB080E; color: #000;font-size: 13px;font-weight: 600; padding-bottom: 10px; text-transform: uppercase; text-align: left;">Payment information</td>
