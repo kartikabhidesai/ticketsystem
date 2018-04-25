@@ -17,3 +17,4 @@ define("TABLE_INVOICE", "invoice");
 define("TABLE_INVOICE_DETAILS", "invoice_details");
 define("TABLE_INVOICE_HISTORY", "invoice_history");
 define("TABLE_INVOICE_PAYMENT", "invoice_payment");
+define("TABLE_INVOICE_EXPENSE", "invoice_expense");

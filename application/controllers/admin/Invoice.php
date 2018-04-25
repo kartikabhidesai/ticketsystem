@@ -374,8 +374,7 @@ class Invoice extends Admin_Controller {
 //        );
 
         //Load html view
-       
-        
+      
         $this->html2pdf->html($this->load->view('admin/invoice/pdf', $data, true));
         unlink('public/asset/pdfs/'.$invoiceNumber.'.pdf');
         if ($this->html2pdf->create('save')) {
@@ -388,6 +387,37 @@ class Invoice extends Admin_Controller {
             exit;
         }
     }
+    
+    function expensepdf($id) {
+        $invoiceId = $this->utility->decode($id);
+        if (!ctype_digit($invoiceId)) {
+            return(admin_url() . 'invoice');
+        }
+
+        $data['invoiceData'] = $invoiceData = $this->this_model->getInvoiceById($invoiceId);
+        $data['invoicepaymentData'] = $this->this_model->getInvoiceExpense($invoiceId);
+
+        $invoiceNumber = trim($invoiceData[0]->ref_no);
+        $this->load->library('html2pdf');
+        $this->html2pdf->folder('./public/asset/pdfs/');
+        $this->html2pdf->filename($invoiceNumber . '-expense.pdf');
+
+        //Set the paper defaults
+        $this->html2pdf->paper('a4', 'portrait');
+
+//        $this->load->view('admin/invoice/expensepdf', $data);
+
+        $this->html2pdf->html($this->load->view('admin/invoice/expensepdf', $data, true));
+        unlink('public/asset/pdfs/'.$invoiceNumber.'.pdf');
+        if ($this->html2pdf->create('save')) {
+           $this->load->helper('download');
+            $pth    =   file_get_contents(base_url()."public/asset/pdfs/".$invoiceNumber."-expense.pdf");
+            $nme    =   $invoiceNumber."-expense.pdf";
+            force_download($nme, $pth);  
+            exit;
+        }
+    }
+    
     public function sendInvoiceMail(){
 //        print_r($this->input->post());exit;
             $res = $this->this_model->sendInvoiceEmail($this->input->post());
@@ -402,7 +432,47 @@ class Invoice extends Admin_Controller {
             echo json_encode($json_response);
             exit();
     }
+    
+     function expense($id, $shortBy = null) {
+        $invoiceId = $this->utility->decode($id);
+        if (!ctype_digit($invoiceId)) {
+            return(admin_url() . 'invoice');
+        }
 
+        $data['page'] = "admin/invoice/expense";
+        $data['invoice'] = 'active';
+        $data['sale'] = 'active';
+        $data['pagetitle'] = 'Invoice Epense';
+        $data['var_meta_title'] = 'Invoice Epense';
+        $data['breadcrumb'] = array(
+            'dashboard' => 'Home',
+            'client' => 'Invoice Epense',
+        );
+        $data['js'] = array(
+            'admin/invoice.js',
+            'plugins/datapicker/bootstrap-datepicker.js',
+        );
+        $data['init'] = array(
+            'Invoice.initExpense()',
+        );
+
+        if ($this->input->post()) {
+            $res = $this->this_model->addExpenseDetails($this->input->post());
+            if ($res) {
+                $json_response['status'] = 'success';
+                $json_response['message'] = 'Invoice Expense Add successfully.';
+                $json_response['redirect'] = admin_url() . 'invoice/expense/' . $id;
+            } else {
+                $json_response['status'] = 'error';
+                $json_response['message'] = 'Something went wrong.';
+            }
+            echo json_encode($json_response);
+            exit();
+        }
+        $data['invoiceData'] = $this->this_model->getInvoiceById($invoiceId);
+        $data['invoicepaymentData'] = $this->this_model->getInvoiceExpense($invoiceId);
+        $this->load->view(ADMIN_LAYOUT, $data);
+    }
 }
 
 ?>

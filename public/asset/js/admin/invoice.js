@@ -240,6 +240,18 @@ var Invoice = function() {
             handleAjaxFormSubmit(form);
         });
     };
+    var invoiceExpense = function() {
+        var form = $('#expenseForm');
+        var rules = {
+            expense_name: {required: true},
+            expense_desc: {required: true},
+            price: {required: true, number: true},
+            quentiry: {required: true, number: true},
+        };
+        handleFormValidate(form, rules, function(form) {
+            handleAjaxFormSubmit(form);
+        });
+    };
 
 
     var deleteInvoicePayment = function() {
@@ -267,6 +279,9 @@ var Invoice = function() {
             invoicePay();
             general();
             invoicePayment();
+        },
+        initExpense: function() {
+            invoiceExpense();
         },
         initEdit: function() {
             invoiceEdit();

@@ -395,6 +395,45 @@ class Invoice_model extends My_model {
 //        return $mailSend;
     }
 
+    
+      public function addExpenseDetails($postData) {
+        $data['insert']['invoice_id'] = $postData['invoiceId'];
+        $data['insert']['expense_name'] = $postData['item_name'];
+        $data['insert']['expense_desc'] = $postData['item_desc'];
+        $data['insert']['quentity'] = $postData['quentity'];
+        $data['insert']['price'] = $postData['price'];
+        $data['insert']['total'] = $postData['price'] * $postData['quentity'];
+        $data['insert']['dt_created'] = DATE_TIME;
+        $data['insert']['dt_updated'] = DATE_TIME;
+        $data['table'] = TABLE_INVOICE_EXPENSE;
+        $result = $this->insertRecord($data);
+        unset($data);
+        if ($result) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    function getInvoiceExpense($invoiceId) {
+
+        $data['select'] = ['inv.*', 'invExpense.price', 'invExpense.expense_name',
+            'invExpense.expense_desc', 'invExpense.quentity', 'invExpense.id as paymentId',
+            'SUM(invExpense.total) as total',
+        ];
+        $data['where'] = ['inv.id' => $invoiceId];
+        $data['join'] = [
+            TABLE_INVOICE_EXPENSE . ' as invExpense' => [
+                'invExpense.invoice_id = inv.id',
+                'LEFT',
+            ],
+        ];
+        $data['groupBy'] = ['invExpense.id'];
+        $data['table'] = TABLE_INVOICE . ' as inv';
+        $result = $this->selectFromJoin($data);
+        return $result;
+    }
+
 }
 
 ?>
