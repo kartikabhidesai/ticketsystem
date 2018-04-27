@@ -48,6 +48,8 @@
                                                 <a title="Pdf" data-toggle="tooltip" data-placement="top" href="<?php echo admin_url('invoice/downloadpdf/') . $this->utility->encode($invoiceId); ?>"> <i class="fa fa-file-pdf-o text-navy"></i> </a>
                                                 <a title="Expense" data-toggle="tooltip" data-placement="top" href="<?php echo admin_url('invoice/expense/') . $this->utility->encode($invoiceId); ?>"> <i class="fa fa-dollar text-navy"></i> </a>
                                                 <a title="Report" data-toggle="tooltip" data-placement="top" href="<?php echo admin_url('invoice/report/') . $this->utility->encode($invoiceId); ?>"> <i class="fa fa-repeat text-navy"></i> </a>
+
+                                                <a title="Expense Pdf" data-toggle="tooltip" data-placement="top" href="<?php echo admin_url('invoice/expensepdf/') . $this->utility->encode($invoiceId); ?>"> <i class="fa fa-dollar text-navy"></i> </a>
                                             </td> 
                                         </tr>
                                     <?php } ?>
