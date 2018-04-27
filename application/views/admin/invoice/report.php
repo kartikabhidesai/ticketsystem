@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Invoice</title>
+        <title>Report</title>
 
 
     </head>
@@ -13,7 +13,7 @@
                 <td colspan="2" style="width: 40%;">
                     <table border="0" cellspacing="3" cellpadding="0" style="width: 100%">
                         <tr>
-                            <td colspan="2" style="text-align: right; font-size: 22px; padding-bottom: 10px"><b>Invoice</b></td>
+                            <td colspan="2" style="text-align: right; font-size: 22px; padding-bottom: 10px"><b>Report</b></td>
                         </tr>
                        <tr>
                             <td style="color: #CB080E;font-size: 12px; font-weight: 600; text-align: right;text-transform: uppercase;">reference:</td>
@@ -111,6 +111,34 @@
                                     }
                             } 
                         ?>
+                                
+                         <?php
+                         $total = 0;
+                            for($i=0; $i<count($invoiceExpenceData); $i++){
+                                if (!empty($invoiceExpenceData[$i]->price)) {
+                                        $itemTotal = $invoiceExpenceData[$i]->quentity * $invoiceExpenceData[$i]->price;
+                                        $total += $itemTotal;?>
+                                
+                                <tr>
+                                    <td style="text-align: left;font-size: 12px;width: 55%;background: #f0f0f0;">
+                                        <b style="display: block; margin-bottom: 5px;"><?= date('M d', strtotime($invoiceExpenceData[0]->dt_created)); ?> | <?= $invoiceExpenceData[$i]->expense_name ?>  </b>
+                                        <br><?= $invoiceExpenceData[$i]->expense_desc ?> 
+                                    </td>
+                                    <td style="text-align: center;font-size: 12px;width: 15%;background: #f0f0f0;">
+                                        <?= $invoiceExpenceData[$i]->quentity ?>
+                                    </td>
+                                    <td style="text-align: center;font-size: 12px;width: 15%;background: #f0f0f0;border-left: 1px solid #fff;">
+                                        <?= $invoiceExpenceData[0]->currency .' '. $invoiceExpenceData[$i]->price ?> 
+                                    </td>
+                                    <td style="text-align: center;font-size: 12px;width: 15%;background: #f0f0f0;">
+                                        <?= '- '.$invoiceExpenceData[0]->currency .' '.  number_format($itemTotal, 2, '.', ''); ?> 
+                                    </td>
+                                </tr>
+                                
+                                
+                                <?php } }
+                         
+                         ?>       
                         <?php
                             if (count($invoicepaymentData) > 0) {
                             $defaultTax = ($subTotal * $invoiceData[0]->default_tax) / 100;
@@ -120,6 +148,8 @@
                             $total1 = ($totalPaid + $discount);
                             $finalTotal = $total2 - $total1;
                             $finalTotal = ($finalTotal > 0) ? $finalTotal : '0.00';
+                            $expence = $total;
+                            $finalTotal = $finalTotal - $expence;
                         ?>
                         <tr>
                             <td colspan="2" style="width: 70%;">&nbsp;</td>
@@ -146,6 +176,11 @@
                             <td style="text-align: center;font-size: 12px;width: 15%;background: #f0f0f0;font-weight: 600"><?php echo $invoiceData[0]->currency .' '. number_format($totalPaid, 2); ?></td>
                         </tr>
                         <tr>
+                            <td colspan="2" style="width: 70%;">&nbsp;</td>
+                            <td style="text-align: left;font-size: 12px;width: 15%;background: #f0f0f0;border-left: 1px solid #fff; font-weight: 600">Expence Made:</td>
+                            <td style="text-align: center;font-size: 12px;width: 15%;background: #f0f0f0;font-weight: 600"><?php echo '- '.$invoiceData[0]->currency .' '. number_format($expence, 2); ?></td>
+                        </tr>
+                        <tr>
                             
                             <td colspan="2" style="width: 70%;">&nbsp;</td>
                             <td style="text-align: left; color: #fff;font-size: 12px;width: 15%;background: #CB080E;border-left: 1px solid #fff; font-weight: 600">TOTAL :</td>
@@ -170,7 +205,7 @@
                             <td style="font-size: 13px;text-align: left;padding-top:10px">Thank you for your business!</td>
                          </tr>
                         <?php }?>
-                         <tr>   <td style="font-size: 13px;text-align: left;padding-top:10px">Customers who fall over 90 days behind in payments to Expert Tech. (from any source such as development, consulting, hardware,etc.) will automatically lose all privileges, and will no longer receive technical support until such time as their accounts are current.</td>
+                         <tr>   <td style="font-size: 13px;text-align: left;padding-top:10px">Customers who fall over 90 days behind in payments to Expert Tech. (from any source such as development, consulting, hardware,etc.) will automatically lose all privileges ), and will no longer receive technical support until such time as their accounts are current.</td>
                         </tr>
                     </table>
                 </td>

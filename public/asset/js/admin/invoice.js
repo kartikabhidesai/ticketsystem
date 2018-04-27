@@ -282,6 +282,7 @@ var Invoice = function() {
         },
         initExpense: function() {
             invoiceExpense();
+            deleteInvoicePayment();
         },
         initEdit: function() {
             invoiceEdit();

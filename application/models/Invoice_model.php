@@ -200,6 +200,7 @@ class Invoice_model extends My_model {
         ];
         $data['table'] = TABLE_INVOICE . ' as inv';
         $result = $this->selectFromJoin($data);
+        
         return $result;
     }
 
@@ -259,6 +260,21 @@ class Invoice_model extends My_model {
     function deletePaymentInvoice($data) {
         $this->db->where('id', $data['id']);
         $result = $this->db->delete(TABLE_INVOICE_DETAILS);
+
+        if ($result) {
+            $json_response['status'] = 'success';
+            $json_response['message'] = 'Invoice delete successfully';
+            $json_response['jscode'] = 'setTimeout(function(){location.reload();},1000)';
+        } else {
+            $json_response['status'] = 'error';
+            $json_response['message'] = 'Something went wrong';
+        }
+        return $json_response;
+    }
+    
+    function expenseDelete($data) {
+        $this->db->where('id', $data['id']);
+        $result = $this->db->delete(TABLE_INVOICE_EXPENSE);
 
         if ($result) {
             $json_response['status'] = 'success';
@@ -431,6 +447,7 @@ class Invoice_model extends My_model {
         $data['groupBy'] = ['invExpense.id'];
         $data['table'] = TABLE_INVOICE . ' as inv';
         $result = $this->selectFromJoin($data);
+        
         return $result;
     }
 

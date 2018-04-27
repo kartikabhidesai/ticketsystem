@@ -71,7 +71,7 @@
                                                     <td class="form-group"> <?= $invoiceData[0]->currency . $invoicepaymentData[$i]->price ?></td>
                                                     <td class="form-group">
                                                         <?= $invoiceData[0]->currency . $itemTotal; ?> 
-                                                        <a data-toggle="modal" data-target="#myModal_autocomplete" data-href="<?= admin_url() . 'invoice/paymentDelete' ?>" data-id="<?php echo $invoicepaymentData[$i]->paymentId; ?>" class="deletePayment">
+                                                        <a data-toggle="modal" data-target="#myModal_autocomplete" data-href="<?= admin_url() . 'invoice/expenseDelete' ?>" data-id="<?php echo $invoicepaymentData[$i]->paymentId; ?>" class="deletePayment">
                                                             <i class="fa fa-trash-o"></i>
                                                         </a>
                                                     </td>

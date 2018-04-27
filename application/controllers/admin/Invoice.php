@@ -186,6 +186,8 @@ class Invoice extends Admin_Controller {
         }
         $data['invoiceData'] = $this->this_model->getInvoiceById($invoiceId);
         $data['invoicepaymentData'] = $this->this_model->getInvoicePaymentDetails($invoiceId);
+        
+        
         $this->load->view(ADMIN_LAYOUT, $data);
     }
 
@@ -434,7 +436,9 @@ class Invoice extends Admin_Controller {
     }
     
      function expense($id, $shortBy = null) {
+         
         $invoiceId = $this->utility->decode($id);
+        
         if (!ctype_digit($invoiceId)) {
             return(admin_url() . 'invoice');
         }
@@ -472,6 +476,50 @@ class Invoice extends Admin_Controller {
         $data['invoiceData'] = $this->this_model->getInvoiceById($invoiceId);
         $data['invoicepaymentData'] = $this->this_model->getInvoiceExpense($invoiceId);
         $this->load->view(ADMIN_LAYOUT, $data);
+    }
+    
+    public function expenseDelete(){
+        if ($this->input->post()) {
+            $result = $this->this_model->expenseDelete($this->input->post());
+            echo json_encode($result);
+            exit();
+        }
+    }
+    
+    public function report($id){
+        $invoiceId = $this->utility->decode($id);
+        
+        $data['invoiceData'] = $invoiceData = $this->this_model->getInvoiceById($invoiceId);
+        $data['invoicepaymentData'] = $this->this_model->getInvoicePaymentDetails($invoiceId);
+        $data['invoiceExpenceData'] = $this->this_model->getInvoiceExpense($invoiceId);
+        
+        
+       
+        $invoiceNumber = trim($invoiceData[0]->ref_no);
+        
+        //Load the library
+        $this->load->library('html2pdf');
+
+        //Set folder to save PDF to
+        $this->html2pdf->folder('./public/asset/pdfs/');
+
+        //Set the filename to save/download as
+        $this->html2pdf->filename('report_'.$invoiceNumber.'.pdf');
+
+        //Set the paper defaults
+        $this->html2pdf->paper('a4', 'portrait');
+        
+        $this->html2pdf->html($this->load->view('admin/invoice/report', $data, true));
+        unlink('public/asset/pdfs/report_'.$invoiceNumber.'.pdf');
+        if ($this->html2pdf->create('save')) {
+           $this->load->helper('download');
+            $pth    =   file_get_contents(base_url()."public/asset/pdfs/report_$invoiceNumber.pdf");
+            $nme    =   'report_'.$invoiceNumber.".pdf";
+            force_download($nme, $pth);  
+           // force_download('http://localhost/ticketsystem/public/asset/pdfs/INV0006.pdf');
+            //force_download('public/asset/pdfs/'.$invoiceNumber.'.pdf');
+            exit;
+        }
     }
 }
 
