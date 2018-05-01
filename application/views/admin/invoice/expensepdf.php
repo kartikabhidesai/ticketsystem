@@ -7,7 +7,7 @@
     <body>
         <table border="0" cellspacing="0" cellpadding="0" style="margin: auto; width: 645px; font-family: arial;">
             <tr>
-                <td colspan="2" style="width: 60%;"><img style="width: 150px" src="<?php echo base_url(); ?>public/asset/images/logo.png"/></td>
+                <td colspan="2" style="width: 60%;"><img style="width: 150px" src="public/asset/images/logo.png"/></td>
                 <td colspan="2" style="width: 40%;">
                     <table border="0" cellspacing="3" cellpadding="0" style="width: 100%">
                         <tr>
@@ -130,7 +130,7 @@
                                 <td style="font-size: 13px;text-align: left;padding-top:10px">Thank you for your business!</td>
                             </tr>
                         <?php } ?>
-                        <tr>   <td style="font-size: 13px;text-align: left;padding-top:10px">Customers who fall over 90 days behind in payments to Expert Tech. (from any source such as development, consulting, hardware,etc.) will automatically lose all privileges ), and will no longer receive technical support until such time as their accounts are current.</td>
+                        <tr>   <td style="font-size: 13px;text-align: left;padding-top:10px">Customers who fall over 90 days behind in payments to Expert Tech. (from any source such as development, consulting, hardware,etc.) will automatically lose all privileges, and will no longer receive technical support until such time as their accounts are current.</td>
                         </tr>
                     </table>
                 </td>
