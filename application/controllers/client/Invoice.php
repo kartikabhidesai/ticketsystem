@@ -29,10 +29,11 @@ class Invoice extends Client_Controller {
             'Invoice.invoiceList()',
         );
 //        print_r($this->session->userdata['client_login']);exit;
-        $data['getInvoice'] = $this->this_model->getCompanyInvoiceList(null,$this->session->userdata['client_login']['companyId']);
+        $data['getInvoice'] = $this->this_model->getCompanyInvoiceList(null, $this->session->userdata['client_login']['companyId']);
         $this->load->view(CLIENT_LAYOUT, $data);
     }
-   function view($id,$shortBy = null) {
+
+    function view($id, $shortBy = null) {
         $invoiceId = $this->utility->decode($id);
         if (!ctype_digit($invoiceId)) {
             return(client_url() . 'invoice');
@@ -73,7 +74,45 @@ class Invoice extends Client_Controller {
         $this->load->view(CLIENT_LAYOUT, $data);
     }
 
-   
+    function downloadpdf($id) {
+
+        $invoiceId = $this->utility->decode($id);
+        if (!ctype_digit($invoiceId)) {
+            return(admin_url() . 'invoice');
+        }
+//        $data['page'] = "admin/invoice/pdf";
+
+        $data['invoiceData'] = $invoiceData = $this->this_model->getInvoiceById($invoiceId);
+        $data['invoicepaymentData'] = $this->this_model->getInvoicePaymentDetails($invoiceId);
+
+        $invoiceNumber = trim($invoiceData[0]->ref_no);
+
+        //Load the library
+        $this->load->library('html2pdf');
+
+        //Set folder to save PDF to
+        $this->html2pdf->folder('./public/asset/pdfs/');
+
+        //Set the filename to save/download as
+        $this->html2pdf->filename($invoiceNumber . '.pdf');
+
+        //Set the paper defaults
+        $this->html2pdf->paper('a4', 'portrait');
+
+//         $this->load->view('admin/invoice/pdf', $data);
+         
+        //Load html view
+        $this->html2pdf->html($this->load->view('admin/invoice/pdf', $data, true));
+        unlink('public/asset/pdfs/' . $invoiceNumber . '.pdf');
+        if ($this->html2pdf->create('save')) {
+            $this->load->helper('download');
+            $pth = file_get_contents(base_url() . "public/asset/pdfs/$invoiceNumber.pdf");
+            $nme = $invoiceNumber . ".pdf";
+            force_download($nme, $pth);
+            exit;
+        }
+    }
+
 }
 
 ?>
