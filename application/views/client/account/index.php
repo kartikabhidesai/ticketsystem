@@ -1,6 +1,61 @@
-<div class="wrapper wrapper-content white-bg m-t">
+<div class="wrapper wrapper-content m-t">
     <div class=" animated fadeInRightBig">
         <div class="row">
+            <div class="col-lg-3">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <!--<span class="label label-success pull-right">Monthly</span>-->
+                        <h5>Income</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <h1 class="no-margins"><?=  number_format($getAmount[0]->total, 2, '.', '');  ?></h1>
+                        <!--<div class="stat-percent font-bold text-success">98% <i class="fa fa-bolt"></i></div>-->
+                        <small>Total income</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <!--<span class="label label-info pull-right">Annual</span>-->
+                        <h5>Paid</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <h1 class="no-margins"><?=  number_format($getPaidAmount[0]->totalPaidAmount, 2, '.', '');  ?></h1>
+                        <!--<div class="stat-percent font-bold text-info">20% <i class="fa fa-level-up"></i></div>-->
+                        <small>Total gets</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <!--<span class="label label-primary pull-right">Today</span>-->
+                        <h5>Expenses</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <h1 class="no-margins"><?=  number_format($getExpAmount[0]->totalExpense, 2, '.', '');  ?></h1>
+                        <!--<div class="stat-percent font-bold text-navy">44% <i class="fa fa-level-up"></i></div>-->
+                        <small>Total expenses</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <!--<span class="label label-primary pull-right">Today</span>-->
+                        <h5> Invoice</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <h1 class="no-margins"><?=  $getLastInvoice[0]->ref_no;  ?></h1>
+                        <!--<div class="stat-percent font-bold text-navy">44% <i class="fa fa-level-up"></i></div>-->
+                        <small>Last Invoice</small>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="row white-bg">
             <div class="col-lg-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">

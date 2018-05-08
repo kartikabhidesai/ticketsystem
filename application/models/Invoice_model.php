@@ -7,7 +7,7 @@ class Invoice_model extends My_model {
         $this->load->model('Client_model', 'Client_model');
     }
 
-    function addInvoice($postData) {
+    public function addInvoice($postData) {
         $data['insert']['client_id'] = $postData['client_id'];
         $data['insert']['ref_no'] = $postData['ref_no'];
         $data['insert']['due_date'] = date('Y-m-d', strtotime($postData['due_date']));
@@ -34,7 +34,7 @@ class Invoice_model extends My_model {
         }
     }
 
-    function getInvoiceList($invoiceId = null, $clientId) {
+    public function getInvoiceList($invoiceId = null, $clientId) {
         $data['select'] = ['inv.*', 'SUM(invDetail.total) as totalPrice',
 //            'SUM(invPayment.amount) as totalPaidAmount',
             'GROUP_CONCAT(invDetail.id) as totalPaidAmount',
@@ -77,7 +77,8 @@ class Invoice_model extends My_model {
 //        print_r($result);exit;
         return $result;
     }
-    function getCompanyInvoiceList($invoiceId = null, $companyId) {
+    
+    public function getCompanyInvoiceList($invoiceId = null, $companyId) {
         $data['select'] = ['inv.*', 'SUM(invDetail.total) as totalPrice',
 //            'SUM(invPayment.amount) as totalPaidAmount',
             'GROUP_CONCAT(invDetail.id) as totalPaidAmount',
@@ -121,7 +122,7 @@ class Invoice_model extends My_model {
         return $result;
     }
 
-    function editInvoice($postData) {
+    public function editInvoice($postData) {
 
         $data['update']['client_id'] = $postData['client_id'];
         $data['update']['ref_no'] = $postData['ref_no'];
@@ -151,7 +152,7 @@ class Invoice_model extends My_model {
         }
     }
 
-    function generateInvoiceNos() {
+    public function generateInvoiceNos() {
         $invoiceFix = 'INV';
         $query = $this->db->from(TABLE_INVOICE)->order_by("id", "desc")->get()->row();
         $id = $query->id + 201;
@@ -168,7 +169,7 @@ class Invoice_model extends My_model {
 //        return $newInvoice;
     }
 
-    function getInvoiceById($id) {
+    public function getInvoiceById($id) {
         $data['select'] = ['inv.*',
             'usr.first_name',
             'usr.last_name',
@@ -223,7 +224,7 @@ class Invoice_model extends My_model {
         }
     }
 
-    function getInvoicePaymentDetails($invoiceId) {
+    public function getInvoicePaymentDetails($invoiceId) {
 
         $data['select'] = ['inv.*', 'invDetail.price', 'invDetail.item_name',
             'invDetail.item_desc', 'invDetail.quentity', 'invDetail.id as paymentId',
@@ -249,7 +250,7 @@ class Invoice_model extends My_model {
         return $result;
     }
 
-    function getClientDetail($companyId, $clientId) {
+    public function getClientDetail($companyId, $clientId) {
         $data['select'] = ['first_name', 'last_name', 'email'];
         $data['where'] = ['id' => $clientId, 'company_id' => $companyId];
         $data['table'] = TABLE_USER;
@@ -257,7 +258,7 @@ class Invoice_model extends My_model {
         return $result;
     }
 
-    function deletePaymentInvoice($data) {
+    public function deletePaymentInvoice($data) {
         $this->db->where('id', $data['id']);
         $result = $this->db->delete(TABLE_INVOICE_DETAILS);
 
@@ -272,7 +273,7 @@ class Invoice_model extends My_model {
         return $json_response;
     }
     
-    function expenseDelete($data) {
+    public function expenseDelete($data) {
         $this->db->where('id', $data['id']);
         $result = $this->db->delete(TABLE_INVOICE_EXPENSE);
 
@@ -287,7 +288,7 @@ class Invoice_model extends My_model {
         return $json_response;
     }
 
-    function addHistory($postData) {
+    public function addHistory($postData) {
         $data['insert']['invoice_id'] = $postData['invoiceId'];
         $data['insert']['history_desc'] = $postData['description'];
         $data['insert']['user_id'] = $postData['userId'];
@@ -303,7 +304,7 @@ class Invoice_model extends My_model {
         }
     }
 
-    function getHistoryList($invoiceId) {
+    public function getHistoryList($invoiceId) {
 
         $data['select'] = ['invHis.*', 'usr.first_name', 'usr.last_name',];
         $data['join'] = [
@@ -322,7 +323,7 @@ class Invoice_model extends My_model {
         return $result;
     }
 
-    function generateTransactionNos() {
+    public function generateTransactionNos() {
         $newInvoice = '';
         $query = $this->db->from(TABLE_INVOICE_PAYMENT)->order_by("id", "desc")->get()->row();
         $totalLength = (6 - strlen($query->id));
@@ -358,7 +359,7 @@ class Invoice_model extends My_model {
         }
     }
 
-    function deleteInvoice($data) {
+    public function deleteInvoice($data) {
         $this->db->where('id', $data['id']);
         $this->db->delete(TABLE_INVOICE);
 
@@ -410,9 +411,8 @@ class Invoice_model extends My_model {
         return true;
 //        return $mailSend;
     }
-
     
-      public function addExpenseDetails($postData) {
+    public function addExpenseDetails($postData) {
         $data['insert']['invoice_id'] = $postData['invoiceId'];
         $data['insert']['expense_name'] = $postData['item_name'];
         $data['insert']['expense_desc'] = $postData['item_desc'];
@@ -431,7 +431,7 @@ class Invoice_model extends My_model {
         }
     }
     
-    function getInvoiceExpense($invoiceId) {
+    public function getInvoiceExpense($invoiceId) {
 
         $data['select'] = ['inv.*', 'invExpense.price', 'invExpense.expense_name',
             'invExpense.expense_desc', 'invExpense.quentity', 'invExpense.id as paymentId',
@@ -449,6 +449,81 @@ class Invoice_model extends My_model {
         $result = $this->selectFromJoin($data);
         
         return $result;
+    }
+    
+    public function totalAmount() {
+        $data['select'] = ['SUM(invDetail.total) as total'];
+        $data['table'] = TABLE_INVOICE_DETAILS. ' as invDetail';
+        $result = $this->selectRecords($data);
+        return $result;
+    }
+    
+    public function totalpaidAmount() {
+        $data['select'] = ['SUM(invPayment.amount) as totalPaidAmount'];
+        $data['table'] =  TABLE_INVOICE_PAYMENT . ' as invPayment';
+        $result = $this->selectRecords($data);
+        return $result;
+    }
+    
+    public function totalexpAmount(){
+        $data['select'] = ['SUM(invExpense.total) as totalExpense'];
+        $data['table'] =  TABLE_INVOICE_EXPENSE . ' as invExpense';
+        $result = $this->selectRecords($data);
+        return $result;
+    }
+    
+    public function totalClientAmount($companyId){
+        $data['select'] = ['GROUP_CONCAT(inv.id,"") as invId'];
+        $data['where'] = ['inv.company_id' => $companyId];
+        $data['table'] =  TABLE_INVOICE . ' as inv';
+        $InvArr = $this->selectRecords($data);
+        $data = '';
+        $data['select'] = ['SUM(invDetail.total) as total'];
+        $data['where_in'] = array('invDetail.invoice_id'=>$InvArr[0]->invId);
+        $data['table'] = TABLE_INVOICE_DETAILS. ' as invDetail';
+        $result = $this->selectRecords($data);
+        return $result;
+        
+        
+    }
+    
+    public function totalClientpaidAmount($companyId){
+        $data['select'] = ['GROUP_CONCAT(inv.id,"") as invId'];
+        $data['where'] = ['inv.company_id' => $companyId];
+        $data['table'] =  TABLE_INVOICE . ' as inv';
+        $InvArr = $this->selectRecords($data);
+        $data = '';
+        
+        $data['select'] = ['SUM(invPayment.amount) as totalPaidAmount'];
+        $data['where_in'] = array('invPayment.invoice_id'=>$InvArr[0]->invId);
+        $data['table'] =  TABLE_INVOICE_PAYMENT . ' as invPayment';
+        $result = $this->selectRecords($data);
+       // print_r($result);exit;
+        return $result;
+    }
+    
+    public function totalClientexpAmount($companyId) {
+        $data['select'] = ['GROUP_CONCAT(inv.id,"") as invId'];
+        $data['where'] = ['inv.company_id' => $companyId];
+        $data['table'] =  TABLE_INVOICE . ' as inv';
+        $InvArr = $this->selectRecords($data);
+        $data = '';
+        
+        $data['select'] = ['SUM(invExpense.total) as totalExpense'];
+        $data['where_in'] = array('invExpense.invoice_id',$InvArr[0]->invId);
+        $data['table'] =  TABLE_INVOICE_EXPENSE . ' as invExpense';
+        $result = $this->selectRecords($data);
+        return $result;
+    }
+    
+    public function getLastInvoice($companyId)
+    {
+        $data['select'] = ['inv.ref_no'];
+        $data['where'] = ['inv.company_id' => $companyId];
+        $data['order'] = ["id", "desc"];
+        $data['table'] =  TABLE_INVOICE . ' as inv';
+        $InvArr = $this->selectRecords($data);
+        return $InvArr;
     }
 
 }

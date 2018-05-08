@@ -6,6 +6,7 @@ class Dashboard extends Client_Controller {
         parent::__construct();
         $this->load->model('Department_model', 'Department_model');
         $this->load->model('Tickets_model', 'this_model');
+        $this->load->model('Invoice_model', 'Invoice_model');
     }
 
     function index() {
@@ -33,6 +34,12 @@ class Dashboard extends Client_Controller {
         $client_id = $this->session->userdata['client_login']['id'];
         $companyId = $this->session->userdata['client_login']['companyId'];
         $data['getTicket'] = $this->this_model->getClientTicketList($client_id, $companyId);
+        
+        $data['getAmount'] = $this->Invoice_model->totalClientAmount($companyId);
+        $data['getPaidAmount'] = $this->Invoice_model->totalClientpaidAmount($companyId);
+        $data['getExpAmount'] = $this->Invoice_model->totalClientexpAmount($companyId);
+        $data['getLastInvoice'] = $this->Invoice_model->getLastInvoice($companyId);
+        
         //print_r($data['getTicket']); exit();
         $this->load->view(CLIENT_LAYOUT, $data);
     }

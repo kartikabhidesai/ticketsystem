@@ -7,6 +7,7 @@ class Dashboard extends Admin_Controller {
         $this->load->model('Department_model', 'Department_model');
         $this->load->model('Tickets_model', 'this_model');
         $this->load->model('Client_model', 'Client_model');
+        $this->load->model('Invoice_model', 'Invoice_model');
     }
 
     function index() {
@@ -33,7 +34,10 @@ class Dashboard extends Admin_Controller {
         $clientId = '';
         $companyId = '';
         $data['getTicket'] = $this->this_model->getClientTicketList($clientId, $companyId);
-
+        $data['getAmount'] = $this->Invoice_model->totalAmount();
+        $data['getPaidAmount'] = $this->Invoice_model->totalpaidAmount();
+        $data['getExpAmount'] = $this->Invoice_model->totalexpAmount();
+       
         $this->load->view(ADMIN_LAYOUT, $data);
     }
 
