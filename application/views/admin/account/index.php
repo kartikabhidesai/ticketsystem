@@ -31,6 +31,19 @@
             <div class="col-lg-3">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
+                        <!--<span class="label label-info pull-right">Annual</span>-->
+                        <h5>Profit</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <h1 class="no-margins"><?=  number_format(($getAmount[0]->total - $getExpAmount[0]->totalExpense), 2, '.', '');  ?></h1>
+                        <!--<div class="stat-percent font-bold text-info">20% <i class="fa fa-level-up"></i></div>-->
+                        <small>Total profit</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
                         <!--<span class="label label-primary pull-right">Today</span>-->
                         <h5>Expenses</h5>
                     </div>
