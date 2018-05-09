@@ -22,6 +22,7 @@ class Label extends Admin_Controller {
         
         $data['js'] = array(
              'plugins/dataTables/datatables.min.js',
+             'plugins/datapicker/bootstrap-datepicker.js',
              'admin/label.js',
         );
         $data['init'] = array(

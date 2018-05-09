@@ -100,6 +100,15 @@ var Label = function() {
         $('.openPopup').click(function() {
             $('#myModal_addnewperson').modal('show');
         });
+        $('#data_1 .input-group.date').datepicker({
+            todayBtn: "linked",
+            keyboardNavigation: false,
+            forceParse: false,
+            calendarWeeks: true,
+            todayHighlight: true,
+            format: 'dd-mm-yyyy',
+            autoclose: true
+        });
     }
 
     return {
