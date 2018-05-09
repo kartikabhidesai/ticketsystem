@@ -37,7 +37,9 @@
                     <li class="<?= $invoice,$add,$pay; ?>"><a href="<?php echo admin_url('invoice'); ?>">Invoice</a></li>
                 </ul>
             </li>
-
+            <li class="<?= $label; ?>">
+                <a href="<?= admin_url() . 'label'; ?>"><i class="fa fa-ticket"></i> <span class="nav-label">Label</span></a>
+            </li>
             <li class="<?= $setting; ?>">
                 <a href=""><i class="fa fa-gear"></i> <span class="nav-label">Setting</span> <span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
