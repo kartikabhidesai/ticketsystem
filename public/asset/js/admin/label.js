@@ -80,16 +80,31 @@ var Label = function() {
         });
     };
 
-    var addNewPerson = function() {
-        var form = $('#addNewPerson');
+    var newLabel = function() {
+        var form = $('#addNewLabel');
         var rules = {
-            person_fname: {required: true},
-            person_lname: {required: true},
-            person_email: {required: true, email: true},
-            company_password: {required: true},
-            company_confirm_password: {required: true, equalTo: '#password'},
-            company_user_phone: {required: true},
-            address: {required: true},
+            title: {required: true},
+            company_id: {required: true},
+        };
+        handleFormValidate(form, rules, function(form) {
+            handleAjaxFormSubmit(form);
+        });
+    }
+    var newLabel = function() {
+        var form = $('#editLabel');
+        var rules = {
+            title: {required: true},
+            company_id: {required: true},
+        };
+        handleFormValidate(form, rules, function(form) {
+            handleAjaxFormSubmit(form);
+        });
+    }
+    var manageItem = function() {
+        var form = $('#addItem');
+        var rules = {
+            item_date: {required: true},
+            item_value: {required: true, number: true},
         };
         handleFormValidate(form, rules, function(form) {
             handleAjaxFormSubmit(form);
@@ -100,6 +115,24 @@ var Label = function() {
         $('.openPopup').click(function() {
             $('#myModal_addnewperson').modal('show');
         });
+        $('body').on('click', '.deleteItem', function() {
+            $('#addItemModel').modal('hide');
+            var labelInfoId = $(this).attr('data-id');
+            var labelUrl = $(this).attr('data-url');
+            $('#btndelete').attr('data-url', labelUrl);
+            $('#btndelete').attr('data-id', labelInfoId);
+        });
+        $('.itemModel').click(function() {
+            var labelId = $(this).attr('data-id');
+            $('.lblId').val(labelId);
+            var url = baseurl + 'admin/label/getLabelItemInfo';
+            var data = {labelId: labelId};
+            ajaxcall(url, data, function(output) {
+                var output = JSON.parse(output);
+                $('.appendHtml').html(output);
+
+            });
+        });
         $('#data_1 .input-group.date').datepicker({
             todayBtn: "linked",
             keyboardNavigation: false,
@@ -109,12 +142,49 @@ var Label = function() {
             format: 'dd-mm-yyyy',
             autoclose: true
         });
+
+        $('.editPopup').click(function() {
+            $('#editLabel')[0].reset();
+            var labelId = $(this).attr('data-label-id');
+            if (typeof labelId === 'undefined') {
+                $('#editLabelModel').modal('show');
+            } else {
+                var url = baseurl + 'admin/label/getLabelInfo';
+                var data = {labelId: labelId};
+                ajaxcall(url, data, function(output) {
+                    var output = JSON.parse(output);
+                    $('.editTitle').val(output.title);
+                    $('#labelId').val(output.id);
+                    $('.editCompanyId').val(output.company_id);
+                    $('#editLabelModel').modal('show');
+                });
+            }
+        });
+
+        $('.deleteLabel').click(function() {
+            var labelId = $(this).attr('data-id');
+            var labelUrl = $(this).attr('data-url');
+            $('#btndelete').attr('data-url', labelUrl);
+            $('#btndelete').attr('data-id', labelId);
+        });
+        $('#btndelete').click(function() {
+            var labelId = $('#btndelete').attr('data-id');
+            var url = $('#btndelete').attr('data-url');
+            var data = {labelId: labelId};
+            ajaxcall(url, data, function(output) {
+                handleAjaxResponse(output);
+                var output = JSON.parse(output);
+                console.log(output);
+            });
+        });
     }
 
     return {
         //main function to initiate the module
         labelList: function() {
             landleLablelist();
+            newLabel();
+            manageItem();
             gneral();
         },
     };
