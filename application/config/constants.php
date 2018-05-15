@@ -120,3 +120,5 @@ define('TICKETMOREACTIONS', json_encode(['EMAIL_INVOICE' => 'Email Invoice', 'SE
 define('RECURRING', json_encode(['NONE' => 'None', 'WEEK' => 'Week', 'MONTH' => 'Month', 'QUARTER' => 'Quarter','SIX_MONTH' => 'Six Month','YEAR' => 'Year']));
 //define ticket More Actions
 define('PAYMENT_METOHD', json_encode(['ONLINE' => 'Online', 'CASH' => 'Cash', 'BANK_DEPOSITE' => 'Bank Deposit', 'CHEQUE' => 'Cheque']));
+//define ticket More Actions
+define('TICKETESTIMATEACTIONS', json_encode(['EMAIL_ESTIMATE' => 'Email Estimate', 'SEND_REMAINDER' => 'Send Reminder', 'ESTIMATE_HISTORY' => 'Estimate History', 'EDIT_ESTIMATE' => 'Edit Estimate','DELETE_ESTIMATE' => 'Delete Estimate']));

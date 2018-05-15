@@ -20,3 +20,8 @@ define("TABLE_INVOICE_PAYMENT", "invoice_payment");
 define("TABLE_INVOICE_EXPENSE", "invoice_expense");
 define("TABLE_LABEL", "label");
 define("TABLE_LABEL_ITEM", "label_item");
+define("TABLE_ESTIMATE", "estimate");
+define("TABLE_ESTIMATE_DETAILS", "estimate_details");
+define("TABLE_ESTIMATE_HISTORY", "estimate_history");
+define("TABLE_ESTIMATE_PAYMENT", "estimate_payment");
+define("TABLE_ESTIMATE_EXPENSE", "estimate_expense");

@@ -31,21 +31,31 @@ class Label_model extends My_model {
     }
 
     function addLabel($postData) {
-        $data['insert']['title'] = $postData['title'];
-        $data['insert']['company_id'] = $postData['company_id'];
-        $data['insert']['dt_created'] = DATE_TIME;
-        $data['insert']['dt_updated'] = DATE_TIME;
-        $data['table'] = TABLE_LABEL;
-        $labelId = $this->insertRecord($data);
-
-        unset($data);
-        if ($labelId) {
-            $json_response['status'] = 'success';
-            $json_response['message'] = 'Label add successfully';
-            $json_response['redirect'] = admin_url() . 'label';
-        } else {
+        $data ['where'] = [
+            'title' => $postData['title']
+        ];
+        $data ['table'] = TABLE_LABEL;
+        $response = $this->isDuplicate($data);
+        if ($response > 0) {
             $json_response['status'] = 'error';
-            $json_response['message'] = 'Something went wrong';
+            $json_response['message'] = 'Title already exists';
+        } else {
+            $data['insert']['title'] = $postData['title'];
+            $data['insert']['company_id'] = $postData['company_id'];
+            $data['insert']['dt_created'] = DATE_TIME;
+            $data['insert']['dt_updated'] = DATE_TIME;
+            $data['table'] = TABLE_LABEL;
+            $labelId = $this->insertRecord($data);
+
+            unset($data);
+            if ($labelId) {
+                $json_response['status'] = 'success';
+                $json_response['message'] = 'Label add successfully';
+                $json_response['redirect'] = admin_url() . 'label';
+            } else {
+                $json_response['status'] = 'error';
+                $json_response['message'] = 'Something went wrong';
+            }
         }
         return $json_response;
     }
@@ -116,22 +126,33 @@ class Label_model extends My_model {
     }
 
     function addItem($postData) {
-        $data['insert']['item_date'] = date('Y-m-d', strtotime($postData['item_date']));
-        $data['insert']['item_value'] = $postData['item_value'];
-        $data['insert']['label_id'] = $postData['labelId'];
-        $data['insert']['dt_created'] = DATE_TIME;
-        $data['insert']['dt_updated'] = DATE_TIME;
-        $data['table'] = TABLE_LABEL_ITEM;
-        $labelId = $this->insertRecord($data);
-        unset($data);
-        if ($labelId) {
-            $json_response['status'] = 'success';
-            $json_response['message'] = 'Label Item add successfully';
-            $json_response['redirect'] = admin_url() . 'label';
-        } else {
+        $data ['where'] = [
+            'item_value' => $postData['item_value']
+        ];
+        $data ['table'] = TABLE_LABEL_ITEM;
+        $response = $this->isDuplicate($data);
+        if ($response > 0) {
             $json_response['status'] = 'error';
-            $json_response['message'] = 'Something went wrong';
+            $json_response['message'] = 'Value already exists';
+        } else {
+            $data['insert']['item_date'] = date('Y-m-d', strtotime($postData['item_date']));
+            $data['insert']['item_value'] = $postData['item_value'];
+            $data['insert']['label_id'] = $postData['labelId'];
+            $data['insert']['dt_created'] = DATE_TIME;
+            $data['insert']['dt_updated'] = DATE_TIME;
+            $data['table'] = TABLE_LABEL_ITEM;
+            $labelId = $this->insertRecord($data);
+            unset($data);
+            if ($labelId) {
+                $json_response['status'] = 'success';
+                $json_response['message'] = 'Label Item add successfully';
+                $json_response['redirect'] = admin_url() . 'label';
+            } else {
+                $json_response['status'] = 'error';
+                $json_response['message'] = 'Something went wrong';
+            }
         }
+
         return $json_response;
     }
 

@@ -79,7 +79,6 @@ var Label = function() {
 
         });
     };
-
     var newLabel = function() {
         var form = $('#addNewLabel');
         var rules = {
@@ -90,7 +89,7 @@ var Label = function() {
             handleAjaxFormSubmit(form);
         });
     }
-    var newLabel = function() {
+    var editLabel = function() {
         var form = $('#editLabel');
         var rules = {
             title: {required: true},
@@ -184,6 +183,7 @@ var Label = function() {
         labelList: function() {
             landleLablelist();
             newLabel();
+            editLabel();
             manageItem();
             gneral();
         },
