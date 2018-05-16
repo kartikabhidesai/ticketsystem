@@ -583,3 +583,15 @@ function getTotalAmount($invoiceId) {
     $result = (!empty($total['totalAmount'])) ? $total['totalAmount']:'0';
     return $result;
 }
+function getEstimatePaidAmount($estimateId) {
+    $CI = &get_instance();
+    $total = $CI->db->select('SUM(amount) as paidAmount')->group_by('estimate_id')->where('estimate_id', $estimateId)->get(TABLE_ESTIMATE_PAYMENT)->row_array();
+    $result = (!empty($total['paidAmount'])) ? $total['paidAmount'] : '0';
+    return $result;
+}
+function getTotalEstimateAmount($estimateId) {
+    $CI = &get_instance();
+    $total = $CI->db->select('SUM(total) as totalAmount')->group_by('estimate_id')->where('estimate_id', $estimateId)->get(TABLE_ESTIMATE_DETAILS)->row_array();
+    $result = (!empty($total['totalAmount'])) ? $total['totalAmount']:'0';
+    return $result;
+}

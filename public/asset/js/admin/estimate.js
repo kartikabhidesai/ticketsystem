@@ -1,6 +1,6 @@
-var Invoice = function() {
+var Estimate = function() {
 
-    var invoiceList = function() {
+    var estimateList = function() {
 
         $('.dataTables-example').DataTable({
             pageLength: 25,
@@ -51,10 +51,10 @@ var Invoice = function() {
             $('.reminser_invoice').val($(this).attr('data-invoice'));
         });
 
-        $('body').on('click', '.send_invoice', function() {
+        $('body').on('click', '.send_estimate', function() {
             var invoiceId = $('.invoiceId').val();
             if (invoiceId != '') {
-                var url = baseurl + 'admin/invoice/sendInvoiceMail';
+                var url = baseurl + 'admin/estimate/sendEstimateMail';
                 var data = {invoiceId: invoiceId, 'type': 'invoice'};
                 ajaxcall(url, data, function(output) {
                     var output = JSON.parse(output);
@@ -67,7 +67,7 @@ var Invoice = function() {
         $('body').on('click', '.send_reminder', function() {
             var invoiceId = $('.reminderInvoiceId').val();
             if (invoiceId != '') {
-                var url = baseurl + 'admin/invoice/sendInvoiceMail';
+                var url = baseurl + 'admin/estimate/sendEstimateMail';
                 var data = {invoiceId: invoiceId, 'type': 'reminder'};
                 ajaxcall(url, data, function(output) {
                     var output = JSON.parse(output);
@@ -119,18 +119,18 @@ var Invoice = function() {
             e.stopPropagation();
             var encodeUrl = $('.encodeUrl').val();
             var invoiceId = $('#invoiceId').val();
-            if ($(this).attr('data-value') == 'EDIT_INVOICE') {
-                window.location.href = baseurl + 'admin/invoice/edit/' + encodeUrl;
-            } else if ($(this).attr('data-value') == 'INVOICE_HISTORY') {
-                window.location.href = baseurl + 'admin/invoice/history/' + encodeUrl;
-            } else if ($(this).attr('data-value') == 'DELETE_INVOICE') {
+            if ($(this).attr('data-value') == 'EDIT_ESTIMATE') {
+                window.location.href = baseurl + 'admin/estimate/edit/' + encodeUrl;
+            } else if ($(this).attr('data-value') == 'ESTIMATE_HISTORY') {
+                window.location.href = baseurl + 'admin/estimate/history/' + encodeUrl;
+            } else if ($(this).attr('data-value') == 'DELETE_ESTIMATE') {
                 $('#myModal_autocomplete').modal('show');
-                $('#btndelete').attr('data-url', baseurl + 'admin/invoice/deleteInvoice');
+                $('#btndelete').attr('data-url', baseurl + 'admin/estimate/deleteEstimate');
                 $('#btndelete').attr('data-id', invoiceId);
             } else if ($(this).attr('data-value') == 'SEND_REMAINDER') {
                 $('#myModal_reminder').modal('show');
                 $('#btndelete').attr('data-id', invoiceId);
-            } else if ($(this).attr('data-value') == 'EMAIL_INVOICE') {
+            } else if ($(this).attr('data-value') == 'EMAIL_ESTIMATE') {
                 $('#myModal_Invoice_email').modal('show');
                 $('#btndelete').attr('data-id', invoiceId);
             }
@@ -267,8 +267,8 @@ var Invoice = function() {
 
     return {
         //main function to initiate the module
-        invoiceList: function() {
-            invoiceList();
+        estimateList: function() {
+            estimateList();
             handleMail();
         },
         invoiceAdd: function() {

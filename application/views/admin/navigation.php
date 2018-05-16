@@ -36,6 +36,9 @@
                 <ul class="nav nav-second-level">
                     <li class="<?= $invoice,$add,$pay; ?>"><a href="<?php echo admin_url('invoice'); ?>">Invoice</a></li>
                 </ul>
+                <ul class="nav nav-second-level">
+                    <li class="<?= $estimate,$pay; ?>"><a href="<?php echo admin_url('estimate'); ?>">Estimate</a></li>
+                </ul>
             </li>
             <li class="<?= $label; ?>">
                 <a href="<?= admin_url() . 'label'; ?>"><i class="fa fa-ticket"></i> <span class="nav-label">Label</span></a>
