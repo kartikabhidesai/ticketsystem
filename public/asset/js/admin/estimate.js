@@ -240,6 +240,18 @@ var Estimate = function() {
             handleAjaxFormSubmit(form);
         });
     };
+    var estimatePayment = function() {
+        var form = $('#estimatePayment');
+        var rules = {
+            payment_date: {required: true},
+            payment_method: {required: true},
+            amount: {required: true, number: true},
+            notes: {required: true},
+        };
+        handleFormValidate(form, rules, function(form) {
+            handleAjaxFormSubmit(form);
+        });
+    };
     var invoiceExpense = function() {
         var form = $('#expenseForm');
         var rules = {
@@ -279,6 +291,7 @@ var Estimate = function() {
             invoicePay();
             general();
             invoicePayment();
+            estimatePayment();
         },
         initExpense: function() {
             invoiceExpense();
