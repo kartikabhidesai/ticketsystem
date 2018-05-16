@@ -7,6 +7,7 @@ class Dashboard extends Client_Controller {
         $this->load->model('Department_model', 'Department_model');
         $this->load->model('Tickets_model', 'this_model');
         $this->load->model('Invoice_model', 'Invoice_model');
+        $this->load->model('Label_model', 'Label_model');
     }
 
     function index() {
@@ -39,6 +40,7 @@ class Dashboard extends Client_Controller {
         $data['getPaidAmount'] = $this->Invoice_model->totalClientpaidAmount($companyId);
         $data['getExpAmount'] = $this->Invoice_model->totalClientexpAmount($companyId);
         $data['getLastInvoice'] = $this->Invoice_model->getLastInvoice($companyId);
+        $data['getLabelinfo'] = $this->Label_model->getLabelinfo($companyId);
         
         //print_r($data['getTicket']); exit();
         $this->load->view(CLIENT_LAYOUT, $data);

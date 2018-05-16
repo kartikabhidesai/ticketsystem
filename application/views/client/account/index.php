@@ -5,12 +5,12 @@
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
                         <!--<span class="label label-success pull-right">Monthly</span>-->
-                        <h5>Income</h5>
+                        <h5>Owed</h5>
                     </div>
                     <div class="ibox-content">
                         <h1 class="no-margins"><?=  number_format($getAmount[0]->total, 2, '.', '');  ?></h1>
                         <!--<div class="stat-percent font-bold text-success">98% <i class="fa fa-bolt"></i></div>-->
-                        <small>Total income</small>
+                        <small>Total Owed</small>
                     </div>
                 </div>
             </div>
@@ -23,23 +23,23 @@
                     <div class="ibox-content">
                         <h1 class="no-margins"><?=  number_format($getPaidAmount[0]->totalPaidAmount, 2, '.', '');  ?></h1>
                         <!--<div class="stat-percent font-bold text-info">20% <i class="fa fa-level-up"></i></div>-->
-                        <small>Total gets</small>
+                        <small>Total Paid</small>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3">
+<!--            <div class="col-lg-3">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <!--<span class="label label-primary pull-right">Today</span>-->
+                        <span class="label label-primary pull-right">Today</span>
                         <h5>Expenses</h5>
                     </div>
                     <div class="ibox-content">
                         <h1 class="no-margins"><?=  number_format($getExpAmount[0]->totalExpense, 2, '.', '');  ?></h1>
-                        <!--<div class="stat-percent font-bold text-navy">44% <i class="fa fa-level-up"></i></div>-->
+                        <div class="stat-percent font-bold text-navy">44% <i class="fa fa-level-up"></i></div>
                         <small>Total expenses</small>
                     </div>
                 </div>
-            </div>
+            </div>-->
             <div class="col-lg-3">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
@@ -47,13 +47,30 @@
                         <h5> Invoice</h5>
                     </div>
                     <div class="ibox-content">
-                        <h1 class="no-margins"><?=  $getLastInvoice[0]->ref_no;  ?></h1>
+                        <h1 class="no-margins"><?php echo ($getLastInvoice[0]->ref_no == "")? 'Not Found':  $getLastInvoice[0]->ref_no;  ?></h1>
                         <!--<div class="stat-percent font-bold text-navy">44% <i class="fa fa-level-up"></i></div>-->
                         <small>Last Invoice</small>
                     </div>
                 </div>
             </div>
+            <?php
+                for($i=0;$i<count($getLabelinfo);$i++){
+            ?>
 
+            <div class="col-lg-3">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <!--<span class="label label-primary pull-right">Today</span>-->
+                        <h5> <?= $getLabelinfo[$i]['title'] ?></h5>
+                    </div>
+                    <div class="ibox-content">
+                        <h1 class="no-margins"><?= $getLabelinfo[$i]['item_value'] ?></h1>
+                        <!--<div class="stat-percent font-bold text-navy">44% <i class="fa fa-level-up"></i></div>-->
+                        <small><?= date('d M Y',strtotime($getLabelinfo[$i]['item_date'])) ?></small>
+                    </div>
+                </div>
+            </div>
+                <?php } ?>
         </div>
         <div class="row white-bg">
             <div class="col-lg-12">

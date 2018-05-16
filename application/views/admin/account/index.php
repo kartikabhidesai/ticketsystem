@@ -24,7 +24,7 @@
                     <div class="ibox-content">
                         <h1 class="no-margins"><?=  number_format($getPaidAmount[0]->totalPaidAmount, 2, '.', '');  ?></h1>
                         <!--<div class="stat-percent font-bold text-info">20% <i class="fa fa-level-up"></i></div>-->
-                        <small>Total gets</small>
+                        <small>Total paid</small>
                     </div>
                 </div>
             </div>

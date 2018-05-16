@@ -349,9 +349,9 @@ class Estimate extends Admin_Controller {
             return(admin_url() . 'invoice');
         }
 //        $data['page'] = "admin/estimate/pdf";
-        
-        $data['invoiceData'] = $invoiceData = $this->this_model->getInvoiceById($estimateId);
-        $data['invoicepaymentData'] = $this->this_model->getInvoicePaymentDetails($estimateId);
+//        echo $estimateId;exit;
+        $data['invoiceData'] = $invoiceData = $this->this_model->getEstimateById($estimateId);
+        $data['invoicepaymentData'] = $this->this_model->getEstimatePaymentDetails($estimateId);
       
         $estimateNumber = trim($invoiceData[0]->ref_no);
         

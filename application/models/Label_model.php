@@ -156,6 +156,31 @@ class Label_model extends My_model {
         return $json_response;
     }
 
+    function getLabelinfo($companyId){
+        $data['select'] = ['lab.id', 'lab.title', 'lab.company_id'];
+        $data['table'] = TABLE_LABEL.' as lab';
+        $data['where'] = ['lab.company_id' => $companyId];
+        $result = $this->selectRecords($data);
+        $json_encode = json_encode($result);
+        $json_decodeArr = json_decode($json_encode,true);
+        $finalArr = array();
+        
+        for($i=0;$i<count($json_decodeArr);$i++)
+        {
+            $data['select'] = ['li.item_date', 'li.item_value'];
+            $data['table'] = TABLE_LABEL_ITEM.' as li';
+            $data['where'] = ['li.label_id' => $json_decodeArr[$i]['id']];
+            $data['order'] = 'li.id desc';
+            $data['limit'] = '1,1';
+            $resultArr = $this->selectRecords($data); 
+            $finalArr[$i]['id'] = $json_decodeArr[$i]['id'];
+            $finalArr[$i]['title'] = $json_decodeArr[$i]['title'];
+            $finalArr[$i]['company_id'] = $json_decodeArr[$i]['company_id'];
+            $finalArr[$i]['item_date'] = $resultArr[0]->item_date;
+            $finalArr[$i]['item_value'] = $resultArr[0]->item_value; 
+        }
+        return $finalArr;
+    }
 }
 
 ?>
