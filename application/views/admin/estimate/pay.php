@@ -1,6 +1,6 @@
 <div class="wrapper wrapper-content white-bg m-t">
     <div class=" animated fadeInRightBig">
-        <form method="post" class="form-horizontal"  enctype="multipart/form-data"  action="<?= admin_url('estimate/pay/') . $estimateId; ?>" id='invoicePayment'>
+        <form method="post" class="form-horizontal"  enctype="multipart/form-data"  action="<?= admin_url('estimate/pay/') . $estimateId; ?>" id='estimatePayment'>
             <div class="form-group headingmain">						
                 <h2 class="title" style="margin:10px"> Payment Details</h2>								
             </div>

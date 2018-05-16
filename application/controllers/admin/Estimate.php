@@ -100,7 +100,7 @@ class Estimate extends Admin_Controller {
         );
         $clientId = '';
         $data['client_list'] = $this->Client_model->getReporterDetail($clientId);
-        $data['invoiceData'] = $this->this_model->getEstimateById($estimateId);
+        $data['estimateData'] = $this->this_model->getEstimateById($estimateId);
 
         if ($this->input->post()) {
 //            print_r($this->input->post());
@@ -331,7 +331,7 @@ class Estimate extends Admin_Controller {
            if ($mailSend) {
                 $json_response['status'] = 'success';
                 $json_response['message'] = 'Payment Mail successfully send.';
-                $json_response['redirect'] = admin_url() . 'invoice/view/' . $id;
+                $json_response['redirect'] = admin_url() . 'estimate/view/' . $id;
             } else {
                 $json_response['status'] = 'error';
                 $json_response['message'] = 'Something went wrong.';
