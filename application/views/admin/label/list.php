@@ -40,7 +40,7 @@
                                         <td>
                                             <a data-toggle="modal" title="Edit" data-label-id="<?php echo $labelArray[$i]->id; ?>" class="editPopup"><i class="fa fa-edit text-navy"></i></a>
                                             <a data-toggle="modal" title="Delete" data-target="#myModal_autocomplete"  class="deleteLabel" data-url="<?php echo admin_url().'label/deleteLabel' ?>" data-id="<?php echo $labelArray[$i]->id; ?>" ><i class="fa fa-close text-navy"></i></a>        
-                                            <a data-toggle="modal" title="add Item"  data-id="<?php echo $labelArray[$i]->id; ?>"  data-target="#addItemModel"  class="itemModel" ><i class="fa fa-anchor text-navy"></i></a>        
+                                            <a data-toggle="modal" title="Add Item"  data-id="<?php echo $labelArray[$i]->id; ?>"  data-target="#addItemModel"  class="itemModel" ><i class="fa fa-anchor text-navy"></i></a>        
                                         </td>
                                     </tr>
                                 <?php } ?>
@@ -89,7 +89,7 @@
                         <label class="col-sm-3 control-label">Company</label>
                         <div class="input-group col-sm-8">
                             <select class="form-control m-b" name="company_id">
-                                <option value="">- Select Country -</option>
+                                <option value="">- Select Client -</option>
                                 <?php for ($i = 0; $i < count($companyName); $i++) { ?>
                                     <option value="<?= $companyName[$i]->companyId;?>"><?= $companyName[$i]->comapnyName;?></option>
                                 <?php } ?>

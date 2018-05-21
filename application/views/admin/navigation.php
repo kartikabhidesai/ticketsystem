@@ -32,16 +32,16 @@
                 <a href="<?= admin_url() . 'tickets'; ?>"><i class="fa fa-ticket"></i> <span class="nav-label">Tickets</span></a>
             </li>
             <li class="<?= $sale; ?>">
-                <a href=""><i class="fa fa-gear"></i> <span class="nav-label">Sale</span> <span class="fa arrow"></span></a>
+                <a href=""><i class="fa fa-gear"></i> <span class="nav-label">Sales</span> <span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
-                    <li class="<?= $invoice,$add,$pay; ?>"><a href="<?php echo admin_url('invoice'); ?>">Invoice</a></li>
+                    <li class="<?= $invoice,$add,$pay; ?>"><a href="<?php echo admin_url('invoice'); ?>">Invoices</a></li>
                 </ul>
                 <ul class="nav nav-second-level">
-                    <li class="<?= $estimate,$pay; ?>"><a href="<?php echo admin_url('estimate'); ?>">Estimate</a></li>
+                    <li class="<?= $estimate,$pay; ?>"><a href="<?php echo admin_url('estimate'); ?>">Estimates</a></li>
                 </ul>
             </li>
             <li class="<?= $label; ?>">
-                <a href="<?= admin_url() . 'label'; ?>"><i class="fa fa-ticket"></i> <span class="nav-label">Label</span></a>
+                <a href="<?= admin_url() . 'label'; ?>"><i class="fa fa-ticket"></i> <span class="nav-label">Labels</span></a>
             </li>
             <li class="<?= $setting; ?>">
                 <a href=""><i class="fa fa-gear"></i> <span class="nav-label">Setting</span> <span class="fa arrow"></span></a>

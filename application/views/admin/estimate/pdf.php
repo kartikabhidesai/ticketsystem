@@ -13,7 +13,7 @@
                 <td colspan="2" style="width: 40%;">
                     <table border="0" cellspacing="3" cellpadding="0" style="width: 100%">
                         <tr>
-                            <td colspan="2" style="text-align: right; font-size: 22px; padding-bottom: 10px"><b>Invoice</b></td>
+                            <td colspan="2" style="text-align: right; font-size: 22px; padding-bottom: 10px"><b>Estimate</b></td>
                         </tr>
                        <tr>
                             <td style="color: #CB080E;font-size: 12px; font-weight: 600; text-align: right;text-transform: uppercase;">reference:</td>

@@ -103,7 +103,7 @@ var Label = function() {
         var form = $('#addItem');
         var rules = {
             item_date: {required: true},
-            item_value: {required: true, number: true},
+            item_value: {required: true},
         };
         handleFormValidate(form, rules, function(form) {
             handleAjaxFormSubmit(form);
