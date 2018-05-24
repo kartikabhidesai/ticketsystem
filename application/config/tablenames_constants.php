@@ -25,3 +25,5 @@ define("TABLE_ESTIMATE_DETAILS", "estimate_details");
 define("TABLE_ESTIMATE_HISTORY", "estimate_history");
 define("TABLE_ESTIMATE_PAYMENT", "estimate_payment");
 define("TABLE_ESTIMATE_EXPENSE", "estimate_expense");
+define("TABLE_DOCUMENT", "document");
+define("TABLE_DOCUMENT_ITEM", "document_item");
