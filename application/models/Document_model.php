@@ -183,6 +183,28 @@ class Document_model extends My_model {
         }
         return $finalArr;
     }
+    
+    
+    function getClientDocumentDetail($companyId) {
+        $data['select'] = ['docsItem.document_date','docsItem.document_value',
+            'docs.id', 'docs.document_name', 'docs.company_id',
+            'cmp.name as company_name', 'docs.dt_created',
+        ];
+        $data['table'] = TABLE_DOCUMENT . ' docs';
+        $data['join'] = [
+            TABLE_COMPANY . ' as cmp' => [
+                'cmp.id = docs.company_id',
+                'LEFT',
+            ],
+            TABLE_DOCUMENT_ITEM . ' as docsItem' => [
+                'docsItem.document_id = docs.id',
+                'LEFT',
+            ],
+        ];
+        $data['where'] = ['docs.company_id' => $companyId];
+        $result = $this->selectFromJoin($data);
+        return $result;
+    }
 }
 
 ?>

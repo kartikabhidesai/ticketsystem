@@ -28,6 +28,9 @@
             <li class="<?= $ticket; ?>">
                 <a href="<?= client_url(); ?>tickets"><i class="fa fa-ticket"></i> <span class="nav-label">Tickets</span></a>
             </li>
+<!--            <li class="<?= $document; ?>">
+                <a href="<?= client_url() . 'document'; ?>"><i class="fa fa-file-code-o"></i> <span class="nav-label">Document</span></a>
+            </li>-->
               <li class="<?= $sale; ?>"  class="<?= $invoice,$add,$pay; ?>">
                 <a href="<?php echo client_url('invoice'); ?>"><i class="fa fa-gear"></i><span class="nav-label">Invoice</span></a>
                 <!--<a href=""><i class="fa fa-gear"></i> <span class="nav-label">Sale</span> <span class="fa arrow"></span></a>-->
