@@ -89,7 +89,25 @@ var Document = function() {
             handleAjaxFormSubmit(form);
         });
     }
-    
+    var rowForm = function() {
+        var form = $('#addRows');
+        var rules = {
+            rows: {required: true},
+        };
+        handleFormValidate(form, rules, function(form) {
+            handleAjaxFormSubmit(form);
+        });
+    }
+    var columnForm = function() {
+        var form = $('#addColumn');
+        var rules = {
+            column: {required: true},
+        };
+        handleFormValidate(form, rules, function(form) {
+            handleAjaxFormSubmit(form);
+        });
+    }
+
     var editLabel = function() {
         var form = $('#editDocument');
         var rules = {
@@ -122,6 +140,11 @@ var Document = function() {
             $('#btndelete').attr('data-url', labelUrl);
             $('#btndelete').attr('data-id', labelInfoId);
         });
+        $('.getId').click(function() {
+            var docsId = $(this).attr('data-id');
+            $('.docsId').val(docsId);
+        });
+
         $('.itemModel').click(function() {
             var docsId = $(this).attr('data-id');
             $('.docsId').val(docsId);
@@ -131,6 +154,35 @@ var Document = function() {
                 var output = JSON.parse(output);
                 $('.appendHtml').html(output);
 
+            });
+        });
+        $('.columnModel').click(function() {
+            var docsId = $(this).attr('data-id');
+            $('.docsId').val(docsId);
+            var url = baseurl + 'admin/document/getColumnData';
+            var data = {docsId: docsId};
+            ajaxcall(url, data, function(output) {
+                var output = JSON.parse(output);
+                $('.appendColumnHtml').html(output);
+            });
+        });
+
+        $('body').on('click', '.deleteRow', function() {
+            $('#addRowModel').modal('hide');
+            var rowId = $(this).attr('data-id');
+            var labelUrl = $(this).attr('data-url');
+            $('#btndelete').attr('data-url', labelUrl);
+            $('#btndelete').attr('data-id', rowId);
+        });
+        
+        $('.rowModel').click(function() {
+            var docsId = $(this).attr('data-id');
+            $('.docsId').val(docsId);
+            var url = baseurl + 'admin/document/getRowData';
+            var data = {docsId: docsId};
+            ajaxcall(url, data, function(output) {
+                var output = JSON.parse(output);
+                $('.appendRowHtml').html(output);
             });
         });
         $('#data_1 .input-group.date').datepicker({
@@ -184,6 +236,8 @@ var Document = function() {
         documentList: function() {
             handelDocumenlist();
             newDocument();
+            rowForm();
+            columnForm();
             editLabel();
             manageItem();
             gneral();

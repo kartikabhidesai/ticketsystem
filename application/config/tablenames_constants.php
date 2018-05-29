@@ -27,3 +27,5 @@ define("TABLE_ESTIMATE_PAYMENT", "estimate_payment");
 define("TABLE_ESTIMATE_EXPENSE", "estimate_expense");
 define("TABLE_DOCUMENT", "document");
 define("TABLE_DOCUMENT_ITEM", "document_item");
+define("TABLE_DOCUMENT_ROW", "document_row");
+define("TABLE_DOCUMENT_COLUMN", "document_column");

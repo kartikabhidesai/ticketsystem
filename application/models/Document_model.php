@@ -158,35 +158,33 @@ class Document_model extends My_model {
         return $json_response;
     }
 
-    function getLabelinfo($companyId){
+    function getLabelinfo($companyId) {
         $data['select'] = ['lab.id', 'lab.title', 'lab.company_id'];
-        $data['table'] = TABLE_LABEL.' as lab';
+        $data['table'] = TABLE_LABEL . ' as lab';
         $data['where'] = ['lab.company_id' => $companyId];
         $result = $this->selectRecords($data);
         $json_encode = json_encode($result);
-        $json_decodeArr = json_decode($json_encode,true);
+        $json_decodeArr = json_decode($json_encode, true);
         $finalArr = array();
-        
-        for($i=0;$i<count($json_decodeArr);$i++)
-        {
+
+        for ($i = 0; $i < count($json_decodeArr); $i++) {
             $data['select'] = ['li.item_date', 'li.item_value'];
-            $data['table'] = TABLE_LABEL_ITEM.' as li';
+            $data['table'] = TABLE_LABEL_ITEM . ' as li';
             $data['where'] = ['li.label_id' => $json_decodeArr[$i]['id']];
             $data['order'] = 'li.id desc';
             $data['limit'] = '1,1';
-            $resultArr = $this->selectRecords($data); 
+            $resultArr = $this->selectRecords($data);
             $finalArr[$i]['id'] = $json_decodeArr[$i]['id'];
             $finalArr[$i]['title'] = $json_decodeArr[$i]['title'];
             $finalArr[$i]['company_id'] = $json_decodeArr[$i]['company_id'];
             $finalArr[$i]['item_date'] = $resultArr[0]->item_date;
-            $finalArr[$i]['item_value'] = $resultArr[0]->item_value; 
+            $finalArr[$i]['item_value'] = $resultArr[0]->item_value;
         }
         return $finalArr;
     }
-    
-    
+
     function getClientDocumentDetail($companyId) {
-        $data['select'] = ['docsItem.document_date','docsItem.document_value',
+        $data['select'] = ['docsItem.document_date', 'docsItem.document_value',
             'docs.id', 'docs.document_name', 'docs.company_id',
             'cmp.name as company_name', 'docs.dt_created',
         ];
@@ -205,6 +203,107 @@ class Document_model extends My_model {
         $result = $this->selectFromJoin($data);
         return $result;
     }
+
+    function addColumn($postData) {
+        $data['insert']['column_name'] = $postData['column'];
+        $data['insert']['docs_id'] = $postData['docsId'];
+        $data['insert']['dt_created'] = DATE_TIME;
+        $data['table'] = TABLE_DOCUMENT_COLUMN;
+        $result = $this->insertRecord($data);
+        unset($data);
+        if ($result) {
+            $json_response['status'] = 'success';
+            $json_response['message'] = 'Comumn update successfully';
+            $json_response['redirect'] = admin_url() . 'document';
+        } else {
+            $json_response['status'] = 'error';
+            $json_response['message'] = 'Something went wrong';
+        }
+        return $json_response;
+    }
+
+    function addLabelItem($postData) {
+//        print_r($postData);exit;
+        $data ['where'] = [
+            'document_value' => $postData['item_value']
+        ];
+        $data ['table'] = TABLE_DOCUMENT_ITEM;
+        $response = $this->isDuplicate($data);
+        if ($response > 0) {
+            $json_response['status'] = 'error';
+            $json_response['message'] = 'Value already exists';
+        } else {
+            $data['insert']['document_date'] = date('Y-m-d', strtotime($postData['item_date']));
+            $data['insert']['document_value'] = $postData['item_value'];
+            $data['insert']['document_id'] = $postData['docsId'];
+            $data['insert']['dt_created'] = DATE_TIME;
+            $data['insert']['dt_updated'] = DATE_TIME;
+            $data['table'] = TABLE_DOCUMENT_ITEM;
+            $labelId = $this->insertRecord($data);
+            unset($data);
+            if ($labelId) {
+                $json_response['status'] = 'success';
+                $json_response['message'] = 'Document Item add successfully';
+                $json_response['redirect'] = admin_url() . 'document';
+            } else {
+                $json_response['status'] = 'error';
+                $json_response['message'] = 'Something went wrong';
+            }
+        }
+
+        return $json_response;
+    }
+
+    function addRowData($postData) {
+//        print_r($postData);
+//        exit;
+        $rowArray = $postData['rows'];
+        foreach ($rowArray as $row => $arr) {
+            foreach ($arr as $key => $value) {
+                $data['insert']['row_value'] = $value;
+                $data['insert']['column_id'] = $key;
+                $data['insert']['docs_id'] = $postData['docsId'];
+                $data['insert']['rowcount'] = 0;
+                $data['insert']['dt_created'] = DATE_TIME;
+                $data['table'] = TABLE_DOCUMENT_ROW;
+                $result = $this->insertRecord($data);
+                $lastId = $this->db->insert_id();
+                unset($data);
+            }
+        }
+        return TRUE;
+    }
+
+    function getRowData($postData) {
+        $postData['docsId'];
+        $data['select'] = ['docsClmn.*', 'docsRow.row_value','docsRow.id as rowId'
+        ];
+        $data['table'] = TABLE_DOCUMENT_COLUMN . ' docsClmn';
+        $data['join'] = [
+            TABLE_DOCUMENT_ROW . ' as docsRow' => [
+                'docsRow.column_id = docsClmn.id',
+                'LEFT',
+            ],
+        ];
+        $data['where'] = ['docsClmn.docs_id' => $postData['docsId']];
+        $result = $this->selectFromJoin($data);
+        return $result;
+    }
+
+    function deleterow($data) {
+        $this->db->where('id', $data['docsId']);
+        $result = $this->db->delete(TABLE_DOCUMENT_ROW);
+        if ($result) {
+            $json_response['status'] = 'success';
+            $json_response['message'] = 'Document Row delete successfully';
+            $json_response['jscode'] = 'setTimeout(function(){location.reload();},1000)';
+        } else {
+            $json_response['status'] = 'error';
+            $json_response['message'] = 'Something went wrong';
+        }
+        return $json_response;
+    }
+
 }
 
 ?>
