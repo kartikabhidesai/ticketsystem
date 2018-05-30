@@ -175,6 +175,7 @@ var Document = function() {
             $('#btndelete').attr('data-id', rowId);
         });
 //        $('body').on('click', '.appendRow', function() {
+//            alert('sssss')
 //            var html = $('.rowAppendView').html();
 //            $('.rowContriller').prepend(html);
 //        });
