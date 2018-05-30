@@ -174,7 +174,11 @@ var Document = function() {
             $('#btndelete').attr('data-url', labelUrl);
             $('#btndelete').attr('data-id', rowId);
         });
-        
+//        $('body').on('click', '.appendRow', function() {
+//            var html = $('.rowAppendView').html();
+//            $('.rowContriller').prepend(html);
+//        });
+
         $('.rowModel').click(function() {
             var docsId = $(this).attr('data-id');
             $('.docsId').val(docsId);

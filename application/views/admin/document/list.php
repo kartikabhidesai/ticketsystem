@@ -187,8 +187,12 @@
             </div>
             <form method="post" class="form-horizontal" action="<?php echo admin_url() . 'document/addRowData' ?>" enctype="multipart/form-data" id="addRows" novalidate="novalidate">
                 <div class="modal-body">
-                    <input name="docsId" id="docsId" class="form-control docsId" type="hidden">
-                    <div class="appendRowHtml"></div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <input name="docsId" id="docsId" class="form-control docsId" type="hidden">
+                            <div class="appendRowHtml"></div>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
@@ -208,20 +212,36 @@
             </div>
             <form method="post" class="form-horizontal" action="<?php echo admin_url() . 'document/addColumn' ?>" enctype="multipart/form-data" id="addColumn" novalidate="novalidate">
                 <div class="modal-body">
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label"> label Name*</label>
-                        <div class="input-group col-sm-7">
-                            <input name="column" id="column" placeholder="Enter Column" class="column form-control" type="text">
-                            <input name="docsId" id="docsId" class="form-control docsId" type="hidden">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label"> label Name*</label>
+                                <div class="input-group col-sm-5">
+                                    <input name="column" id="column" placeholder="Enter Column" class="column form-control" type="text">
+                                    <input name="docsId" id="docsId" class="form-control docsId" type="hidden">
+                                </div>
+<!--                                <div class="col-sm-1 btn" style="margin-left: 360px;margin-top: -37px;">
+                                    <button class="btn btn-success appendRow" type="button"><i class="fa fa-plus"></i></button>
+                                </div>-->
+                            </div>
+                            <div class="rowContriller"></div>
+                            <div class="appendColumnHtml"></div>
                         </div>
                     </div>
-                    <div class="appendColumnHtml"></div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
                     <button  type="submit" class="btn btn-primary">Save</button>
                 </div>
             </form>
+        </div>
+    </div>
+</div>
+<div class="rowAppendView" style="display: none;">
+    <div class="form-group">
+        <label class="col-sm-3 control-label"> label Name*</label>
+        <div class="input-group col-sm-5">
+            <input name="column[]" id="column" placeholder="Enter Column" class="column form-control" type="text">
         </div>
     </div>
 </div>
