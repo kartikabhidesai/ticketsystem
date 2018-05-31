@@ -210,12 +210,12 @@ class Document_model extends My_model {
 //        $rowArray = $postData['column'];
 //        foreach ($rowArray as $row => $value) {
 //            print_r($value);exit;
-            $data['insert']['column_name'] = $postData['column'];
-            $data['insert']['docs_id'] = $postData['docsId'];
-            $data['insert']['dt_created'] = DATE_TIME;
-            $data['table'] = TABLE_DOCUMENT_COLUMN;
-            $result = $this->insertRecord($data);
-            unset($data);
+        $data['insert']['column_name'] = $postData['column'];
+        $data['insert']['docs_id'] = $postData['docsId'];
+        $data['insert']['dt_created'] = DATE_TIME;
+        $data['table'] = TABLE_DOCUMENT_COLUMN;
+        $result = $this->insertRecord($data);
+        unset($data);
 //        }
 
         if ($result) {
@@ -267,17 +267,17 @@ class Document_model extends My_model {
         $rowArray = $postData['rows'];
         foreach ($rowArray as $row => $arr) {
             foreach ($arr as $key => $value) {
-                if (!empty($value)) {
-                    $data['insert']['row_value'] = $value;
-                    $data['insert']['column_id'] = $key;
-                    $data['insert']['docs_id'] = $postData['docsId'];
-                    $data['insert']['rowcount'] = 0;
-                    $data['insert']['dt_created'] = DATE_TIME;
-                    $data['table'] = TABLE_DOCUMENT_ROW;
-                    $result = $this->insertRecord($data);
-                    $lastId = $this->db->insert_id();
-                    unset($data);
-                }
+//                if (!empty($value)) {
+                $data['insert']['row_value'] = $value;
+                $data['insert']['column_id'] = $key;
+                $data['insert']['docs_id'] = $postData['docsId'];
+                $data['insert']['rowcount'] = 0;
+                $data['insert']['dt_created'] = DATE_TIME;
+                $data['table'] = TABLE_DOCUMENT_ROW;
+                $result = $this->insertRecord($data);
+                $lastId = $this->db->insert_id();
+                unset($data);
+//                }
             }
         }
         return TRUE;
@@ -285,6 +285,17 @@ class Document_model extends My_model {
 
     function getRowData($postData) {
         $postData['docsId'];
+//        $dataColumn = $this->db->get_where(TABLE_DOCUMENT_COLUMN, array('docs_id' => $postData['docsId']))->result_array();
+////        print_r($dataColumn);
+////        exit;
+//        $dataRow = array();
+//        for ($j = 0; $j < count($dataColumn); $j++) {
+////            print_r();exit;
+//            $dataRow[$j] = $this->db->get_where(TABLE_DOCUMENT_ROW, array('docs_id' => $postData['docsId']))->result_array();
+////            $dataRow[$j] = $this->db->get_where(TABLE_DOCUMENT_ROW, array('column_id' => $dataColumn[$j]['id']))->result_array();
+//        }
+//        print_r($dataRow);exit;
+
         $data['select'] = ['docsClmn.*', 'docsRow.row_value', 'docsRow.id as rowId'
         ];
         $data['table'] = TABLE_DOCUMENT_COLUMN . ' docsClmn';
