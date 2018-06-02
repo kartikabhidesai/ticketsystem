@@ -262,8 +262,13 @@ class Document_model extends My_model {
     }
 
     function addRowData($postData) {
-//        print_r($postData);
-//        exit;
+        $data['select'] = ['rowcount'];
+        $data['table'] = TABLE_DOCUMENT_ROW;
+        $data['where'] = ['docs_id' => $postData['docsId']];
+        $data['order'] = 'rowcount DESC';
+        $rowCount = $this->selectRecords($data);
+        
+        
         $rowArray = $postData['rows'];
         foreach ($rowArray as $row => $arr) {
             foreach ($arr as $key => $value) {
@@ -271,7 +276,7 @@ class Document_model extends My_model {
                 $data['insert']['row_value'] = $value;
                 $data['insert']['column_id'] = $key;
                 $data['insert']['docs_id'] = $postData['docsId'];
-                $data['insert']['rowcount'] = 0;
+                $data['insert']['rowcount'] = $rowCount[0]->rowcount + 1;
                 $data['insert']['dt_created'] = DATE_TIME;
                 $data['table'] = TABLE_DOCUMENT_ROW;
                 $result = $this->insertRecord($data);
@@ -296,7 +301,7 @@ class Document_model extends My_model {
 //        }
 //        print_r($dataRow);exit;
 
-        $data['select'] = ['docsClmn.*', 'docsRow.row_value', 'docsRow.id as rowId'
+        $data['select'] = ['docsClmn.*', 'docsRow.row_value','docsRow.rowcount', 'docsRow.id as rowId'
         ];
         $data['table'] = TABLE_DOCUMENT_COLUMN . ' docsClmn';
         $data['join'] = [

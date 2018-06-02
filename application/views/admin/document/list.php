@@ -41,6 +41,7 @@
                                             <!--<a data-toggle="modal" title="Add Item"  data-id="<?php echo $docsArray[$i]->id; ?>"  data-target="#addItemModel"  class="itemModel" ><i class="fa fa-anchor text-navy"></i></a>-->        
                                             <a data-toggle="modal" title="Add Column"  data-id="<?php echo $docsArray[$i]->id; ?>"  data-target="#addColumnModel"  class="columnModel" ><i class="fa fa-columns text-navy"></i></a>        
                                             <a data-toggle="modal" title="Add Rows"  data-id="<?php echo $docsArray[$i]->id; ?>"  data-target="#addRowModel"  class="rowModel" ><i class="fa fa-plus text-navy"></i></a>        
+                                            <a data-toggle="modal" title="List Rows"  data-id="<?php echo $docsArray[$i]->id; ?>"  data-target="#listRowModel"  class="rowListModel" ><i class="fa fa-laptop text-navy"></i></a>        
                                         </td>
                                     </tr>
                                 <?php } ?>
@@ -222,6 +223,24 @@
                     <button  type="submit" class="btn btn-primary">Save</button>
                 </div>
             </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal inmodal" id="listRowModel" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content animated bounceInRight">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">Lit Rows</h4>
+            </div>
+                <div class="modal-body">
+                    <input name="docsId" id="docsId" class="form-control docsId" type="hidden">
+                    <div class="appendRowListHtml"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+                </div>
         </div>
     </div>
 </div>

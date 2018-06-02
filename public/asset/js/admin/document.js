@@ -183,13 +183,25 @@ var Document = function() {
         $('.rowModel').click(function() {
             var docsId = $(this).attr('data-id');
             $('.docsId').val(docsId);
-            var url = baseurl + 'admin/document/getRowData';
+            var url = baseurl + 'admin/document/getColumnaddRowData';
             var data = {docsId: docsId};
             ajaxcall(url, data, function(output) {
                 var output = JSON.parse(output);
                 $('.appendRowHtml').html(output);
             });
         });
+        
+        $('.rowListModel').click(function() {
+            var docsId = $(this).attr('data-id');
+            $('.docsId').val(docsId);
+            var url = baseurl + 'admin/document/getRowList';
+            var data = {docsId: docsId};
+            ajaxcall(url, data, function(output) {
+                var output = JSON.parse(output);
+                $('.appendRowListHtml').html(output);
+            });
+        });
+        
         $('#data_1 .input-group.date').datepicker({
             todayBtn: "linked",
             keyboardNavigation: false,

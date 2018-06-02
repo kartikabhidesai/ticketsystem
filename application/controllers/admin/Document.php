@@ -151,15 +151,24 @@ class Document extends Admin_Controller {
         exit();
     }
 
-    public function getRowData() {
-        $data['columnArray'] = $this->this_model->getRowData($this->input->post());
+    public function getColumnaddRowData() {
+//        $data['columnArray'] = $this->this_model->getRowData($this->input->post());
 //        print_r($this->input->post());exit;
-//        $data['columnArray'] = $this->db->get_where(TABLE_DOCUMENT_COLUMN, array('docs_id' => $this->input->post('docsId')))->result_array();
-        $html = $this->load->view('admin/document/row_list', $data, TRUE);
+        $data['columnArray'] = $this->db->get_where(TABLE_DOCUMENT_COLUMN, array('docs_id' => $this->input->post('docsId')))->result_array();
+//        print_r($data['columnArray']);exit;
+        $html = $this->load->view('admin/document/row_add', $data, TRUE);
         echo json_encode($html);
         exit();
     }
 
+    public function getRowList() {
+        $data['rowArray'] = $this->this_model->getRowData($this->input->post());
+        $data['columnArray'] = $this->db->get_where(TABLE_DOCUMENT_COLUMN, array('docs_id' => $this->input->post('docsId')))->result_array();
+        $html = $this->load->view('admin/document/row_list', $data, TRUE);
+        echo json_encode($html);
+        exit();
+    }
+    
     public function deleterow() {
         if ($this->input->post()) {
             $result = $this->this_model->deleterow($this->input->post());
