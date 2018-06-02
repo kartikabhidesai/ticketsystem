@@ -267,8 +267,8 @@ class Document_model extends My_model {
         $data['where'] = ['docs_id' => $postData['docsId']];
         $data['order'] = 'rowcount DESC';
         $rowCount = $this->selectRecords($data);
-        
-        
+
+
         $rowArray = $postData['rows'];
         foreach ($rowArray as $row => $arr) {
             foreach ($arr as $key => $value) {
@@ -288,7 +288,7 @@ class Document_model extends My_model {
         return TRUE;
     }
 
-    function getRowData($postData) {
+    function getRowData($postData, $clientId = NULL) {
         $postData['docsId'];
 //        $dataColumn = $this->db->get_where(TABLE_DOCUMENT_COLUMN, array('docs_id' => $postData['docsId']))->result_array();
 ////        print_r($dataColumn);
@@ -301,7 +301,7 @@ class Document_model extends My_model {
 //        }
 //        print_r($dataRow);exit;
 
-        $data['select'] = ['docsClmn.*', 'docsRow.row_value','docsRow.rowcount', 'docsRow.id as rowId'
+        $data['select'] = ['docsClmn.*', 'docsRow.row_value', 'docsRow.rowcount', 'docsRow.id as rowId'
         ];
         $data['table'] = TABLE_DOCUMENT_COLUMN . ' docsClmn';
         $data['join'] = [
@@ -309,9 +309,48 @@ class Document_model extends My_model {
                 'docsRow.column_id = docsClmn.id',
                 'LEFT',
             ],
+            TABLE_DOCUMENT . ' as docs' => [
+                'docs.id = docsClmn.docs_id',
+                'LEFT',
+            ],
         ];
+        if (!empty($clientId)) {
+            $data['where'] = ['docs.company_id' => $clientId];
+        }
         $data['where'] = ['docsClmn.docs_id' => $postData['docsId']];
         $result = $this->selectFromJoin($data);
+        return $result;
+    }
+
+    function getRowData1($postData, $clientId = NULL) {
+        $postData['docsId'];
+        $this->db->select('docsClmn.*,docsRow.row_value,docsRow.rowcount,docsRow.id as rowId');
+        $this->db->from(TABLE_DOCUMENT_COLUMN . ' docsClmn');
+        $this->db->join(TABLE_DOCUMENT_ROW . ' as docsRow', 'docsRow.column_id = docsClmn.id', 'left');
+        $this->db->join(TABLE_DOCUMENT . ' as docs', 'docs.id = docsClmn.docs_id','LEFT');
+        $this->db->where('docs.company_id', $clientId);
+        $this->db->where('docsClmn.docs_id', $postData['docsId']);
+        $result = $this->db->get()->result();
+
+//        $data['select'] = ['docsClmn.*', 'docsRow.row_value', 'docsRow.rowcount', 'docsRow.id as rowId'];
+//        $data['table'] = TABLE_DOCUMENT_COLUMN . ' docsClmn';
+//        $data['join'] = [
+//            TABLE_DOCUMENT_ROW . ' as docsRow' => [
+//                'docsRow.column_id = docsClmn.id',
+//                'LEFT',
+//            ],
+//            TABLE_DOCUMENT . ' as docs' => [
+//                'docs.id = docsClmn.docs_id',
+//                'LEFT',
+//            ],
+//        ];
+//        if (!empty($clientId)) {
+//            $data['where'] = ['docs.company_id' => $clientId];
+//        }
+//        $data['where'] = ['docsClmn.docs_id' => $postData['docsId']];
+//        $result = $this->selectFromJoin($data);
+//        print_r($result);
+//        exit;
         return $result;
     }
 

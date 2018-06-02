@@ -192,6 +192,7 @@ var Document = function() {
         });
         
         $('.rowListModel').click(function() {
+             $('.appendRowListHtml').empty();
             var docsId = $(this).attr('data-id');
             $('.docsId').val(docsId);
             var url = baseurl + 'admin/document/getRowList';
