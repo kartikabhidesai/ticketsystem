@@ -30,6 +30,24 @@ class Document_model extends My_model {
         return $result;
     }
 
+    function getCompanyDocumentDetail($companyId) {
+        $data['select'] = [
+            'docs.id', 'docs.document_name', 'docs.company_id',
+            'cmp.name as company_name', 'docs.dt_created',
+        ];
+        $data['table'] = TABLE_DOCUMENT . ' docs';
+        $data['join'] = [
+            TABLE_COMPANY . ' as cmp' => [
+                'cmp.id = docs.company_id',
+                'LEFT',
+            ],
+        ];
+        $data['where'] = ['docs.company_id' => $companyId];
+        $result = $this->selectFromJoin($data);
+        return $result;
+    }
+
+    
     function addDocument($postData) {
         $data ['where'] = [
             'document_name' => $postData['document_name']
