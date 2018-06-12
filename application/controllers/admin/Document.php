@@ -176,6 +176,13 @@ class Document extends Admin_Controller {
             exit();
         }
     }
+    public function deleteColumn() {
+        if ($this->input->post()) {
+            $result = $this->this_model->deleteColumn($this->input->post());
+            echo json_encode($result);
+            exit();
+        }
+    }
 
 }
 

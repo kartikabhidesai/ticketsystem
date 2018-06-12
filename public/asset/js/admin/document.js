@@ -166,13 +166,52 @@ var Document = function() {
                 $('.appendColumnHtml').html(output);
             });
         });
+        $('#btndeleteColumn').click(function() {
+            var docsId = $(this).attr('data-id');
+            var url = baseurl + 'admin/document/deleteColumn';
+            var data = {docsId: docsId};
+            ajaxcall(url, data, function(output) {
+                handleAjaxResponse(output);
+                var output = JSON.parse(output);
+                $('#addColumnModel').modal('show');
+                $('#deleteColumnModel').modal('hide');
+                $('.hide_' + docsId).hide();
+            });
+        });
+        $('#btndeleteRow').click(function() {
+            var docsId = $(this).attr('data-id');
+            var rowCount = $(this).attr('data-count');
+            var url = baseurl + 'admin/document/deleteRow';
+            var data = {docsId: docsId, 'rowCount': rowCount};
+            ajaxcall(url, data, function(output) {
+                handleAjaxResponse(output);
+                var output = JSON.parse(output);
+                $('#listRowModel').modal('show');
+                $('#deleteRowModel').modal('hide');
+                $('.hide_' + rowCount).hide();
+            });
+        });
 
-        $('body').on('click', '.deleteRow', function() {
-            $('#addRowModel').modal('hide');
+        $(document).on('click', '.deleteRow', function(e) {
+            $('#listRowModel').modal('hide');
+            $('#deleteRowModel').modal('show');
             var rowId = $(this).attr('data-id');
             var labelUrl = $(this).attr('data-url');
-            $('#btndelete').attr('data-url', labelUrl);
-            $('#btndelete').attr('data-id', rowId);
+            var labelCount = $(this).attr('data-count');
+            $('#btndeleteRow').attr('data-url', labelUrl);
+            $('#btndeleteRow').attr('data-id', rowId);
+            $('#btndeleteRow').attr('data-count', labelCount);
+        });
+
+//         $('.deleteColumn').click(function() {
+        $(document).on('click', '.deleteColumn', function(e) {
+            var rowId = $(this).attr('data-id');
+            var labelUrl = $(this).attr('data-url');
+            $('#btndeleteColumn').attr('data-url', labelUrl);
+            $('#btndeleteColumn').attr('data-id', rowId);
+            $('#addColumnModel').modal('hide');
+            $('#deleteColumnModel').modal('show');
+
         });
         $('body').on('click', '.appendRow', function() {
             $('.appendRowData').show();
@@ -190,9 +229,9 @@ var Document = function() {
                 $('.appendRowHtml').html(output);
             });
         });
-        
+
         $('.rowListModel').click(function() {
-             $('.appendRowListHtml').empty();
+            $('.appendRowListHtml').empty();
             var docsId = $(this).attr('data-id');
             $('.docsId').val(docsId);
             var url = baseurl + 'admin/document/getRowList';
@@ -202,7 +241,7 @@ var Document = function() {
                 $('.appendRowListHtml').html(output);
             });
         });
-        
+
         $('#data_1 .input-group.date').datepicker({
             todayBtn: "linked",
             keyboardNavigation: false,

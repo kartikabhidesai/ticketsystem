@@ -373,12 +373,30 @@ class Document_model extends My_model {
     }
 
     function deleterow($data) {
-        $this->db->where('id', $data['docsId']);
+        $this->db->where('docs_id', $data['docsId']);
+        $this->db->where('rowCount', $data['rowCount']);
         $result = $this->db->delete(TABLE_DOCUMENT_ROW);
         if ($result) {
             $json_response['status'] = 'success';
-            $json_response['message'] = 'Document Row delete successfully';
-            $json_response['jscode'] = 'setTimeout(function(){location.reload();},1000)';
+            $json_response['message'] = 'Row delete successfully';
+//            $json_response['jscode'] = 'setTimeout(function(){location.reload();},1000)';
+        } else {
+            $json_response['status'] = 'error';
+            $json_response['message'] = 'Something went wrong';
+        }
+        return $json_response;
+    }
+    function deleteColumn($data) {
+        
+        $this->db->where('id', $data['docsId']);
+        $result = $this->db->delete(TABLE_DOCUMENT_COLUMN);
+        $this->db->where('column_id', $data['docsId']);
+        $this->db->delete(TABLE_DOCUMENT_ROW);
+        
+        if ($result) {
+            $json_response['status'] = 'success';
+            $json_response['message'] = 'Document Column delete successfully';
+//            $json_response['jscode'] = 'setTimeout(function(){location.reload();},1000)';
         } else {
             $json_response['status'] = 'error';
             $json_response['message'] = 'Something went wrong';
