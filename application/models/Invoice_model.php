@@ -477,9 +477,10 @@ class Invoice_model extends My_model {
         $data['where'] = ['inv.company_id' => $companyId];
         $data['table'] =  TABLE_INVOICE . ' as inv';
         $InvArr = $this->selectRecords($data);
+        $invoiceArr= explode(',', $InvArr[0]->invId);
         $data = '';
         $data['select'] = ['SUM(invDetail.total) as total'];
-        $data['where_in'] = array('invDetail.invoice_id'=>$InvArr[0]->invId);
+        $data['where_in'] = array('invDetail.invoice_id'=>$invoiceArr);
         $data['table'] = TABLE_INVOICE_DETAILS. ' as invDetail';
         $result = $this->selectRecords($data);
         return $result;
@@ -493,9 +494,9 @@ class Invoice_model extends My_model {
         $data['table'] =  TABLE_INVOICE . ' as inv';
         $InvArr = $this->selectRecords($data);
         $data = '';
-        
+        $invoiceArr = explode(',', $InvArr[0]->invId);
         $data['select'] = ['SUM(invPayment.amount) as totalPaidAmount'];
-        $data['where_in'] = array('invPayment.invoice_id'=>$InvArr[0]->invId);
+        $data['where_in'] = array('invPayment.invoice_id'=>$invoiceArr);
         $data['table'] =  TABLE_INVOICE_PAYMENT . ' as invPayment';
         $result = $this->selectRecords($data);
        // print_r($result);exit;
@@ -508,9 +509,9 @@ class Invoice_model extends My_model {
         $data['table'] =  TABLE_INVOICE . ' as inv';
         $InvArr = $this->selectRecords($data);
         $data = '';
-        
+        $invoiceArr = explode(',', $InvArr[0]->invId);
         $data['select'] = ['SUM(invExpense.total) as totalExpense'];
-        $data['where_in'] = array('invExpense.invoice_id',$InvArr[0]->invId);
+        $data['where_in'] = array('invExpense.invoice_id',$invoiceArr);
         $data['table'] =  TABLE_INVOICE_EXPENSE . ' as invExpense';
         $result = $this->selectRecords($data);
         return $result;
