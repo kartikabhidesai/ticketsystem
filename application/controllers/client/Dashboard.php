@@ -41,8 +41,8 @@ class Dashboard extends Client_Controller {
         $data['getExpAmount'] = $this->Invoice_model->totalClientexpAmount($companyId);
         $data['getLastInvoice'] = $this->Invoice_model->getLastInvoice($companyId);
         $data['getLabelinfo'] = $this->Label_model->getLabelinfo($companyId);
+        $data['lastInvoiceData'] = $this->Invoice_model->getLastUnpaidInvouce( $this->session->userdata['client_login']['companyId'],$client_id);
         
-        //print_r($data['getTicket']); exit();
         $this->load->view(CLIENT_LAYOUT, $data);
     }
 

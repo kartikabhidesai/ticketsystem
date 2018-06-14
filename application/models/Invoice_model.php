@@ -77,7 +77,7 @@ class Invoice_model extends My_model {
 //        print_r($result);exit;
         return $result;
     }
-    
+
     public function getCompanyInvoiceList($invoiceId = null, $companyId) {
         $data['select'] = ['inv.*', 'SUM(invDetail.total) as totalPrice',
 //            'SUM(invPayment.amount) as totalPaidAmount',
@@ -158,7 +158,7 @@ class Invoice_model extends My_model {
         $id = $query->id + 201;
         $length = strlen($id + 201);
         $code = ($length == 1) ? '000' . $id : (($length == 2) ? '00' . $id : (($length == 3) ? '0' . $id : $id));
-        return $invoiceFix.$code;
+        return $invoiceFix . $code;
 
 //        $newInvoice = '';
 //        $query = $this->db->from(TABLE_INVOICE)->order_by("id", "desc")->get()->row();
@@ -201,7 +201,7 @@ class Invoice_model extends My_model {
         ];
         $data['table'] = TABLE_INVOICE . ' as inv';
         $result = $this->selectFromJoin($data);
-        
+
         return $result;
     }
 
@@ -272,7 +272,7 @@ class Invoice_model extends My_model {
         }
         return $json_response;
     }
-    
+
     public function expenseDelete($data) {
         $this->db->where('id', $data['id']);
         $result = $this->db->delete(TABLE_INVOICE_EXPENSE);
@@ -411,7 +411,7 @@ class Invoice_model extends My_model {
         return true;
 //        return $mailSend;
     }
-    
+
     public function addExpenseDetails($postData) {
         $data['insert']['invoice_id'] = $postData['invoiceId'];
         $data['insert']['expense_name'] = $postData['item_name'];
@@ -430,7 +430,7 @@ class Invoice_model extends My_model {
             return false;
         }
     }
-    
+
     public function getInvoiceExpense($invoiceId) {
 
         $data['select'] = ['inv.*', 'invExpense.price', 'invExpense.expense_name',
@@ -447,84 +447,105 @@ class Invoice_model extends My_model {
         $data['groupBy'] = ['invExpense.id'];
         $data['table'] = TABLE_INVOICE . ' as inv';
         $result = $this->selectFromJoin($data);
-        
+
         return $result;
     }
-    
+
     public function totalAmount() {
         $data['select'] = ['SUM(invDetail.total) as total'];
-        $data['table'] = TABLE_INVOICE_DETAILS. ' as invDetail';
+        $data['table'] = TABLE_INVOICE_DETAILS . ' as invDetail';
         $result = $this->selectRecords($data);
         return $result;
     }
-    
+
     public function totalpaidAmount() {
         $data['select'] = ['SUM(invPayment.amount) as totalPaidAmount'];
-        $data['table'] =  TABLE_INVOICE_PAYMENT . ' as invPayment';
+        $data['table'] = TABLE_INVOICE_PAYMENT . ' as invPayment';
         $result = $this->selectRecords($data);
         return $result;
     }
-    
-    public function totalexpAmount(){
+
+    public function totalexpAmount() {
         $data['select'] = ['SUM(invExpense.total) as totalExpense'];
-        $data['table'] =  TABLE_INVOICE_EXPENSE . ' as invExpense';
+        $data['table'] = TABLE_INVOICE_EXPENSE . ' as invExpense';
         $result = $this->selectRecords($data);
         return $result;
     }
-    
-    public function totalClientAmount($companyId){
+
+    public function totalClientAmount($companyId) {
         $data['select'] = ['GROUP_CONCAT(inv.id,"") as invId'];
         $data['where'] = ['inv.company_id' => $companyId];
-        $data['table'] =  TABLE_INVOICE . ' as inv';
+        $data['table'] = TABLE_INVOICE . ' as inv';
         $InvArr = $this->selectRecords($data);
-        $invoiceArr= explode(',', $InvArr[0]->invId);
+        $invoiceArr = explode(',', $InvArr[0]->invId);
         $data = '';
         $data['select'] = ['SUM(invDetail.total) as total'];
-        $data['where_in'] = array('invDetail.invoice_id'=>$invoiceArr);
-        $data['table'] = TABLE_INVOICE_DETAILS. ' as invDetail';
+        $data['where_in'] = array('invDetail.invoice_id' => $invoiceArr);
+        $data['table'] = TABLE_INVOICE_DETAILS . ' as invDetail';
         $result = $this->selectRecords($data);
         return $result;
-        
-        
     }
-    
-    public function totalClientpaidAmount($companyId){
+
+    public function totalClientpaidAmount($companyId) {
         $data['select'] = ['GROUP_CONCAT(inv.id,"") as invId'];
         $data['where'] = ['inv.company_id' => $companyId];
-        $data['table'] =  TABLE_INVOICE . ' as inv';
+        $data['table'] = TABLE_INVOICE . ' as inv';
         $InvArr = $this->selectRecords($data);
         $data = '';
         $invoiceArr = explode(',', $InvArr[0]->invId);
         $data['select'] = ['SUM(invPayment.amount) as totalPaidAmount'];
-        $data['where_in'] = array('invPayment.invoice_id'=>$invoiceArr);
-        $data['table'] =  TABLE_INVOICE_PAYMENT . ' as invPayment';
+        $data['where_in'] = array('invPayment.invoice_id' => $invoiceArr);
+        $data['table'] = TABLE_INVOICE_PAYMENT . ' as invPayment';
         $result = $this->selectRecords($data);
-       // print_r($result);exit;
+        // print_r($result);exit;
         return $result;
     }
-    
+
     public function totalClientexpAmount($companyId) {
         $data['select'] = ['GROUP_CONCAT(inv.id,"") as invId'];
         $data['where'] = ['inv.company_id' => $companyId];
-        $data['table'] =  TABLE_INVOICE . ' as inv';
+        $data['table'] = TABLE_INVOICE . ' as inv';
         $InvArr = $this->selectRecords($data);
         $data = '';
         $invoiceArr = explode(',', $InvArr[0]->invId);
         $data['select'] = ['SUM(invExpense.total) as totalExpense'];
-        $data['where_in'] = array('invExpense.invoice_id',$invoiceArr);
-        $data['table'] =  TABLE_INVOICE_EXPENSE . ' as invExpense';
+        $data['where_in'] = array('invExpense.invoice_id', $invoiceArr);
+        $data['table'] = TABLE_INVOICE_EXPENSE . ' as invExpense';
         $result = $this->selectRecords($data);
         return $result;
     }
-    
-    public function getLastInvoice($companyId)
-    {
+
+    public function getLastInvoice($companyId) {
         $data['select'] = ['inv.ref_no'];
         $data['where'] = ['inv.company_id' => $companyId];
         $data['order'] = ["id", "desc"];
-        $data['table'] =  TABLE_INVOICE . ' as inv';
+        $data['table'] = TABLE_INVOICE . ' as inv';
         $InvArr = $this->selectRecords($data);
         return $InvArr;
+    }
+
+    public function getLastUnpaidInvouce($companyId, $client_id) {
+
+        $result = $this->db->order_by('id', 'DESC')->get_where(TABLE_INVOICE, array('company_id' => $companyId))->row_array();
+        
+        $data['select'] = ['SUM(invDetails.total) as total'];
+        $data['where'] = ['invDetails.invoice_id' => $result['id']];
+        $data['order'] = ["id", "desc"];
+        $data['groupBy'] = ['invDetails.invoice_id'];
+        $data['table'] = TABLE_INVOICE_DETAILS . ' as invDetails';
+        $totalAmount = $this->selectRecords($data);
+        
+        $data['select'] = ['SUM(invPayment.amount) as paidAmount'];
+        $data['where'] = ['invPayment.invoice_id' => $result['id']];
+        $data['order'] = ["id", "desc"];
+        $data['groupBy'] = ['invPayment.invoice_id'];
+        $data['table'] = TABLE_INVOICE_PAYMENT . ' as invPayment';
+        $paidAmount = $this->selectRecords($data);
+        $returnArr = array();
+        $returnArr['totalAmount'] = !empty($totalAmount[0]->total) ? $result['currency'] . number_format($totalAmount[0]->total,2) : $result['currency'] . '0.00';
+        $returnArr['paidAMount'] = !empty($paidAmount[0]->paidAmount) ? $result['currency'] . number_format($paidAmount[0]->paidAmount,2) : $result['currency'] . '0.00';
+        $returnArr['invoiceNumber'] = $result['ref_no'];
+        return $returnArr;
     }
 
 }

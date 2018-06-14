@@ -27,19 +27,21 @@
                     </div>
                 </div>
             </div>
-<!--            <div class="col-lg-3">
-                <div class="ibox float-e-margins">
-                    <div class="ibox-title">
-                        <span class="label label-primary pull-right">Today</span>
-                        <h5>Expenses</h5>
-                    </div>
-                    <div class="ibox-content">
-                        <h1 class="no-margins"><?=  number_format($getExpAmount[0]->totalExpense, 2, '.', '');  ?></h1>
-                        <div class="stat-percent font-bold text-navy">44% <i class="fa fa-level-up"></i></div>
-                        <small>Total expenses</small>
-                    </div>
-                </div>
-            </div>-->
+
+
+            <!--            <div class="col-lg-3">
+                            <div class="ibox float-e-margins">
+                                <div class="ibox-title">
+                                    <span class="label label-primary pull-right">Today</span>
+                                    <h5>Expenses</h5>
+                                </div>
+                                <div class="ibox-content">
+                                    <h1 class="no-margins"><?=  number_format($getExpAmount[0]->totalExpense, 2, '.', '');  ?></h1>
+                                    <div class="stat-percent font-bold text-navy">44% <i class="fa fa-level-up"></i></div>
+                                    <small>Total expenses</small>
+                                </div>
+                            </div>
+                        </div>-->
             <div class="col-lg-3">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
@@ -47,30 +49,54 @@
                         <h5> Invoice</h5>
                     </div>
                     <div class="ibox-content">
-                        <h1 class="no-margins"><?php echo ($getLastInvoice[0]->ref_no == "")? 'Not Found':  $getLastInvoice[0]->ref_no;  ?></h1>
+                        <h1 class="no-margins"><?php echo ($getLastInvoice[0]->ref_no == "") ? 'Not Found' : $getLastInvoice[0]->ref_no; ?></h1>
                         <!--<div class="stat-percent font-bold text-navy">44% <i class="fa fa-level-up"></i></div>-->
                         <small>Last Invoice</small>
                     </div>
                 </div>
             </div>
-            <?php
-                for($i=0;$i<count($getLabelinfo);$i++){
-            ?>
-
             <div class="col-lg-3">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <!--<span class="label label-primary pull-right">Today</span>-->
-                        <h5> <?= $getLabelinfo[$i]['title'] ?></h5>
+                        <!--<span class="label label-info pull-right">Annual</span>-->
+                        <h5>Last Invoice :<?php echo $lastInvoiceData['invoiceNumber']; ?> </h5>
                     </div>
                     <div class="ibox-content">
-                        <h1 class="no-margins"><?= $getLabelinfo[$i]['item_value'] ?></h1>
-                        <!--<div class="stat-percent font-bold text-navy">44% <i class="fa fa-level-up"></i></div>-->
-                        <small><?= date('d M Y',strtotime($getLabelinfo[$i]['item_date'])) ?></small>
+                        <h1 class="no-margins"><?=  $lastInvoiceData['totalAmount'];  ?></h1>
+                        <small>Total Amount</small>
                     </div>
                 </div>
             </div>
-                <?php } ?>
+            <div class="col-lg-3">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <!--<span class="label label-info pull-right">Annual</span>-->
+                        <h5>Last Invoice :<?php echo $lastInvoiceData['invoiceNumber']; ?> </h5>
+                    </div>
+                    <div class="ibox-content">
+                        <h1 class="no-margins"><?=  $lastInvoiceData['paidAMount'];  ?></h1>
+                        <small>paid Amount</small>
+                    </div>
+                </div>
+            </div>
+            <?php
+            for ($i = 0; $i < count($getLabelinfo); $i++) {
+                ?>
+
+                <div class="col-lg-3">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <!--<span class="label label-primary pull-right">Today</span>-->
+                            <h5> <?= $getLabelinfo[$i]['title'] ?></h5>
+                        </div>
+                        <div class="ibox-content">
+                            <h1 class="no-margins"><?= $getLabelinfo[$i]['item_value'] ?></h1>
+                            <!--<div class="stat-percent font-bold text-navy">44% <i class="fa fa-level-up"></i></div>-->
+                            <small><?= date('d M Y',strtotime($getLabelinfo[$i]['item_date'])) ?></small>
+                        </div>
+                    </div>
+                </div>
+            <?php } ?>
         </div>
         <div class="row white-bg">
             <div class="col-lg-12">
@@ -125,24 +151,24 @@
                         </div>
                     </div>
                     <div class="modal inmodal" id="myModal_autocomplete" tabindex="-1" role="dialog" aria-hidden="true">
-                                                              <div class="modal-dialog">
-                                                                  <div class="modal-content animated bounceInRight">
-                                                                  <div class="modal-header">
-                                                                      <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                                                                      <i class="fa fa-close modal-icon"></i>
-                                                                      <h4 class="modal-title">Delete</h4>
-                                                                      <!--<small class="font-bold">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</small>-->
-                                                                  </div>
-                                                                  <div class="modal-body">
-                                                                      <h4>Are you sure?</h4>
+                        <div class="modal-dialog">
+                            <div class="modal-content animated bounceInRight">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                    <i class="fa fa-close modal-icon"></i>
+                                    <h4 class="modal-title">Delete</h4>
+                                    <!--<small class="font-bold">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</small>-->
+                                </div>
+                                <div class="modal-body">
+                                    <h4>Are you sure?</h4>
 
-                                                                  </div>
-                                                                  <div class="modal-footer">
-                                                                      <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
-                                                                      <button  id='btndelete' data-url="" data-id="" type="button" class="btn btn-primary">Delete</button>
-                                                                  </div>
-                                                              </div>
-                                                          </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+                                    <button  id='btndelete' data-url="" data-id="" type="button" class="btn btn-primary">Delete</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="modal inmodal" id="myModal_interested" tabindex="-1" role="dialog" aria-hidden="true">
                         <div class="modal-dialog">

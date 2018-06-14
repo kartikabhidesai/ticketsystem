@@ -35,13 +35,13 @@ class Estimate_model extends My_model {
     }
 
     public function getEstimateList($estimateId = null, $clientId) {
-        $data['select'] = ['inv.*', 'SUM(invDetail.total) as totalPrice',
+        $data['select'] = ['inv.*', 'SUM(estmtDetail.total) as totalPrice',
 //            'SUM(invPayment.amount) as totalPaidAmount',
-            'GROUP_CONCAT(invDetail.id) as totalPaidAmount',
-//            'GROUP_CONCAT(DISTINCT invDetail.id) as totalPaidAmount',
+            'GROUP_CONCAT(estmtDetail.id) as totalPaidAmount',
+//            'GROUP_CONCAT(DISTINCT estmtDetail.id) as totalPaidAmount',
             'usr.first_name', 'usr.last_name', 'usr.email',
-            'invDetail.item_name',
-            'invDetail.item_desc',
+            'estmtDetail.item_name',
+            'estmtDetail.item_desc',
             'comp.name as companyName',
 //            'invPayment.payment_date',
 //            'invPayment.notes as paymentNote',
@@ -52,8 +52,8 @@ class Estimate_model extends My_model {
                 'usr.id = inv.client_id',
                 'LEFT',
             ],
-            TABLE_ESTIMATE_DETAILS . ' as invDetail' => [
-                'invDetail.estimate_id = inv.id',
+            TABLE_ESTIMATE_DETAILS . ' as estmtDetail' => [
+                'estmtDetail.estimate_id = inv.id',
                 'LEFT',
             ],
             TABLE_COMPANY . ' as comp' => [
@@ -79,13 +79,13 @@ class Estimate_model extends My_model {
     }
     
     public function getCompanyInvoiceList($estimateId = null, $companyId) {
-        $data['select'] = ['inv.*', 'SUM(invDetail.total) as totalPrice',
+        $data['select'] = ['inv.*', 'SUM(estmtDetail.total) as totalPrice',
 //            'SUM(invPayment.amount) as totalPaidAmount',
-            'GROUP_CONCAT(invDetail.id) as totalPaidAmount',
-//            'GROUP_CONCAT(DISTINCT invDetail.id) as totalPaidAmount',
+            'GROUP_CONCAT(estmtDetail.id) as totalPaidAmount',
+//            'GROUP_CONCAT(DISTINCT estmtDetail.id) as totalPaidAmount',
             'usr.first_name', 'usr.last_name', 'usr.email',
-            'invDetail.item_name',
-            'invDetail.item_desc',
+            'estmtDetail.item_name',
+            'estmtDetail.item_desc',
             'comp.name as companyName',
 //            'invPayment.payment_date',
 //            'invPayment.notes as paymentNote',
@@ -96,8 +96,8 @@ class Estimate_model extends My_model {
                 'usr.id = inv.client_id',
                 'LEFT',
             ],
-            TABLE_ESTIMATE_DETAILS . ' as invDetail' => [
-                'invDetail.estimate_id = inv.id',
+            TABLE_ESTIMATE_DETAILS . ' as estmtDetail' => [
+                'estmtDetail.estimate_id = inv.id',
                 'LEFT',
             ],
             TABLE_COMPANY . ' as comp' => [
@@ -226,23 +226,23 @@ class Estimate_model extends My_model {
     }
 
     public function getEstimatePaymentDetails($estimateId) {
-        $data['select'] = ['estmt.*', 'invDetail.price', 'invDetail.item_name',
-            'invDetail.item_desc', 'invDetail.quentity', 'invDetail.id as paymentId',
+        $data['select'] = ['estmt.*', 'estmtDetail.price', 'estmtDetail.item_name',
+            'estmtDetail.item_desc', 'estmtDetail.quentity', 'estmtDetail.id as paymentId',
             'SUM(invPayment.amount) as totalPaidAmount',
-            'SUM(invDetail.total) as total',
+            'SUM(estmtDetail.total) as total',
         ];
         $data['where'] = ['estmt.id' => $estimateId];
         $data['join'] = [
-            TABLE_ESTIMATE_DETAILS . ' as invDetail' => [
-                'invDetail.estimate_id = estmt.id',
+            TABLE_ESTIMATE_DETAILS . ' as estmtDetail' => [
+                'estmtDetail.estimate_id = estmt.id',
                 'LEFT',
             ],
             TABLE_ESTIMATE_PAYMENT . ' as invPayment' => [
-                'invPayment.estimate_id = invDetail.id',
+                'invPayment.estimate_id = estmtDetail.id',
                 'LEFT',
             ],
         ];
-        $data['groupBy'] = ['invDetail.id'];
+        $data['groupBy'] = ['estmtDetail.id'];
         $data['table'] = TABLE_ESTIMATE . ' as estmt';
         $result = $this->selectFromJoin($data);
         return $result;
@@ -448,8 +448,8 @@ class Estimate_model extends My_model {
     }
     
     public function totalAmount() {
-        $data['select'] = ['SUM(invDetail.total) as total'];
-        $data['table'] = TABLE_ESTIMATE_DETAILS. ' as invDetail';
+        $data['select'] = ['SUM(estmtDetail.total) as total'];
+        $data['table'] = TABLE_ESTIMATE_DETAILS. ' as estmtDetail';
         $result = $this->selectRecords($data);
         return $result;
     }
@@ -474,9 +474,9 @@ class Estimate_model extends My_model {
         $data['table'] =  TABLE_ESTIMATE . ' as inv';
         $InvArr = $this->selectRecords($data);
         $data = '';
-        $data['select'] = ['SUM(invDetail.total) as total'];
-        $data['where_in'] = array('invDetail.estimate_id'=>$InvArr[0]->invId);
-        $data['table'] = TABLE_ESTIMATE_DETAILS. ' as invDetail';
+        $data['select'] = ['SUM(estmtDetail.total) as total'];
+        $data['where_in'] = array('estmtDetail.estimate_id'=>$InvArr[0]->invId);
+        $data['table'] = TABLE_ESTIMATE_DETAILS. ' as estmtDetail';
         $result = $this->selectRecords($data);
         return $result;
         
