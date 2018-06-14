@@ -131,13 +131,6 @@ class Document extends Admin_Controller {
             'Document.documentList()',
         );
         $data['docsId'] = $id;
-        if ($this->input->post()) {
-            echo '<pre/>';
-            print_r($this->input->post());
-            exit;
-            $result = $this->this_model->deleteDocs($this->input->post());
-        }
-
         $data['rowColumnArray'] = $this->db->get_where(TABLE_DOCUMENT, array('id' => $id))->row_array();
 //        print_r($data['rowColumnArray']);exit;
         $this->load->view(ADMIN_LAYOUT, $data);
@@ -168,7 +161,7 @@ class Document extends Admin_Controller {
         echo json_encode($html);
         exit();
     }
-    
+
     public function deleterow() {
         if ($this->input->post()) {
             $result = $this->this_model->deleterow($this->input->post());
@@ -176,11 +169,43 @@ class Document extends Admin_Controller {
             exit();
         }
     }
+
     public function deleteColumn() {
         if ($this->input->post()) {
             $result = $this->this_model->deleteColumn($this->input->post());
             echo json_encode($result);
             exit();
+        }
+    }
+
+    function downloadpdf($id) {
+        $invoiceId = $this->utility->decode($id);
+        if (!ctype_digit($invoiceId)) {
+            return(admin_url() . 'document');
+        }
+        $objArr = array();
+        $objArr['docsId'] = $invoiceId;
+        $data['rowArray'] = $this->this_model->getRowData($objArr);
+        $data['columnArray'] = $this->db->get_where(TABLE_DOCUMENT_COLUMN, array('docs_id' => $invoiceId))->result_array();
+        $data['documentData'] = $this->db->get_where(TABLE_DOCUMENT, array('id' => $invoiceId))->row_array();
+//        $this->load->view('admin/document/pdf', $data);
+        
+        //Load the library
+        $this->load->library('html2pdf');
+        $docsName = $data['documentData']['document_name'];
+        
+        $this->html2pdf->folder('./public/asset/pdfs/');
+        $this->html2pdf->filename($docsName . '.pdf');
+        $this->html2pdf->paper('a4', 'portrait');
+
+        $this->html2pdf->html($this->load->view('admin/document/pdf', $data, true));
+        unlink('public/asset/pdfs/' . $docsName . '.pdf');
+        if ($this->html2pdf->create('save')) {
+            $this->load->helper('download');
+            $pth = file_get_contents(base_url() . "public/asset/pdfs/$docsName.pdf");
+            $nme = $docsName . ".pdf";
+            force_download($nme, $pth);
+            exit;
         }
     }
 
