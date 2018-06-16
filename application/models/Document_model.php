@@ -47,7 +47,6 @@ class Document_model extends My_model {
         return $result;
     }
 
-    
     function addDocument($postData) {
         $data ['where'] = [
             'document_name' => $postData['document_name']
@@ -341,34 +340,15 @@ class Document_model extends My_model {
     }
 
     function getRowData1($postData, $clientId = NULL) {
-        $postData['docsId'];
+        
         $this->db->select('docsClmn.*,docsRow.row_value,docsRow.rowcount,docsRow.id as rowId');
         $this->db->from(TABLE_DOCUMENT_COLUMN . ' docsClmn');
         $this->db->join(TABLE_DOCUMENT_ROW . ' as docsRow', 'docsRow.column_id = docsClmn.id', 'left');
         $this->db->join(TABLE_DOCUMENT . ' as docs', 'docs.id = docsClmn.docs_id','LEFT');
-        $this->db->where('docs.company_id', $clientId);
+      //  $this->db->where('docs.company_id', $clientId);
         $this->db->where('docsClmn.docs_id', $postData['docsId']);
         $result = $this->db->get()->result();
 
-//        $data['select'] = ['docsClmn.*', 'docsRow.row_value', 'docsRow.rowcount', 'docsRow.id as rowId'];
-//        $data['table'] = TABLE_DOCUMENT_COLUMN . ' docsClmn';
-//        $data['join'] = [
-//            TABLE_DOCUMENT_ROW . ' as docsRow' => [
-//                'docsRow.column_id = docsClmn.id',
-//                'LEFT',
-//            ],
-//            TABLE_DOCUMENT . ' as docs' => [
-//                'docs.id = docsClmn.docs_id',
-//                'LEFT',
-//            ],
-//        ];
-//        if (!empty($clientId)) {
-//            $data['where'] = ['docs.company_id' => $clientId];
-//        }
-//        $data['where'] = ['docsClmn.docs_id' => $postData['docsId']];
-//        $result = $this->selectFromJoin($data);
-//        print_r($result);
-//        exit;
         return $result;
     }
 
@@ -386,6 +366,7 @@ class Document_model extends My_model {
         }
         return $json_response;
     }
+    
     function deleteColumn($data) {
         
         $this->db->where('id', $data['docsId']);

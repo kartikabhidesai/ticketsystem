@@ -11,6 +11,7 @@ class Document extends Admin_Controller {
     function index() {
         $data['page'] = "admin/document/list";
         $data['document'] = 'active';
+        $data['addDoc'] = 'active';
         $data['pagetitle'] = 'Document';
         $data['var_meta_title'] = 'Document';
         $data['breadcrumb'] = array(
@@ -161,6 +162,14 @@ class Document extends Admin_Controller {
         echo json_encode($html);
         exit();
     }
+    public function getTabWiseRowList() {
+        $data['rowArray'] = $this->this_model->getRowData($this->input->post());
+        $data['columnArray'] = $this->db->get_where(TABLE_DOCUMENT_COLUMN, array('docs_id' => $this->input->post('docsId')))->result_array();
+        $data['docname'] = $this->input->post('docname');
+        $html = $this->load->view('admin/document/row_list_tab', $data, TRUE);
+        echo json_encode($html);
+        exit();
+    }
 
     public function deleterow() {
         if ($this->input->post()) {
@@ -208,7 +217,98 @@ class Document extends Admin_Controller {
             exit;
         }
     }
+    
+    public function documentdownload() {
+        $data['page'] = "admin/document/documentdownload";
+        $data['document'] = 'active';
+         $data['downloaddoc'] = 'active';
+        $data['pagetitle'] = 'Document';
+        $data['var_meta_title'] = 'Document';
+        $data['breadcrumb'] = array(
+            'dashboard' => 'Home',
+            'document' => 'Document List',
+        );
+        $data['css'] = array(
+            'plugins/dataTables/datatables.min.css'
+        );
 
+        $data['js'] = array(
+            'plugins/dataTables/datatables.min.js',
+            'plugins/datapicker/bootstrap-datepicker.js',
+            'admin/document.js',
+        );
+        $data['init'] = array(
+            'Document.documentList()',
+        );
+        $data['companyName'] = $this->Client_model->getdocCompanyDetail();
+       //print_r($data['companyName']);exit;
+        $this->load->view(ADMIN_LAYOUT, $data);
+    }
+    
+    public function viewalldocument($companyId) {
+        $data['page'] = "admin/document/viewalldocument";
+        $data['document'] = 'active';
+        $data['downloaddoc'] = 'active';
+        $data['pagetitle'] = 'Document';
+        $data['var_meta_title'] = 'Document';
+        $data['breadcrumb'] = array(
+            'dashboard' => 'Home',
+            'document' => 'Document List',
+        );
+        $data['css'] = array(
+            'plugins/dataTables/datatables.min.css'
+        );
+
+        $data['js'] = array(
+            'plugins/dataTables/datatables.min.js',
+            'plugins/datapicker/bootstrap-datepicker.js',
+            'admin/document.js',
+        );
+        $data['init'] = array(
+            'Document.documentList()',
+        );
+        $data['companyDocName'] = $companyDocName = $this->this_model->getCompanyDocumentDetail($companyId);
+//        $data['companyDocName'] = $this->this_model->getCompanyDocumentDetail($companyDocName);
+//       print_r($data['companyDocName']);exit;
+        $this->load->view(ADMIN_LAYOUT, $data);
+    }
+    
+    public function downloadalldocument($companyId){
+//        echo $clientId;
+        $companyId = $this->utility->decode($companyId);
+        if (!ctype_digit($companyId)) {
+            return(admin_url() . 'document');
+        }
+       
+        $documentData = $this->db->get_where(TABLE_DOCUMENT, array('company_id' => $companyId))->result_array();
+        $fullData = array();
+        $data['documentData'] = $documentData;
+        for($i=0;$i<count($documentData);$i++){
+            $docId = $documentData[$i]['id'];
+            $columnArray = $this->db->get_where(TABLE_DOCUMENT_COLUMN, array('docs_id' => $docId))->result_array();
+            $fullData[$i]['column']   = $columnArray;
+            $objArr['docsId'] = $docId;
+            $fullData[$i]['rowArray'] = $this->this_model->getRowData1($objArr);
+        }
+       
+        $data['fullData'] = $fullData;
+        $this->load->library('html2pdf');
+        $docsName = 'ClientDocument';
+        
+        $this->html2pdf->folder('./public/asset/pdfs/');
+        $this->html2pdf->filename($docsName . '.pdf');
+        $this->html2pdf->paper('a4', 'portrait');
+
+        $this->html2pdf->html($this->load->view('admin/document/pdfAll', $data, true));
+        unlink('public/asset/pdfs/' . $docsName . '.pdf');
+        if ($this->html2pdf->create('save')) {
+            $this->load->helper('download');
+            $pth = file_get_contents(base_url() . "public/asset/pdfs/$docsName.pdf");
+            $nme = $docsName . ".pdf";
+            force_download($nme, $pth);
+            exit;
+        }
+    }
 }
 
 ?>

@@ -233,6 +233,9 @@ var Document = function() {
         $('.rowListModel').click(function() {
             $('.appendRowListHtml').empty();
             var docsId = $(this).attr('data-id');
+            var docname = $(this).attr('data-docname');
+            
+            $('.docname').html(docname);
             $('.docsId').val(docsId);
             var url = baseurl + 'admin/document/getRowList';
             var data = {docsId: docsId};
@@ -241,7 +244,26 @@ var Document = function() {
                 $('.appendRowListHtml').html(output);
             });
         });
-
+//        alert();
+        setTimeout(function(){
+            $('.active .documentName').trigger('click');
+        },3000);
+//        $('.documentName').trigger('click');
+        $('.documentName').click(function() {
+            $('.appendRowListHtml').empty();
+            var docsId = $(this).attr('data-id');
+            var docname = $(this).attr('data-docname');
+//            alert(docsId);
+            $('.docname').html(docname);
+            $('.docsId').val(docsId);
+            var url = baseurl + 'admin/document/getTabWiseRowList';
+            var data = {docsId: docsId,docname:docname};
+            ajaxcall(url, data, function(output) {
+                var output = JSON.parse(output);
+                $('#doc_'+docsId).html(output);
+            });
+        });
+        
         $('#data_1 .input-group.date').datepicker({
             todayBtn: "linked",
             keyboardNavigation: false,

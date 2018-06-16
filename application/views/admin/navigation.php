@@ -44,8 +44,15 @@
                 <a href="<?= admin_url() . 'label'; ?>"><i class="fa fa-ticket"></i> <span class="nav-label">Labels</span></a>
             </li>
             <li class="<?= $document; ?>">
-                <a href="<?= admin_url() . 'document'; ?>"><i class="fa fa-file-code-o"></i> <span class="nav-label">Document</span></a>
+                <a href=""><i class="fa fa-file-code-o"></i> <span class="nav-label">Documents</span> <span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                    <li class="<?= $addDoc; ?>"><a href="<?php echo admin_url('document'); ?>">Add Document</a></li>
+                </ul>
+                <ul class="nav nav-second-level">
+                    <li class="<?= $downloaddoc; ?>"><a href="<?php echo admin_url('document/documentdownload'); ?>">View & Download</a></li>
+                </ul>
             </li>
+            
             <li class="<?= $setting; ?>">
                 <a href=""><i class="fa fa-gear"></i> <span class="nav-label">Setting</span> <span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">

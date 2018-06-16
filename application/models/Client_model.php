@@ -128,6 +128,24 @@ class Client_model extends My_model {
 
         return $result;
     }
+    function getdocCompanyDetail() {
+        $data['select'] = ['c.name as comapnyName', 'c.email as companyEmail', 'c.phone as companyPhone', 'c.id as companyId', 'ct.name as countryName'];
+        $data['join'] = [
+            TABLE_COUNTRIES . ' as ct' => [
+                'c.country_id = ct.id',
+                'LEFT',
+            ],
+            TABLE_DOCUMENT . ' as docs' => [
+                'c.id = docs.company_id',
+                'LEFT',
+            ],
+        ];
+        $data['groupBy'] = ['c.id'];
+        $data['table'] = TABLE_COMPANY . '  c';
+        $result = $this->selectFromJoin($data);
+
+        return $result;
+    }
 
     function companyDetail($companyId) {
         $data['select'] = [

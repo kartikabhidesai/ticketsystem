@@ -41,7 +41,7 @@
                                             <!--<a data-toggle="modal" title="Add Item"  data-id="<?php echo $docsArray[$i]->id; ?>"  data-target="#addItemModel"  class="itemModel" ><i class="fa fa-anchor text-navy"></i></a>-->        
                                             <a data-toggle="modal" title="Add Column"  data-id="<?php echo $docsArray[$i]->id; ?>"  data-target="#addColumnModel"  class="columnModel" ><i class="fa fa-columns text-navy"></i></a>        
                                             <a data-toggle="modal" title="Add Rows"  data-id="<?php echo $docsArray[$i]->id; ?>"  data-target="#addRowModel"  class="rowModel" ><i class="fa fa-plus text-navy"></i></a>        
-                                            <a data-toggle="modal" title="List Rows"  data-id="<?php echo $docsArray[$i]->id; ?>"  data-target="#listRowModel"  class="rowListModel" ><i class="fa fa-laptop text-navy"></i></a>        
+                                            <a data-toggle="modal" title="List Rows"  data-id="<?php echo $docsArray[$i]->id; ?>" data-docname="<?php echo $docsArray[$i]->document_name; ?>" data-target="#listRowModel"  class="rowListModel" ><i class="fa fa-laptop text-navy"></i></a>        
                                             <a title="Pdf" data-toggle="tooltip" data-placement="top" href="<?php echo admin_url('document/downloadpdf/') . $this->utility->encode($docsArray[$i]->id); ?>"> <i class="fa fa-file-pdf-o text-navy"></i> </a>
                                         </td>
                                     </tr>
@@ -267,11 +267,11 @@
 </div>
 
 <div class="modal inmodal" id="listRowModel" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg" >
         <div class="modal-content animated bounceInRight">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <h4 class="modal-title">List Rows</h4>
+                <h4 class="modal-title docname">List Rows</h4>
             </div>
                 <div class="modal-body">
                     <input name="docsId" id="docsId" class="form-control docsId" type="hidden">

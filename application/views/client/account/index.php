@@ -42,19 +42,19 @@
                                 </div>
                             </div>
                         </div>-->
-            <div class="col-lg-3">
+<!--            <div class="col-lg-3">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <!--<span class="label label-primary pull-right">Today</span>-->
+                        <span class="label label-primary pull-right">Today</span>
                         <h5> Invoice</h5>
                     </div>
                     <div class="ibox-content">
                         <h1 class="no-margins"><?php echo ($getLastInvoice[0]->ref_no == "") ? 'Not Found' : $getLastInvoice[0]->ref_no; ?></h1>
-                        <!--<div class="stat-percent font-bold text-navy">44% <i class="fa fa-level-up"></i></div>-->
+                        <div class="stat-percent font-bold text-navy">44% <i class="fa fa-level-up"></i></div>
                         <small>Last Invoice</small>
                     </div>
                 </div>
-            </div>
+            </div>-->
             <div class="col-lg-3">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
