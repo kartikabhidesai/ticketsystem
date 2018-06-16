@@ -12,7 +12,7 @@ class Document extends Admin_Controller {
         $data['page'] = "admin/document/list";
         $data['document'] = 'active';
         $data['addDoc'] = 'active';
-        $data['pagetitle'] = 'Document';
+        $data['pagetitle'] = 'Add Document';
         $data['var_meta_title'] = 'Document';
         $data['breadcrumb'] = array(
             'dashboard' => 'Home',
@@ -162,6 +162,7 @@ class Document extends Admin_Controller {
         echo json_encode($html);
         exit();
     }
+    
     public function getTabWiseRowList() {
         $data['rowArray'] = $this->this_model->getRowData($this->input->post());
         $data['columnArray'] = $this->db->get_where(TABLE_DOCUMENT_COLUMN, array('docs_id' => $this->input->post('docsId')))->result_array();
@@ -222,7 +223,7 @@ class Document extends Admin_Controller {
         $data['page'] = "admin/document/documentdownload";
         $data['document'] = 'active';
          $data['downloaddoc'] = 'active';
-        $data['pagetitle'] = 'Document';
+        $data['pagetitle'] = 'View & Download Document';
         $data['var_meta_title'] = 'Document';
         $data['breadcrumb'] = array(
             'dashboard' => 'Home',

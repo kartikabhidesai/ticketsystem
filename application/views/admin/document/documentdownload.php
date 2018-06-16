@@ -3,13 +3,13 @@
         <div class="form-group headingmain">
             <div class="row">
                 <div class="col-md-6">
-                    <h2 class="title" style="margin:10px;"> Document List</h2>
+                    <h2 class="title" style="margin:10px;"> Client List</h2>
                 </div>
                 <div class="col-md-6">
                     <div class="ibox-tools" style="margin-top:4px;">
-                        <a data-toggle="modal"  class="btn btn-primary openPopup">
+<!--                        <a data-toggle="modal"  class="btn btn-primary openPopup">
                             <i class="fa fa-plus"></i> Add Document
-                        </a>
+                        </a>-->
                     </div>
                 </div>
             </div>
