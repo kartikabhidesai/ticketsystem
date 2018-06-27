@@ -36,10 +36,10 @@ class Label_model extends My_model {
         ];
         $data ['table'] = TABLE_LABEL;
         $response = $this->isDuplicate($data);
-        if ($response > 0) {
-            $json_response['status'] = 'error';
-            $json_response['message'] = 'Title already exists';
-        } else {
+//        if ($response > 0) {
+//            $json_response['status'] = 'error';
+//            $json_response['message'] = 'Title already exists';
+//        } else {
             $data['insert']['title'] = $postData['title'];
             $data['insert']['company_id'] = $postData['company_id'];
             $data['insert']['dt_created'] = DATE_TIME;
@@ -56,7 +56,7 @@ class Label_model extends My_model {
                 $json_response['status'] = 'error';
                 $json_response['message'] = 'Something went wrong';
             }
-        }
+//        }
         return $json_response;
     }
 
