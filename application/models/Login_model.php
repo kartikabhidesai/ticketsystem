@@ -39,14 +39,14 @@ class Login_model extends MY_Model {
                 $json_response['status'] = 'success';
                 $json_response['message'] = 'Well done Login Successfully Done';
                 $json_response['redirect'] = $url;
-            } else if ($row['password'] != md5($data['password'])) {
-                /* Check Password Match */
-                $json_response['status'] = 'error';
-                $json_response['message'] = 'Password does not match';
             } else if ($row['is_verify'] == '0') {
                 /* Check User is verify or not */
                 $json_response['status'] = 'error';
                 $json_response['message'] = 'Please Varify Your Email Address';
+            } else if ($row['password'] != md5($data['password'])) {
+                /* Check Password Match */
+                $json_response['status'] = 'error';
+                $json_response['message'] = 'Password does not match';
             } else if ($row['status'] == '0') {
                 /* Check User is approve or not */
                 $json_response['status'] = 'error';
