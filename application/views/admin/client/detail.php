@@ -88,7 +88,9 @@
                                     <td><?= $companyUserDetail[$i]->phone_no; ?></td>
                                     <td>
                                         <a data-toggle="modal" data-company-id="<?= $companyId; ?>" data-id="<?= $companyUserDetail[$i]->id; ?>" class="openPopup"><i class="fa fa-edit text-navy"></i></a>
-                                        <a data-toggle="modal" data-target="#myModal_autocomplete"  data-id="<?= $companyUserDetail[$i]->id; ?>" data-href="<?php echo admin_url().'client/deletePerson'?>" class="deletebutton" href="javascript;;"><i class="fa fa-close text-navy"></i></a>        
+                                        <a data-toggle="modal" data-target="#myModal_autocomplete"  data-id="<?= $companyUserDetail[$i]->id; ?>" data-href="<?php echo admin_url().'client/deletePerson'?>" class="deletebutton" href="javascript:;"><i class="fa fa-close text-navy"></i></a>        
+                                        <a data-toggle="tooltip" data-placement="top" data-original-title="reset password" title="Reset password" data-id="<?= $companyUserDetail[$i]->id; ?>"  class="reset_password" href="javascript:;"><i class="fa fa-key text-navy"></i></a>        
+                                        <a title="Mail varification" data-id="<?= $companyUserDetail[$i]->id; ?>" class="email_varification" href="javascript:;"><i class="fa fa-envelope text-navy"></i></a>        
                                     </td>
                                 </tr>
                                 <?php } ?>
