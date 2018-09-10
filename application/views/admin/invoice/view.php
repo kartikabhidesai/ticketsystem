@@ -92,7 +92,7 @@
                                                 $subTotal += $itemTotal;
                                                 ?>
                                                 <tr>
-                                                    <td><?= date('M d', strtotime($invoiceData[0]->dt_created)); ?> | <?= $invoicepaymentData[$i]->item_name ?> </td>
+                                                    <td><?= date('M d', strtotime($invoicepaymentData[$i]->createddate)); ?> | <?= $invoicepaymentData[$i]->item_name ?> </td>
                                                     <td style='text-align: left;'> <?= $invoicepaymentData[$i]->item_desc ?></td>
                                                     <td> <?= $invoicepaymentData[$i]->quentity ?></td>
                                                     <td> <?= $invoiceData[0]->currency . $invoicepaymentData[$i]->price ?></td>

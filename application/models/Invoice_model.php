@@ -226,7 +226,7 @@ class Invoice_model extends My_model {
 
     public function getInvoicePaymentDetails($invoiceId) {
 
-        $data['select'] = ['inv.*', 'invDetail.price', 'invDetail.item_name',
+        $data['select'] = ['inv.*', 'invDetail.price', 'invDetail.dt_created as createddate', 'invDetail.item_name',
             'invDetail.item_desc', 'invDetail.quentity', 'invDetail.id as paymentId',
             'SUM(invPayment.amount) as totalPaidAmount',
             'SUM(invDetail.total) as total',

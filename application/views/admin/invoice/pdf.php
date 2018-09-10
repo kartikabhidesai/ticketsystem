@@ -94,7 +94,7 @@
                         ?>
                                 <tr>
                                     <td style="text-align: left;font-size: 12px;width: 55%;background: #f0f0f0;">
-                                        <b style="display: block; margin-bottom: 5px;"><?= date('M d', strtotime($invoiceData[0]->dt_created)); ?> | <?= $invoicepaymentData[$i]->item_name ?>  </b>
+                                        <b style="display: block; margin-bottom: 5px;"><?= date('M d', strtotime($invoicepaymentData[$i]->createddate)); ?> | <?= $invoicepaymentData[$i]->item_name ?>  </b>
                                         <br><?= $invoicepaymentData[$i]->item_desc ?> 
                                     </td>
                                     <td style="text-align: center;font-size: 12px;width: 15%;background: #f0f0f0;">
