@@ -89,10 +89,15 @@ define('ADMIN_LAYOUT_LOGIN', 'login/app');
 define('CLIENT_LAYOUT', 'client/app');
 
 /* Email Setting constatnts */
-define("SMTP_HOST", "smtpout.secureserver.net");
-define("SMTP_PORT", '80');
-define("SMTP_USER", 'noreply@helpdesk.experttech.ca');
-define("SMTP_PASS", 'N9V2Tx.QWuF?@++%');
+//define("SMTP_HOST", "smtpout.secureserver.net");
+//define("SMTP_PORT", '80');
+//define("SMTP_USER", 'noreply@helpdesk.experttech.ca');
+//define("SMTP_PASS", 'N9V2Tx.QWuF?@++%');
+
+define("SMTP_HOST", "ssl://smtp.gmail.com");
+define("SMTP_PORT", '465');
+define("SMTP_USER", 'kartikdesai123@gmail.com');
+define("SMTP_PASS", '23061990@Kartik');
 //define("SMTP_PASS", '7688328jg');
 if($_SERVER['HTTP_HOST'] == "localhost"){
 define("IMAGES", 'http://' . $_SERVER['HTTP_HOST'] . '/ticketsystem/public/asset/images/');

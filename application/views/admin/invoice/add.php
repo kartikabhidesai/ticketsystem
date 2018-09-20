@@ -18,7 +18,7 @@
                            <option value="">Select Client</option>
                         <?php for($i=0; $i<count($client_list); $i++){
                         ?>
-                            <option data-email="<?= $client_list[$i]->email;?>" value="<?= $client_list[$i]->id;?>"><?= $client_list[$i]->first_name;?></option>
+                            <option data-email="<?= $client_list[$i]->email;?>" value="<?= $client_list[$i]->id;?>"><?= $client_list[$i]->first_name;?> ( <?= $client_list[$i]->companyName;?> )</option>
                         <?php } ?>
 
                     </select>

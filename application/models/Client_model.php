@@ -266,6 +266,23 @@ class Client_model extends My_model {
 
         return $result;
     }
+    function getReporterDetail2($id = NULL) {
+        $data['select'] = [
+            'c.name as companyName', 'u.last_name', 'u.id', 'u.first_name', 'u.email'];
+        $data['table'] = TABLE_USER . ' u';
+        $data['join'] = [
+            TABLE_COMPANY . ' as c' => [
+                'c.id = u.company_id',
+                'LEFT',
+            ],
+        ];
+        $data['where'] = ['u.type' => 'C'];
+       // $data['where'] = ['c.id' => $companyId];
+        $result = $this->selectFromJoin($data);
+        return $result;
+
+        return $result;
+    }
 
     public function resetPassword($postData) {
         $this->db->where('id', $postData['clientId']);

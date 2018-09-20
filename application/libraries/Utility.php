@@ -154,6 +154,12 @@ class Utility
            $CI->email->attach($data["attech"]);
         }
         $response = $CI->email->send();
+        if (!$CI->email->send()) {
+           echo $errors = $CI->email->print_debugger();exit;
+            return false;
+        } else {
+            return true;
+        }
         return true;
         
         

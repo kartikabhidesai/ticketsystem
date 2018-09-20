@@ -70,7 +70,8 @@ class Invoice extends Admin_Controller {
         }
         $data['invoiceNo'] = $this->this_model->generateInvoiceNos();
         $clientId = '';
-        $data['client_list'] = $this->Client_model->getReporterDetail($clientId);
+        $data['client_list'] = $this->Client_model->getReporterDetail2($clientId);
+        
         $this->load->view(ADMIN_LAYOUT, $data);
     }
 
